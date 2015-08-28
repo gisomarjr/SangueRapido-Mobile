@@ -1,4 +1,4 @@
-package br.com.laboratorio.hemope;
+package br.com.laboratorio.hemope.Paciente;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
-import android.test.InstrumentationTestCase;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,13 +22,12 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.laboratorio.hemope.Model.ItensPaciente;
 import br.com.laboratorio.hemope.Model.Paciente;
-
+import br.com.laboratorio.hemope.R;
 
 
 public class ListaPacientesFragment extends Fragment {
@@ -162,7 +160,7 @@ public class ListaPacientesFragment extends Fragment {
 
         @Override
         protected void onPreExecute(){
-            progressDialog = ProgressDialog.show(getActivity(), "Aguarde...", "Carregando Livros...", true);
+            progressDialog = ProgressDialog.show(getActivity(), "Aguarde...", "Carregando Pacientes...", true);
             progressDialog.setCancelable(false);
         }
 

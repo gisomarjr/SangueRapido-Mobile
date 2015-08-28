@@ -1,4 +1,4 @@
-package br.com.laboratorio.hemope;
+package br.com.laboratorio.hemope.Paciente;
 
 
 import br.com.laboratorio.hemope.Model.ItensPaciente;

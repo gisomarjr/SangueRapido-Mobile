@@ -1,4 +1,4 @@
-package br.com.laboratorio.hemope;
+package br.com.laboratorio.hemope.Paciente;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,6 +14,7 @@ import java.util.List;
 
 import br.com.laboratorio.hemope.Model.ItensPaciente;
 import br.com.laboratorio.hemope.Model.Paciente;
+import br.com.laboratorio.hemope.R;
 
 
 public class PacientesAdapter extends ArrayAdapter<Paciente>{
