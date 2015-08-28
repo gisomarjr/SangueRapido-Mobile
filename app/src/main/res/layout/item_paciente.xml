@@ -15,8 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/txtTitulo"
+        android:text="nomePaciente"
+        android:id="@+id/nomePaciente"
         android:layout_alignTop="@+id/imgCapa"
         android:layout_toRightOf="@+id/imgCapa"
         android:layout_toEndOf="@+id/imgCapa" />
@@ -24,9 +24,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/txtAno"
-        android:layout_below="@+id/txtTitulo"
+        android:text="nomeMae"
+        android:id="@+id/nomeMaePaciente"
+        android:layout_below="@+id/nomePaciente"
+        android:layout_toRightOf="@+id/imgCapa"
+        android:layout_toEndOf="@+id/imgCapa" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dataNascimento"
+        android:id="@+id/dataNascimentoPaciente"
+        android:layout_below="@+id/nomeMaePaciente"
         android:layout_toRightOf="@+id/imgCapa"
         android:layout_toEndOf="@+id/imgCapa" />
 </RelativeLayout>

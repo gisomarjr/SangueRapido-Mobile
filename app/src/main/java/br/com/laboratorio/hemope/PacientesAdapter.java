@@ -1,6 +1,7 @@
 package br.com.laboratorio.hemope;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import br.com.laboratorio.hemope.Model.ItensPaciente;
 import br.com.laboratorio.hemope.Model.Paciente;
 
 
@@ -24,18 +26,23 @@ public class PacientesAdapter extends ArrayAdapter<Paciente>{
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null){
             convertView = LayoutInflater.from(getContext())
-                    .inflate(R.layout.item_livro, null);
+                    .inflate(R.layout.item_paciente, null);
         }
 
         ImageView imageView = (ImageView)convertView.findViewById(R.id.imgCapa);
-        TextView txtTitulo = (TextView)convertView.findViewById(R.id.txtTitulo);
-        TextView txtAno = (TextView)convertView.findViewById(R.id.txtAno);
+        TextView txtNome = (TextView)convertView.findViewById(R.id.nomePaciente);
+        TextView txtNomeMae = (TextView)convertView.findViewById(R.id.nomeMaePaciente);
+        TextView txtDataNascimento = (TextView)convertView.findViewById(R.id.dataNascimentoPaciente);
+
 
         Paciente paciente = getItem(position);
 
 
-        txtTitulo.setText(paciente.nomeMae);
-        txtAno.setText(paciente.fichaClinica);
+        //Log.i("qtdPacientes", itensPaciente.paciente.size() + " - Position: " +position);
+
+        txtNome.setText(paciente.nome);
+        txtNomeMae.setText(paciente.nomeMae);
+        txtDataNascimento.setText(paciente.dataNascimento);
 
         /*//verifico se a imagem é nula
         if(livro.volumes.urlImagens != null) {

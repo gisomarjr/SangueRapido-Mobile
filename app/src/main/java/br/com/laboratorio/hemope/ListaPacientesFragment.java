@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
+import android.test.InstrumentationTestCase;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,9 +23,11 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.laboratorio.hemope.Model.ItensPaciente;
 import br.com.laboratorio.hemope.Model.Paciente;
 
 
@@ -32,7 +35,7 @@ import br.com.laboratorio.hemope.Model.Paciente;
 public class ListaPacientesFragment extends Fragment {
 
     ListView listView;
-    Paciente paciente;
+    ItensPaciente itensPaciente;
     DownloadPacienteTask task;
     ProgressDialog progressDialog;
 
@@ -114,6 +117,7 @@ public class ListaPacientesFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 Paciente paciente = (Paciente) listView.getAdapter().getItem(i);
 
                 if (getActivity() instanceof AoClicarNoPacienteListener) {
@@ -125,7 +129,7 @@ public class ListaPacientesFragment extends Fragment {
         //preencherLista();
         //Pesquisar no banco ---
 
-        if (paciente == null) {
+        if (itensPaciente == null) {
             if (task == null) {
                 Toast.makeText(getActivity(), "Para começar, clique na lupa e digite o nome do paciente.", Toast.LENGTH_LONG).show();
             }
@@ -133,14 +137,14 @@ public class ListaPacientesFragment extends Fragment {
         return view;
     }
 
-    class DownloadPacienteTask extends AsyncTask<String, Void, Paciente>{
+    class DownloadPacienteTask extends AsyncTask<String, Void, ItensPaciente>{
 
         @Override
-        protected Paciente doInBackground(String... pesquisa) {
+        protected ItensPaciente doInBackground(String... pesquisa) {
             OkHttpClient client = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("https://www.googleapis.com/books/v1/volumes?q="+pesquisa[0]+"&key=AIzaSyCX-nh1USwGnZHsw1n3zbK97mttwqeiKwQ")
+                    .url("https://www.dropbox.com/s/tz74rpdf9yvppt4/paciente.json?dl=1")
                     .build();
 
             try {
@@ -148,12 +152,12 @@ public class ListaPacientesFragment extends Fragment {
                 String json = response.body().string();
 
                 Gson gson = new Gson();
-                paciente = gson.fromJson(json, Paciente.class);
+                itensPaciente = gson.fromJson(json, ItensPaciente.class);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return paciente;
+            return itensPaciente;
         }
 
         @Override
@@ -163,7 +167,7 @@ public class ListaPacientesFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(Paciente paciente) {
+        protected void onPostExecute(ItensPaciente paciente) {
             super.onPostExecute(paciente);
             progressDialog.dismiss();
             preencherLista();
@@ -174,7 +178,10 @@ public class ListaPacientesFragment extends Fragment {
         List<Paciente> pacientes = new ArrayList<>();
         if(pacientes != null) {
 
+            for (Paciente paciente : itensPaciente.paciente) {
                 pacientes.add(paciente);
+
+            }
 
         }else{
             Toast.makeText(getActivity(),"Não encontramos Resultados",Toast.LENGTH_LONG).show();
