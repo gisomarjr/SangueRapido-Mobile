@@ -37,6 +37,10 @@ public class ListaPacientesFragment extends Fragment {
     DownloadPacienteTask task;
     ProgressDialog progressDialog;
 
+    static String mSavedName;
+    private String searchedName;
+    static ArrayList<Paciente> mListaPacientes = new ArrayList<>();
+
     public ListaPacientesFragment() {
 
     }
@@ -45,7 +49,13 @@ public class ListaPacientesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
         setRetainInstance(true);
+        if(savedInstanceState != null){
+            mSavedName = savedInstanceState.getString(searchedName);
+            mListaPacientes = (ArrayList<Paciente>)savedInstanceState.getSerializable("listaPacientes");
+
+        }
 
     }
 
@@ -56,7 +66,8 @@ public class ListaPacientesFragment extends Fragment {
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setQueryHint("Nome do Paciente...");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -94,15 +105,6 @@ public class ListaPacientesFragment extends Fragment {
     }
 
 
-   /* @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_favorito) {
-
-
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -132,7 +134,24 @@ public class ListaPacientesFragment extends Fragment {
                 Toast.makeText(getActivity(), "Para começar, clique na lupa e digite o nome do paciente.", Toast.LENGTH_LONG).show();
             }
         }
+
+        if (mListaPacientes != null){
+            listView.setAdapter(new PacientesAdapter(getActivity(), mListaPacientes));
+
+        }
+
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+        outState.putString(searchedName, mSavedName);
+
+        outState.putSerializable("listaPacientes", (ArrayList<Paciente>) mListaPacientes);
+
+        super.onSaveInstanceState(outState);
+
     }
 
     class DownloadPacienteTask extends AsyncTask<String, Void, ItensPaciente>{
@@ -173,12 +192,13 @@ public class ListaPacientesFragment extends Fragment {
     }
 
     private void preencherLista() {
-        List<Paciente> pacientes = new ArrayList<>();
-        if(pacientes != null) {
 
+        List<Paciente> pacientes = new ArrayList<>();
+
+        if(pacientes != null) {
             for (Paciente paciente : itensPaciente.paciente) {
                 pacientes.add(paciente);
-
+                mListaPacientes.add(paciente);
             }
 
         }else{
