@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -160,9 +161,12 @@ public class ListaPacientesFragment extends Fragment {
         protected ItensPaciente doInBackground(String... pesquisa) {
             OkHttpClient client = new OkHttpClient();
 
+            Log.i("pesquisa",pesquisa[0]);
+
             Request request = new Request.Builder()
-                    .url("https://www.dropbox.com/s/0j1hn0785s355td/pessoaJson.json?dl=1")
+                    .url("http://192.168.43.2:8484/sanguerapidows/paciente/pesquisar2/"+pesquisa[0])
                     .build();
+
 
             try {
                 Response response = client.newCall(request).execute();
