@@ -1,14 +1,7 @@
 package br.com.laboratorio.hemope.Paciente;
 
-import android.content.ContentValues;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.ShareActionProvider;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,9 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-
+import br.com.laboratorio.hemope.Model.Endereco;
 import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.R;
 
@@ -72,7 +64,17 @@ public class DetalhePacienteFragment extends Fragment {
         TextView txtTelefone = (TextView) view.findViewById(R.id.txtTelefone);
         TextView txtFicha = (TextView) view.findViewById(R.id.fichaClinica);
 
+        TextView txtRua = (TextView) view.findViewById(R.id.rua);
+        TextView txtComplemento = (TextView) view.findViewById(R.id.complemento);
+        TextView txtBairro = (TextView) view.findViewById(R.id.bairro);
+        TextView txtCidade = (TextView) view.findViewById(R.id.cidade);
+        TextView txtEstado = (TextView) view.findViewById(R.id.estado);
+        TextView txtNumero = (TextView) view.findViewById(R.id.numero);
+        TextView txtPais = (TextView) view.findViewById(R.id.pais);
+        TextView txtCep = (TextView) view.findViewById(R.id.cep);
 
+        Endereco endereco = new Endereco();
+        endereco = paciente.endereco;
 
         //Picasso.with(getActivity()).load(livro.capa).into(imgCapa);
         txtNome.setText(paciente.nome);
@@ -83,6 +85,14 @@ public class DetalhePacienteFragment extends Fragment {
         txtTelefone.setText(paciente.telefone);
         txtFicha.setText(paciente.fichaClinica);
 
+        txtBairro.setText(endereco.bairro);
+        txtCep.setText(endereco.cep);
+        txtCidade.setText(endereco.cidade);
+        txtComplemento.setText(endereco.complemento);
+        txtEstado.setText(endereco.estado);
+        txtPais.setText(endereco.pais);
+        txtRua.setText(endereco.rua);
+        txtNumero.setText(endereco.numero);
        /* if(livro.volumes.urlImagens != null) {
             Picasso.with(getActivity())
                     .load(livro.volumes.urlImagens.urlImagem)

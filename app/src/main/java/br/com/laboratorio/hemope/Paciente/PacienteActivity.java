@@ -27,9 +27,9 @@ public class PacienteActivity extends AppCompatActivity implements AoClicarNoPac
         viewPager.setAdapter(new PacientePageAdapter(
                 getSupportFragmentManager()));
 
-        mSlidingTabLayout = (SlidingTabLayout)findViewById(R.id.tabs);
+        /*mSlidingTabLayout = (SlidingTabLayout)findViewById(R.id.tabs);
         mSlidingTabLayout.setDistributeEvenly(true);
-        mSlidingTabLayout.setViewPager(viewPager);
+        mSlidingTabLayout.setViewPager(viewPager);*/
 
         getSupportActionBar().setElevation(0);
 
@@ -67,16 +67,16 @@ public class PacienteActivity extends AppCompatActivity implements AoClicarNoPac
 
         @Override
         public Fragment getItem(int i) {
-            if (i == 0){
+           // if (i == 0){
                 return new ListaPacientesFragment();
-            } else {
-                return new ListaPacientesFragment();
-            }
+            //} /*else {
+              //  return new ListaPacientesFragment();
         }
+
 
         @Override
         public int getCount() {
-            return 2;
+            return 1;
         }
     }
 }

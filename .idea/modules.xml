@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Hemope.iml" filepath="$PROJECT_DIR$/Hemope.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SangueRapido-Mobile-31-08.iml" filepath="$PROJECT_DIR$/SangueRapido-Mobile-31-08.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

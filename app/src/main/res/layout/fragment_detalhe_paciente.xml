@@ -70,6 +70,54 @@
             android:text="Ficha Clinica"
             android:id="@+id/fichaClinica" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="rua"
+            android:id="@+id/rua" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="numero"
+            android:id="@+id/numero" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pais"
+            android:id="@+id/pais" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="estado"
+            android:id="@+id/estado" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cidade"
+            android:id="@+id/cidade" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="bairro"
+            android:id="@+id/bairro" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cep"
+            android:id="@+id/cep" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="complemento"
+            android:id="@+id/complemento" />
+
     </LinearLayout>
 
 </ScrollView>

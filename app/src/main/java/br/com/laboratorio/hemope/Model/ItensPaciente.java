@@ -3,7 +3,6 @@ package br.com.laboratorio.hemope.Model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,7 +10,7 @@ import java.util.List;
  */
 public class ItensPaciente implements Serializable {
 
-    @SerializedName("ItensPaciente")
+    @SerializedName("pacientes")
     public List<Paciente> paciente;
 
 }

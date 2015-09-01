@@ -161,7 +161,7 @@ public class ListaPacientesFragment extends Fragment {
             OkHttpClient client = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("https://www.dropbox.com/s/tz74rpdf9yvppt4/paciente.json?dl=1")
+                    .url("https://www.dropbox.com/s/0j1hn0785s355td/pessoaJson.json?dl=1")
                     .build();
 
             try {

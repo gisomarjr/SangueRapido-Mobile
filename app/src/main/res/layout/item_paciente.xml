@@ -38,4 +38,6 @@
         android:layout_below="@+id/nomeMaePaciente"
         android:layout_toRightOf="@+id/imgCapa"
         android:layout_toEndOf="@+id/imgCapa" />
+
+
 </RelativeLayout>
