@@ -161,7 +161,7 @@ public class ListaPacientesFragment extends Fragment {
         protected ItensPaciente doInBackground(String... pesquisa) {
             OkHttpClient client = new OkHttpClient();
 
-            Log.i("pesquisa",pesquisa[0]);
+            Log.i("pesquisando",pesquisa[0]);
 
             Request request = new Request.Builder()
                     .url("http://192.168.43.2:8484/sanguerapidows/paciente/pesquisar2/"+pesquisa[0])
