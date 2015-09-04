@@ -1,13 +1,11 @@
 package br.com.laboratorio.hemope.Paciente;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,10 +25,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.laboratorio.hemope.AcaoPrincipalActivity;
 import br.com.laboratorio.hemope.Model.ItensPaciente;
 import br.com.laboratorio.hemope.Model.Paciente;
-import br.com.laboratorio.hemope.NavigationDrawerFragment;
 import br.com.laboratorio.hemope.R;
 
 
@@ -47,15 +43,6 @@ public class ListaPacientesFragment extends Fragment {
 
     public ListaPacientesFragment() {
 
-    }
-
-    private static final String ARG_SECTION_NUMBER = "section_number";
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((AcaoPrincipalActivity) activity).onSectionAttached(
-                getArguments().getInt(ARG_SECTION_NUMBER));
     }
 
     @Override
@@ -173,12 +160,9 @@ public class ListaPacientesFragment extends Fragment {
         protected ItensPaciente doInBackground(String... pesquisa) {
             OkHttpClient client = new OkHttpClient();
 
-            Log.i("pesquisando",pesquisa[0]);
-
             Request request = new Request.Builder()
-                    .url("http://192.168.43.2:8484/sanguerapidows/paciente/pesquisar2/"+pesquisa[0])
+                    .url("https://www.dropbox.com/s/0j1hn0785s355td/pessoaJson.json?dl=1")
                     .build();
-
 
             try {
                 Response response = client.newCall(request).execute();
