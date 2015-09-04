@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.laboratorio.hemope.Model.ItensPaciente;
+import br.com.laboratorio.hemope.Model.Itens;
 import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.R;
 
@@ -33,7 +33,7 @@ import br.com.laboratorio.hemope.R;
 public class ListaPacientesFragment extends Fragment {
 
     ListView listView;
-    ItensPaciente itensPaciente;
+    Itens itensPaciente;
     DownloadPacienteTask task;
     ProgressDialog progressDialog;
 
@@ -154,10 +154,10 @@ public class ListaPacientesFragment extends Fragment {
 
     }
 
-    class DownloadPacienteTask extends AsyncTask<String, Void, ItensPaciente>{
+    class DownloadPacienteTask extends AsyncTask<String, Void, Itens>{
 
         @Override
-        protected ItensPaciente doInBackground(String... pesquisa) {
+        protected Itens doInBackground(String... pesquisa) {
             OkHttpClient client = new OkHttpClient();
 
             Request request = new Request.Builder()
@@ -169,7 +169,7 @@ public class ListaPacientesFragment extends Fragment {
                 String json = response.body().string();
 
                 Gson gson = new Gson();
-                itensPaciente = gson.fromJson(json, ItensPaciente.class);
+                itensPaciente = gson.fromJson(json, Itens.class);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -184,7 +184,7 @@ public class ListaPacientesFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(ItensPaciente paciente) {
+        protected void onPostExecute(Itens paciente) {
             super.onPostExecute(paciente);
             progressDialog.dismiss();
             preencherLista();
