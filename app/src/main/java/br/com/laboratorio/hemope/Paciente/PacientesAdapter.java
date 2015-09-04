@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.laboratorio.hemope.Model.ItensPaciente;
 import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.R;
 
