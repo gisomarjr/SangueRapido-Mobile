@@ -1,5 +1,6 @@
 package br.com.laboratorio.hemope.Paciente;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -8,7 +9,9 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import br.com.laboratorio.hemope.AcaoPrincipalActivity;
 import br.com.laboratorio.hemope.Model.Paciente;
+import br.com.laboratorio.hemope.NavigationDrawerFragment;
 import br.com.laboratorio.hemope.R;
 import br.com.laboratorio.hemope.View.SlidingTabLayout;
 
