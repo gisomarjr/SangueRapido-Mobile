@@ -16,7 +16,7 @@ import br.com.laboratorio.hemope.R;
 import br.com.laboratorio.hemope.View.SlidingTabLayout;
 
 
-public class PacienteActivity extends AppCompatActivity implements AoClicarNoPacienteListener {
+public class PacienteActivity extends AppCompatActivity  {
 
     ViewPager viewPager;
     SlidingTabLayout mSlidingTabLayout;
@@ -38,6 +38,7 @@ public class PacienteActivity extends AppCompatActivity implements AoClicarNoPac
 
     }
 
+    /*implements AoClicarNoPacienteListener
     @Override
     public void onClick(Paciente paciente) {
 
@@ -55,7 +56,7 @@ public class PacienteActivity extends AppCompatActivity implements AoClicarNoPac
                     .commit();
         }
 
-    }
+    }*/
 
 
     private class PacientePageAdapter extends FragmentPagerAdapter {
