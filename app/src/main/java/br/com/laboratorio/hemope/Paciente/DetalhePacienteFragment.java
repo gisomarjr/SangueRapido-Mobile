@@ -149,7 +149,7 @@ public class DetalhePacienteFragment extends Fragment {
                         intent = new Intent(Intent.ACTION_VIEW, Uri.parse(livro.venda.linkVenda));
 
                         startActivity(intent);
-                        return false;
+                        return false; eu
                     }
                 });
                 break;
