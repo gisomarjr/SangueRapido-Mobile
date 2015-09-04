@@ -5,5 +5,16 @@
 
     <string name="tab_paciente">Listar Pacientes</string>
     <string name="title_activity_detalhe_paciente">Detalhe do Paciente</string>
-    <string name="title_activity_scan">Scan</string>
+    <string name="title_activity_scan">Pesquisar Alíquota - QR CODE</string>
+    <string name="title_activity_acao_principal">AcaoPrincipalActivity</string>
+
+    <string name="titulo_sessao_freezer">Freezer</string>
+    <string name="titulo_sessao_paciente">Pacientes</string>
+    <string name="titulo_sessao_aliquota">Aliquotas</string>
+    <string name="titulo_sessao_diagnostico">Diagnosticos</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
 </resources>

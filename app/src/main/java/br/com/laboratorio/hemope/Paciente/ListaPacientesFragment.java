@@ -1,5 +1,6 @@
 package br.com.laboratorio.hemope.Paciente;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,8 +27,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.laboratorio.hemope.AcaoPrincipalActivity;
 import br.com.laboratorio.hemope.Model.ItensPaciente;
 import br.com.laboratorio.hemope.Model.Paciente;
+import br.com.laboratorio.hemope.NavigationDrawerFragment;
 import br.com.laboratorio.hemope.R;
 
 
@@ -44,6 +47,15 @@ public class ListaPacientesFragment extends Fragment {
 
     public ListaPacientesFragment() {
 
+    }
+
+    private static final String ARG_SECTION_NUMBER = "section_number";
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ((AcaoPrincipalActivity) activity).onSectionAttached(
+                getArguments().getInt(ARG_SECTION_NUMBER));
     }
 
     @Override

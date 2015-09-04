@@ -41,6 +41,15 @@ public class Scan extends Activity{
             showDialog(Scan.this, "Sem Scanner Encontrado!", "Baixar um Scanner agora?", "Sim", "Não").show();
         }
     }
+    public void scanQR() {
+        try {
+            Intent intent = new Intent(ACTION_SCAN);
+            intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+            startActivityForResult(intent, 0);
+        } catch (ActivityNotFoundException anfe) {
+            showDialog(Scan.this, "Sem Scanner Encontrado!", "Baixar um Scanner agora?", "Sim", "Não").show();
+        }
+    }
 
     private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
         AlertDialog.Builder downloadDialog = new AlertDialog.Builder(act);
@@ -71,7 +80,7 @@ public class Scan extends Activity{
                 String contents = intent.getStringExtra("SCAN_RESULT");
                 String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 
-                Toast toast = Toast.makeText(this, "Content:" + contents + " Format:" + format, Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(this, "ID Aliquota: " + contents , Toast.LENGTH_LONG);
                 toast.show();
             }
         }
