@@ -24,7 +24,6 @@
         <activity
             android:name=".Util.Scan"
             android:label="@string/title_activity_scan" >
-
         </activity>
         <activity
             android:name=".AcaoPrincipalActivity"
@@ -34,6 +33,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Aliquota.AliquotaActivity"
+            android:label="@string/title_activity_aliquota" >
         </activity>
     </application>
 
