@@ -14,7 +14,8 @@ public class Itens implements Serializable {
     List<Amostra> amostras;
     List<Caixa> caixas;
     List<Cid> cids;
-    List<Diagnostico> diagnosticos;
+    @SerializedName("diagnosticos")
+    public List<Diagnostico> diagnosticos;
     List<Endereco> enderecos;
     List<Freezer> freezers;
     List<Gaveta> gavetas;
