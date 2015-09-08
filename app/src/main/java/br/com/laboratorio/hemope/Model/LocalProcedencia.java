@@ -9,5 +9,5 @@ import java.util.List;
 public class LocalProcedencia implements Serializable {
     int idLocalProcedencia;
     String nome;
-    List<Amostra> amostras;
+    //List<Amostra> amostras;
 }

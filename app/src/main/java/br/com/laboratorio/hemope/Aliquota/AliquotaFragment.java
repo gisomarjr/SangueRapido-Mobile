@@ -2,30 +2,55 @@ package br.com.laboratorio.hemope.Aliquota;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
+
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
+import br.com.laboratorio.hemope.Model.Aliquota;
+import br.com.laboratorio.hemope.Model.Alocacao;
+import br.com.laboratorio.hemope.Model.Amostra;
+import br.com.laboratorio.hemope.Model.Itens;
+import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.R;
+import br.com.laboratorio.hemope.View.SlidingTabLayout;
 
 
-    public class AliquotaFragment extends Fragment {
+public class AliquotaFragment extends Fragment {
+
+
+
+        View aliquotaView;
+        ViewPager viewPager;
+        SlidingTabLayout mSlidingTabLayout;
+        DownloadAliquotaTask task;
+
+        Itens itens;
+        ProgressDialog progressDialog;
 
         public AliquotaFragment() {
 
         }
-
-        View aliquotaView;
 
         //Qr Code
         static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
@@ -79,15 +104,14 @@ import br.com.laboratorio.hemope.R;
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            aliquotaView = inflater.inflate(R.layout.fragment_aliquota, container, false);
 
+            aliquotaView = inflater.inflate(R.layout.fragment_aliquota, container, false);
             return aliquotaView;
         }
 
         @Override
         public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
-            Log.e("onActivityResult",requestCode +"" );
             if (requestCode == 0) {
                 if (resultCode == Activity.RESULT_OK) {
                     String idAliquota = intent.getStringExtra("SCAN_RESULT");
@@ -102,10 +126,66 @@ import br.com.laboratorio.hemope.R;
 
         public void consultarAliquota(String idAliquota){
 
-           // idAliquota = getActivity().getIntent().getExtra("idAliquota", 0);
             TextView txtIdAliquota = (TextView) aliquotaView.findViewById(R.id.idAliquota);
             txtIdAliquota.setText(idAliquota);
-
+            task = new DownloadAliquotaTask();
+            task.execute(idAliquota);
         }
 
+
+        class DownloadAliquotaTask extends AsyncTask<String, Void, Itens> {
+
+            @Override
+            protected Itens doInBackground(String... pesquisa) {
+                OkHttpClient client = new OkHttpClient();
+
+                Request request = new Request.Builder()
+                        .url("https://www.dropbox.com/s/10enzhvm6lnb0j6/aliquota.json?dl=1")
+                        .build();
+
+                try {
+                    Response response = client.newCall(request).execute();
+                    String json = response.body().string();
+
+                    Gson gson = new Gson();
+                    itens = gson.fromJson(json, Itens.class);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return itens;
+            }
+
+            @Override
+            protected void onPreExecute(){
+                progressDialog = ProgressDialog.show(getActivity(), "Aguarde...", "Carregando dados da Aliquota...", true);
+                progressDialog.setCancelable(false);
+            }
+
+            @Override
+            protected void onPostExecute(Itens aliquota) {
+                super.onPostExecute(aliquota);
+                progressDialog.dismiss();
+                preencherActivity();
+            }
     }
+
+
+    public void preencherActivity(){
+
+        Paciente paciente = new Paciente();
+        Aliquota aliquota = new Aliquota();
+        Amostra amostra = new Amostra();
+        Alocacao alocacao = new Alocacao();
+
+        aliquota = itens.aliquota;
+        amostra  = itens.aliquota.amostra;
+        alocacao = itens.aliquota.alocacao;
+        paciente = itens.aliquota.amostra.paciente;
+
+        //aliquotaView.findViewById(R.)
+
+    }
+
+
+}

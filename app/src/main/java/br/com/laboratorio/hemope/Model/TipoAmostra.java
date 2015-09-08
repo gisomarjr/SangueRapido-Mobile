@@ -9,5 +9,5 @@ import java.util.List;
 public class TipoAmostra implements Serializable {
     int idTipoAmostra;
     String nome;
-    List<Amostra> amostras;
+    //List<Amostra> amostras;
 }
