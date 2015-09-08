@@ -25,43 +25,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="nomePaciente"
-            android:id="@+id/txtNomePaciente"
+            android:text="codigo"
+            android:id="@+id/codigo"
             android:gravity="center"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="nomeMae"
-            android:id="@+id/txtNomeMae" />
+            android:text="sigla"
+            android:id="@+id/sigla" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dataNascimento"
-            android:id="@+id/txtDataNascimentoPaciente" />
+            android:text="nome"
+            android:id="@+id/nome" />
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CPF"
-            android:id="@+id/txtCpf"
-            android:autoLink="web"
-            android:clickable="true"
-            android:gravity="center"/>
+            android:text="codigoCid"
+            android:id="@+id/codigoCid" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Telefone"
-            android:id="@+id/txtTelefone" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:id="@+id/email" />
+            android:text="DescricaoCID"
+            android:id="@+id/descricaoCid" />
 
 
         <TextView

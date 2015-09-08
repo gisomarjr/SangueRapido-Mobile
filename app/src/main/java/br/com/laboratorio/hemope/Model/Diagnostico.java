@@ -13,5 +13,5 @@ public class Diagnostico implements Serializable {
     String nome;
     boolean status;
     Cid idCID;
-    List<Amostra> amostras;
+ //   List<Amostra> amostras;
 }
