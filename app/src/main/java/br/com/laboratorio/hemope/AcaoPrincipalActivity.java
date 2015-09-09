@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import br.com.laboratorio.hemope.Diagnostico.ListaDiagnosticosFragment;
 import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.Paciente.AoClicarNoPacienteListener;
 import br.com.laboratorio.hemope.Paciente.DetalhePacienteActivity;
@@ -157,7 +158,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
          */
         public static Fragment newInstance(int sectionNumber) {
 
-            switch(sectionNumber){
+            switch (sectionNumber) {
 
                 case 2:
                     ListaPacientesFragment pacientesFragment = new ListaPacientesFragment();
@@ -168,6 +169,12 @@ public class AcaoPrincipalActivity extends ActionBarActivity
 
                 case 3:
 
+                case 4:
+                    ListaDiagnosticosFragment diagnosticosFragment = new ListaDiagnosticosFragment();
+                    Bundle argsdiagnosticosFragment = new Bundle();
+                    argsdiagnosticosFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
+                    diagnosticosFragment.setArguments(argsdiagnosticosFragment);
+                    return diagnosticosFragment;
 
                 default:
                     PlaceholderFragment fragment = new PlaceholderFragment();

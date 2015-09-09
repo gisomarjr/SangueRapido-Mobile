@@ -7,9 +7,9 @@ import java.util.List;
  * Created by User on 03/09/2015.
  */
 public class Cid implements Serializable {
-    int idCID;
-    String codigo;
-    String descricao;
-    boolean status;
-    List<Diagnostico> diagnosticos;
+    public int idCID;
+    public String codigo;
+    public String descricao;
+    public boolean status;
+    public List<Diagnostico> diagnosticos;
 }

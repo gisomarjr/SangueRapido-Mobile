@@ -28,9 +28,8 @@ public class DiagnosticosAdapter extends ArrayAdapter<Diagnostico>{
         }
 
         ImageView imageView = (ImageView)convertView.findViewById(R.id.imgCapa);
-        TextView txtNome = (TextView)convertView.findViewById(R.id.nomeDiagnostico);
-        TextView txtNomeMae = (TextView)convertView.findViewById(R.id.nomeMaeDiagnostico);
-        TextView txtDataNascimento = (TextView)convertView.findViewById(R.id.dataNascimentoDiagnostico);
+        TextView txtCodigo = (TextView)convertView.findViewById(R.id.codigo);
+        TextView txtSigla = (TextView)convertView.findViewById(R.id.sigla);
 
 
         Diagnostico diagnostico = getItem(position);
@@ -38,9 +37,8 @@ public class DiagnosticosAdapter extends ArrayAdapter<Diagnostico>{
 
         //Log.i("qtdDiagnosticos", itensDiagnostico.diagnostico.size() + " - Position: " +position);
 
-        txtNome.setText(diagnostico.nome);
-        txtNomeMae.setText(diagnostico.nomeMae);
-        txtDataNascimento.setText(diagnostico.dataNascimento);
+        txtCodigo.setText(diagnostico.codigo);
+        txtSigla.setText(diagnostico.sigla);
 
         /*//verifico se a imagem é nula
         if(livro.volumes.urlImagens != null) {

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import br.com.laboratorio.hemope.Model.Cid;
 import br.com.laboratorio.hemope.Model.Endereco;
 import br.com.laboratorio.hemope.Model.Diagnostico;
 import br.com.laboratorio.hemope.R;
@@ -55,43 +56,23 @@ public class DetalheDiagnosticoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detalhe_diagnostico, container, false);
 
         ImageView imgCapa = (ImageView) view.findViewById(R.id.imgCapa);
-        TextView txtNome = (TextView) view.findViewById(R.id.txtNomeDiagnostico);
-        TextView txtMae = (TextView) view.findViewById(R.id.txtNomeMae);
-        TextView txtNascimento = (TextView) view.findViewById(R.id.txtDataNascimentoDiagnostico);
-        TextView txtCpf = (TextView) view.findViewById(R.id.txtCpf);
-        TextView txtEmail = (TextView) view.findViewById(R.id.email);
-        TextView txtTelefone = (TextView) view.findViewById(R.id.txtTelefone);
-        TextView txtFicha = (TextView) view.findViewById(R.id.fichaClinica);
+        TextView txtCodigo = (TextView) view.findViewById(R.id.codigo);
+        TextView txtSigla = (TextView) view.findViewById(R.id.sigla);
+        TextView txtNome = (TextView) view.findViewById(R.id.nome);
+        TextView txtCodigoCid = (TextView) view.findViewById(R.id.codigoCid);
+        TextView txtDescricaoCid = (TextView) view.findViewById(R.id.descricaoCid);
 
-        TextView txtRua = (TextView) view.findViewById(R.id.rua);
-        TextView txtComplemento = (TextView) view.findViewById(R.id.complemento);
-        TextView txtBairro = (TextView) view.findViewById(R.id.bairro);
-        TextView txtCidade = (TextView) view.findViewById(R.id.cidade);
-        TextView txtEstado = (TextView) view.findViewById(R.id.estado);
-        TextView txtNumero = (TextView) view.findViewById(R.id.numero);
-        TextView txtPais = (TextView) view.findViewById(R.id.pais);
-        TextView txtCep = (TextView) view.findViewById(R.id.cep);
 
-        Endereco endereco = new Endereco();
-        endereco = diagnostico.endereco;
+       Cid cid = new Cid();
+       cid = diagnostico.cid;
 
         //Picasso.with(getActivity()).load(livro.capa).into(imgCapa);
+        txtCodigo.setText(diagnostico.codigo);
+        txtSigla.setText(diagnostico.sigla);
         txtNome.setText(diagnostico.nome);
-        txtMae.setText(diagnostico.nomeMae);
-        txtNascimento.setText(diagnostico.dataNascimento);
-        txtCpf.setText(diagnostico.cpf);
-        txtEmail.setText(diagnostico.email);
-        txtTelefone.setText(diagnostico.telefone);
-        txtFicha.setText(diagnostico.fichaClinica);
+        txtCodigoCid.setText(diagnostico.cid.codigo);
+        txtDescricaoCid.setText(diagnostico.cid.descricao);
 
-        txtBairro.setText(endereco.bairro);
-        txtCep.setText(endereco.cep);
-        txtCidade.setText(endereco.cidade);
-        txtComplemento.setText(endereco.complemento);
-        txtEstado.setText(endereco.estado);
-        txtPais.setText(endereco.pais);
-        txtRua.setText(endereco.rua);
-        txtNumero.setText(endereco.numero);
        /* if(livro.volumes.urlImagens != null) {
             Picasso.with(getActivity())
                     .load(livro.volumes.urlImagens.urlImagem)

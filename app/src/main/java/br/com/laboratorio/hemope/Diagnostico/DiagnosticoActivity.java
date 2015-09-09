@@ -16,7 +16,7 @@ import br.com.laboratorio.hemope.View.SlidingTabLayout;
 public class DiagnosticoActivity extends AppCompatActivity implements AoClicarNoDiagnosticoListener {
 
     ViewPager viewPager;
-    SlidingTabLayout mSlidingTabLayout;
+//    SlidingTabLayout mSlidingTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
