@@ -7,7 +7,7 @@ import java.util.List;
  * Created by User on 03/09/2015.
  */
 public class TipoAmostra implements Serializable {
-    int idTipoAmostra;
-    String nome;
+    public int idTipoAmostra;
+    public String nome;
     //List<Amostra> amostras;
 }

@@ -33,7 +33,7 @@ import br.com.laboratorio.hemope.Paciente.DetalhePacienteActivity;
 import br.com.laboratorio.hemope.Paciente.DetalhePacienteFragment;
 import br.com.laboratorio.hemope.Paciente.ListaPacientesFragment;
 import br.com.laboratorio.hemope.R;
-import br.com.laboratorio.hemope.Util.Scan;
+
 
 public class AcaoPrincipalActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, AoClicarNoPacienteListener {

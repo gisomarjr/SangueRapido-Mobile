@@ -31,10 +31,14 @@ import br.com.laboratorio.hemope.Model.Aliquota;
 import br.com.laboratorio.hemope.Model.Alocacao;
 import br.com.laboratorio.hemope.Model.Amostra;
 import br.com.laboratorio.hemope.Model.Caixa;
+import br.com.laboratorio.hemope.Model.Cid;
+import br.com.laboratorio.hemope.Model.Diagnostico;
 import br.com.laboratorio.hemope.Model.Freezer;
 import br.com.laboratorio.hemope.Model.Gaveta;
 import br.com.laboratorio.hemope.Model.Itens;
+import br.com.laboratorio.hemope.Model.LocalProcedencia;
 import br.com.laboratorio.hemope.Model.Paciente;
+import br.com.laboratorio.hemope.Model.TipoAmostra;
 import br.com.laboratorio.hemope.R;
 import br.com.laboratorio.hemope.View.SlidingTabLayout;
 
@@ -182,6 +186,10 @@ public class AliquotaFragment extends Fragment {
         Caixa caixa = new Caixa();
         Gaveta gaveta = new Gaveta();
         Freezer freezer = new Freezer();
+        Diagnostico diagnostico = new Diagnostico();
+        Cid cid = new Cid();
+        TipoAmostra tipoAmostra = new TipoAmostra();
+        LocalProcedencia localProcedencia = new LocalProcedencia();
 
 
         aliquota = itens.aliquota;
@@ -191,6 +199,10 @@ public class AliquotaFragment extends Fragment {
         caixa    = itens.aliquota.alocacao.caixa;
         gaveta   = itens.aliquota.alocacao.caixa.gaveta;
         freezer  = itens.aliquota.alocacao.caixa.gaveta.freezer;
+        localProcedencia = itens.aliquota.amostra.localProcedencia;
+        tipoAmostra = itens.aliquota.amostra.tipoAmostra;
+        diagnostico = itens.aliquota.amostra.diagnostico;
+        cid = itens.aliquota.amostra.diagnostico.cid;
 
         TextView txtNomePaciente = (TextView) aliquotaView.findViewById(R.id.labelNomePaciente);
         TextView txtNomeMae = (TextView) aliquotaView.findViewById(R.id.labelNomeMae);
@@ -206,6 +218,14 @@ public class AliquotaFragment extends Fragment {
 
         TextView txtVolume = (TextView) aliquotaView.findViewById(R.id.labelVolume);
         TextView txtConcentracao = (TextView) aliquotaView.findViewById(R.id.labelConcentracao);
+        TextView txtCodAmostra = (TextView) aliquotaView.findViewById(R.id.labelCodigoAmostra);
+        TextView txtDataEntradaAmostra = (TextView) aliquotaView.findViewById(R.id.labelDataEntradaAmostra);
+        TextView txtTipoAmostra = (TextView) aliquotaView.findViewById(R.id.labelTipoAmostra);
+        TextView txtLocalProcedencia = (TextView) aliquotaView.findViewById(R.id.labelLocalProcedencia);
+        TextView txtCodDiagnostico = (TextView) aliquotaView.findViewById(R.id.labelCodDiagnostico);
+        TextView txtSiglaDiagnostico = (TextView) aliquotaView.findViewById(R.id.labelSiglaDiagnostico);
+        TextView txtCodCid = (TextView) aliquotaView.findViewById(R.id.labelCodCid);
+        TextView txtDescricaoCid = (TextView) aliquotaView.findViewById(R.id.labelDescricaoCid);
 
         txtNomePaciente.setText("Nome do Paciente: "+paciente.nome);
         txtNomeMae.setText("Nome da Mãe: "+paciente.nomeMae);
@@ -221,7 +241,14 @@ public class AliquotaFragment extends Fragment {
 
         txtVolume.setText("Volume: "+String.valueOf(aliquota.volume));
         txtConcentracao.setText("Concentração: "+String.valueOf(aliquota.concentracao));
-
+        txtCodAmostra.setText("Cod. Amostra: "+amostra.codigo);
+        txtDataEntradaAmostra.setText("Data de Entrada: "+amostra.dataEntrada);
+        txtTipoAmostra.setText("Tipo da Amostra: "+amostra.tipoAmostra.nome);
+        txtLocalProcedencia.setText("local Procedência: "+amostra.localProcedencia.nome);
+        txtCodDiagnostico.setText("Cod. Diagnóstico: "+diagnostico.codigo);
+        txtSiglaDiagnostico.setText("Sigla Diagnóstico: "+diagnostico.sigla);
+        txtCodCid.setText("Cod. Diagnóstico: "+cid.codigo);
+        txtDescricaoCid.setText("Sigla Diagnóstico: "+cid.descricao);
         //aliquotaView.findViewById(R.)
 
     }

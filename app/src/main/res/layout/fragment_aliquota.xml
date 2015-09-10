@@ -1,11 +1,22 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="br.com.laboratorio.hemope.Aliquota.AliquotaActivity$PlaceholderFragment"
-    android:id="@+id/fragment_aliquota">
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context="br.com.laboratorio.hemope.Aliquota.AliquotaActivity$PlaceholderFragment"
+        android:id="@+id/fragment_aliquota">
+
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,8 +74,7 @@
         android:text="Data da Entrada:"
         android:id="@+id/labelDataEntrada"
         android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -72,8 +82,8 @@
         android:text="Data Descarte:"
         android:id="@+id/labelDataDescarte"
         android:layout_below="@+id/labelDataEntrada"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignRight="@+id/labelConcentracao"
+        android:layout_alignEnd="@+id/labelConcentracao" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,8 +91,8 @@
         android:text="Volume:"
         android:id="@+id/labelVolume"
         android:layout_below="@+id/labelConcentracao"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignRight="@+id/labelPosicao"
+        android:layout_alignEnd="@+id/labelPosicao" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -90,8 +100,8 @@
         android:text="Concentração:"
         android:id="@+id/labelConcentracao"
         android:layout_below="@+id/labelPosicao"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignRight="@+id/labelNomeMae"
+        android:layout_alignEnd="@+id/labelNomeMae" />
 
 
 
@@ -101,8 +111,8 @@
         android:text="Caixa"
         android:id="@+id/labelIdCaixa"
         android:layout_below="@+id/labelDataDescarte"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignRight="@+id/labelIdGaveta"
+        android:layout_alignEnd="@+id/labelIdGaveta" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -110,8 +120,7 @@
         android:text="Gaveta"
         android:id="@+id/labelIdGaveta"
         android:layout_below="@+id/labelIdCaixa"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -119,8 +128,8 @@
         android:text="Freezer"
         android:id="@+id/labelCodigoFreezer"
         android:layout_below="@+id/labelIdGaveta"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/labelTelefone"
+        android:layout_alignStart="@+id/labelTelefone" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -128,8 +137,8 @@
         android:text="Posicao"
         android:id="@+id/labelPosicao"
         android:layout_below="@+id/labelCodigoFreezer"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/labelCodigoFreezer"
+        android:layout_alignStart="@+id/labelCodigoFreezer" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -141,5 +150,87 @@
         android:layout_alignRight="@+id/textView2"
         android:layout_alignEnd="@+id/textView2" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CodigoAmostra"
+            android:id="@+id/labelCodigoAmostra"
+            android:layout_below="@+id/labelCodigoFreezer"
+            android:layout_alignLeft="@+id/labelCodigoFreezer"
+            android:layout_alignStart="@+id/labelCodigoFreezer"
+            android:layout_gravity="center_horizontal" />
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DataEntrada"
+            android:id="@+id/labelDataEntradaAmostra"
+            android:layout_below="@+id/labelCodigoFreezer"
+            android:layout_alignLeft="@+id/labelCodigoFreezer"
+            android:layout_alignStart="@+id/labelCodigoFreezer"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tipoAmostra"
+            android:id="@+id/labelTipoAmostra"
+            android:layout_below="@+id/labelCodigoFreezer"
+            android:layout_alignLeft="@+id/labelCodigoFreezer"
+            android:layout_alignStart="@+id/labelCodigoFreezer"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="localProcedencia"
+            android:id="@+id/labelLocalProcedencia"
+            android:layout_below="@+id/labelCodigoFreezer"
+            android:layout_alignLeft="@+id/labelCodigoFreezer"
+            android:layout_alignStart="@+id/labelCodigoFreezer"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="codDiagnostico"
+            android:id="@+id/labelCodDiagnostico"
+            android:layout_below="@+id/labelCodigoFreezer"
+            android:layout_alignLeft="@+id/labelCodigoFreezer"
+            android:layout_alignStart="@+id/labelCodigoFreezer"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="siglaDiagnostico"
+            android:id="@+id/labelSiglaDiagnostico"
+            android:layout_below="@+id/labelCodigoFreezer"
+            android:layout_alignLeft="@+id/labelCodigoFreezer"
+            android:layout_alignStart="@+id/labelCodigoFreezer"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="codCid"
+            android:id="@+id/labelCodCid"
+            android:layout_below="@+id/labelCodigoFreezer"
+            android:layout_alignLeft="@+id/labelCodigoFreezer"
+            android:layout_alignStart="@+id/labelCodigoFreezer"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="descricaoCid"
+            android:id="@+id/labelDescricaoCid"
+            android:layout_below="@+id/labelCodigoFreezer"
+            android:layout_alignLeft="@+id/labelCodigoFreezer"
+            android:layout_alignStart="@+id/labelCodigoFreezer"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+</ScrollView>
+
+
