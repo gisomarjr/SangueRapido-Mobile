@@ -30,6 +30,9 @@ import br.com.laboratorio.hemope.AcaoPrincipalActivity;
 import br.com.laboratorio.hemope.Model.Aliquota;
 import br.com.laboratorio.hemope.Model.Alocacao;
 import br.com.laboratorio.hemope.Model.Amostra;
+import br.com.laboratorio.hemope.Model.Caixa;
+import br.com.laboratorio.hemope.Model.Freezer;
+import br.com.laboratorio.hemope.Model.Gaveta;
 import br.com.laboratorio.hemope.Model.Itens;
 import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.R;
@@ -126,8 +129,7 @@ public class AliquotaFragment extends Fragment {
 
         public void consultarAliquota(String idAliquota){
 
-            TextView txtIdAliquota = (TextView) aliquotaView.findViewById(R.id.idAliquota);
-            txtIdAliquota.setText(idAliquota);
+
             task = new DownloadAliquotaTask();
             task.execute(idAliquota);
         }
@@ -177,11 +179,48 @@ public class AliquotaFragment extends Fragment {
         Aliquota aliquota = new Aliquota();
         Amostra amostra = new Amostra();
         Alocacao alocacao = new Alocacao();
+        Caixa caixa = new Caixa();
+        Gaveta gaveta = new Gaveta();
+        Freezer freezer = new Freezer();
+
 
         aliquota = itens.aliquota;
         amostra  = itens.aliquota.amostra;
         alocacao = itens.aliquota.alocacao;
         paciente = itens.aliquota.amostra.paciente;
+        caixa    = itens.aliquota.alocacao.caixa;
+        gaveta   = itens.aliquota.alocacao.caixa.gaveta;
+        freezer  = itens.aliquota.alocacao.caixa.gaveta.freezer;
+
+        TextView txtNomePaciente = (TextView) aliquotaView.findViewById(R.id.labelNomePaciente);
+        TextView txtNomeMae = (TextView) aliquotaView.findViewById(R.id.labelNomeMae);
+        TextView txtCPF= (TextView) aliquotaView.findViewById(R.id.labelCPF);
+        TextView txtTelefone= (TextView) aliquotaView.findViewById(R.id.labelTelefone);
+
+        TextView txtDataEntrada = (TextView) aliquotaView.findViewById(R.id.labelDataEntrada);
+        TextView txtDataDescarte = (TextView) aliquotaView.findViewById(R.id.labelDataDescarte);
+        TextView txtCaixa = (TextView) aliquotaView.findViewById(R.id.labelIdCaixa);
+        TextView txtGaveta = (TextView) aliquotaView.findViewById(R.id.labelIdGaveta);
+        TextView txtFreezer = (TextView) aliquotaView.findViewById(R.id.labelCodigoFreezer);
+        TextView txtPosicao = (TextView) aliquotaView.findViewById(R.id.labelPosicao);
+
+        TextView txtVolume = (TextView) aliquotaView.findViewById(R.id.labelVolume);
+        TextView txtConcentracao = (TextView) aliquotaView.findViewById(R.id.labelConcentracao);
+
+        txtNomePaciente.setText("Nome do Paciente: "+paciente.nome);
+        txtNomeMae.setText("Nome da Mãe: "+paciente.nomeMae);
+        txtCPF.setText("CPF: "+paciente.cpf);
+        txtTelefone.setText("Telefone: "+paciente.telefone);
+
+        txtDataEntrada.setText("Data de Entrada: "+aliquota.dataEntrada);
+        txtDataDescarte.setText("Data de Descarte: "+aliquota.dataDescarte);
+        txtPosicao.setText("Coluna: " + alocacao.posicaoX + " Linha: " + alocacao.posicaoY);
+        txtCaixa.setText("Caixa: "+caixa.idCaixa);
+        txtGaveta.setText("Gaveta: "+gaveta.idGaveta);
+        txtFreezer.setText("Código do Freezer: "+freezer.codigo);
+
+        txtVolume.setText("Volume: "+String.valueOf(aliquota.volume));
+        txtConcentracao.setText("Concentração: "+String.valueOf(aliquota.concentracao));
 
         //aliquotaView.findViewById(R.)
 
