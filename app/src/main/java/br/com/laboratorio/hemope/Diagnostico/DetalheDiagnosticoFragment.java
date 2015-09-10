@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import br.com.laboratorio.hemope.Model.Amostra;
 import br.com.laboratorio.hemope.Model.Cid;
 import br.com.laboratorio.hemope.Model.Endereco;
 import br.com.laboratorio.hemope.Model.Diagnostico;
+import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.R;
 
 
@@ -25,7 +27,6 @@ public class DetalheDiagnosticoFragment extends Fragment {
     private static String SHARE_DEFAULT_TEXT = "";
     private static final String LOG_TAG = DetalheDiagnosticoFragment.class.getSimpleName();
 
-    private Diagnostico diagnostico;
 
     private MenuItem menuItemFavorito;
 
@@ -50,28 +51,38 @@ public class DetalheDiagnosticoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        this.diagnostico = (Diagnostico) getArguments().getSerializable("diagnostico");
+        Amostra amostra = new Amostra();
+        Diagnostico diagnostico = new Diagnostico();
+        Cid cid = new Cid();
+        Paciente paciente = new Paciente();
+        diagnostico = amostra.diagnostico;
+        paciente = amostra.paciente;
+        cid = diagnostico.cid;
+        diagnostico = (Diagnostico) getArguments().getSerializable("diagnostico");
 
         View view = inflater.inflate(R.layout.fragment_detalhe_diagnostico, container, false);
 
         ImageView imgCapa = (ImageView) view.findViewById(R.id.imgCapa);
-        TextView txtCodigo = (TextView) view.findViewById(R.id.codigo);
-        TextView txtSigla = (TextView) view.findViewById(R.id.sigla);
-        TextView txtNome = (TextView) view.findViewById(R.id.nome);
-        TextView txtCodigoCid = (TextView) view.findViewById(R.id.codigoCid);
-        TextView txtDescricaoCid = (TextView) view.findViewById(R.id.descricaoCid);
+        TextView txtNomePaciente = (TextView) view.findViewById(R.id.labelNomePaciente);
+        TextView txtCpf = (TextView) view.findViewById(R.id.labelCPF);
+        TextView txtCodigoAmostra = (TextView) view.findViewById(R.id.labelCodAmostra);
+        TextView txtCodigoDiagnostico = (TextView) view.findViewById(R.id.labelCodigoDiagnostico);
+        TextView txtSigla = (TextView) view.findViewById(R.id.labelSigla);
+        TextView txtNome = (TextView) view.findViewById(R.id.labelNomeDiagnostico);
+        TextView txtCodigoCid = (TextView) view.findViewById(R.id.labelCodigoCid);
+        TextView txtDescricaoCid = (TextView) view.findViewById(R.id.labelDescricaoCid);
 
 
-       Cid cid = new Cid();
-       cid = diagnostico.cid;
 
         //Picasso.with(getActivity()).load(livro.capa).into(imgCapa);
-        txtCodigo.setText(diagnostico.codigo);
-        txtSigla.setText(diagnostico.sigla);
-        txtNome.setText(diagnostico.nome);
-        txtCodigoCid.setText(diagnostico.cid.codigo);
-        txtDescricaoCid.setText(diagnostico.cid.descricao);
+        txtNomePaciente.setText("Nome do Paciente: "+paciente.nome);
+        txtCpf.setText("CPF: "+paciente.cpf);
+        txtCodigoAmostra.setText("Cód. Amostra: "+amostra.codigo);
+        txtCodigoDiagnostico.setText("Cód. Diagnóstico: "+diagnostico.codigo);
+        txtSigla.setText("Sigla Diagnóstico: "+diagnostico.sigla);
+        txtNome.setText("Descrição Diagnóstico: "+diagnostico.nome);
+        txtCodigoCid.setText("Código CID: "+diagnostico.cid.codigo);
+        txtDescricaoCid.setText("Descrição CID: "+diagnostico.cid.descricao);
 
        /* if(livro.volumes.urlImagens != null) {
             Picasso.with(getActivity())

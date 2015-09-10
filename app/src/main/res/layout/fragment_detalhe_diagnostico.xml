@@ -25,90 +25,70 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="codigo"
-            android:id="@+id/codigo"
+            android:text="Dados do Diagnóstico"
+            android:id="@+id/dadosDiagnostico"
             android:gravity="center"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Nome do paciente"
+            android:id="@+id/labelNomePaciente"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CPF"
+            android:id="@+id/labelCpf"
+            android:autoLink="web"
+            android:clickable="true"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Código da Amostra"
+            android:id="@+id/labelCodAmostra"
+            android:autoLink="web"
+            android:clickable="true"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Código do Diagnóstico"
+            android:id="@+id/labelCodigoDiagnostico"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="sigla"
-            android:id="@+id/sigla" />
+            android:id="@+id/labelSigla" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="nome"
-            android:id="@+id/nome" />
+            android:id="@+id/labelNomeDiagnostico" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="codigoCid"
-            android:id="@+id/codigoCid" />
+            android:id="@+id/labelCodigoCid" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DescricaoCID"
-            android:id="@+id/descricaoCid" />
+            android:id="@+id/labelDescricaoCid" />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ficha Clinica"
-            android:id="@+id/fichaClinica" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="rua"
-            android:id="@+id/rua" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="numero"
-            android:id="@+id/numero" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="pais"
-            android:id="@+id/pais" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="estado"
-            android:id="@+id/estado" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="cidade"
-            android:id="@+id/cidade" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="bairro"
-            android:id="@+id/bairro" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="cep"
-            android:id="@+id/cep" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="complemento"
-            android:id="@+id/complemento" />
 
     </LinearLayout>
 
