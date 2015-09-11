@@ -21,10 +21,6 @@ import br.com.laboratorio.hemope.R;
 
 public class DetalheDiagnosticoFragment extends Fragment {
 
-
-
-    private static final String LIVROS_SHARE_HASHTAG = "#WorldsBooks ";
-    private static String SHARE_DEFAULT_TEXT = "";
     private static final String LOG_TAG = DetalheDiagnosticoFragment.class.getSimpleName();
 
 
@@ -64,7 +60,7 @@ public class DetalheDiagnosticoFragment extends Fragment {
 
         ImageView imgCapa = (ImageView) view.findViewById(R.id.imgCapa);
         TextView txtNomePaciente = (TextView) view.findViewById(R.id.labelNomePaciente);
-        TextView txtCpf = (TextView) view.findViewById(R.id.labelCPF);
+        TextView txtCpf = (TextView) view.findViewById(R.id.labelCpf);
         TextView txtCodigoAmostra = (TextView) view.findViewById(R.id.labelCodAmostra);
         TextView txtCodigoDiagnostico = (TextView) view.findViewById(R.id.labelCodigoDiagnostico);
         TextView txtSigla = (TextView) view.findViewById(R.id.labelSigla);
@@ -74,7 +70,6 @@ public class DetalheDiagnosticoFragment extends Fragment {
 
 
 
-        //Picasso.with(getActivity()).load(livro.capa).into(imgCapa);
         txtNomePaciente.setText("Nome do Paciente: "+paciente.nome);
         txtCpf.setText("CPF: "+paciente.cpf);
         txtCodigoAmostra.setText("Cód. Amostra: "+amostra.codigo);
@@ -84,16 +79,7 @@ public class DetalheDiagnosticoFragment extends Fragment {
         txtCodigoCid.setText("Código CID: "+diagnostico.cid.codigo);
         txtDescricaoCid.setText("Descrição CID: "+diagnostico.cid.descricao);
 
-       /* if(livro.volumes.urlImagens != null) {
-            Picasso.with(getActivity())
-                    .load(livro.volumes.urlImagens.urlImagem)
-                    .into(imgCapa);
-        }else{
-            //imagem caso o não encontre o livro
-            Picasso.with(getActivity())
-                    .load("http://rlv.zcache.com.br/ponto_de_interrogacao_dos_desenhos_animados_papel_timbrado-ra082215bdfb44a0d9fc49d7ba691a9df_vg63g_8byvr_512.jpg")
-                    .into(imgCapa);
-        }*/
+
         return view;
     }
 
@@ -101,158 +87,9 @@ public class DetalheDiagnosticoFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_detalhe_diagnostico, menu);
-        //MenuItem menuItem = menu.findItem(R.id.action_share);
 
-        // Get the provider and hold onto it to set/change the share intent.
-       /* ShareActionProvider mShareActionProvider =
-                (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
-
-        // Attach an intent to this ShareActionProvider.  You can update this at any time,
-        // like when the user selects a new piece of data they might like to share.
-        if (mShareActionProvider != null) {
-            mShareActionProvider.setShareIntent(createShareForecastIntent());
-        } else {
-            Log.d(LOG_TAG, "Share Action Provider is null?");
-        }
-
-        //ITEM DO FAVORITO
-        menuItemFavorito = menu.findItem(R.id.action_favorito);
-
-        if (isFavorito(this.livro)) {
-            menuItemFavorito.setIcon(R.drawable.ic_action_add_favorite);
-        } else {
-            menuItemFavorito.setIcon(R.drawable.ic_action_remove_favorito);
-        }
-
-        //ITEM DA VENDA DO LIVRO
-        menuItemVenda = menu.findItem(R.id.action_venda);
-        String compraDisponivel = getResources().getString(R.string.compra_disponivel);
-
-        switch (livro.venda.status) {
-
-            case "FOR_SALE":
-                menuItemVenda.setIcon(R.drawable.carrinho_disponivel);
-
-                menuItemVenda.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        Intent intent = null;
-                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse(livro.venda.linkVenda));
-
-                        startActivity(intent);
-                        return false; eu
-                    }
-                });
-                break;
-            case "FREE":
-                menuItemVenda.setIcon(R.drawable.carrinho_disponivel);
-
-                menuItemVenda.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        Intent intent = null;
-                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse(livro.venda.linkVenda));
-
-                        startActivity(intent);
-                        return false;
-                    }
-                });
-                break;
-            case "NOT_FOR_SALE":
-                menuItemVenda.setIcon(R.drawable.carrinho_indisponivel);
-
-                menuItemVenda.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-
-                        Toast.makeText(getActivity(),R.string.compra_indisponivel,Toast.LENGTH_LONG).show();
-
-                        return false;
-                    }
-                });
-                break;
-
-            default:
-                menuItemVenda.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-
-                        Toast.makeText(getActivity(),R.string.compra_indisponivel,Toast.LENGTH_LONG).show();
-
-                        return false;
-                    }
-                });
-                break;
-
-        }*/
     }
 
-    /*private Intent createShareForecastIntent() {
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT,
-                SHARE_DEFAULT_TEXT + " \r\n " + livro.volumes.titulo + " \r\n "
-                +livro.volumes.informacaoLink + " \r\n \r\n" + LIVROS_SHARE_HASHTAG );
-        return shareIntent;
-    }*/
-
-
-
-
-
-/*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_favorito) {
-
-            ContentValues values = new ContentValues();
-
-            values.put(LivrosDbHelper.CAMPO_TITULO, livro.volumes.titulo);
-            values.put(LivrosDbHelper.CAMPO_DATA_PUBLICACAO, livro.volumes.dataPublicacao);
-            values.put(LivrosDbHelper.CAMPO_CAPA, livro.volumes.urlImagens.urlImagem);
-            values.put(LivrosDbHelper.CAMPO_DESCRICAO, livro.volumes.descricao);
-            values.put(LivrosDbHelper.CAMPO_URL_LIVRO, livro.volumes.informacaoLink);
-            //SALVAR INFORMAÇÕES TAMBÉM DE VENDA DO LIVRO
-            values.put(LivrosDbHelper.CAMPO_VENDA_LINK, livro.venda.linkVenda);
-            values.put(LivrosDbHelper.CAMPO_VENDA_STATUS, livro.venda.status);
-            if(livro.venda.preco != null) {
-                values.put(LivrosDbHelper.CAMPO_VALOR_LIVRO, livro.venda.preco.valor);
-            }
-
-            if (isFavorito(this.livro)) {
-                getActivity().getContentResolver().delete(
-                        Uri.parse(LivrosDbHelper.ENDERECO_PROVIDER),
-                        LivrosDbHelper.CAMPO_TITULO +" = ?",
-                        new String[]{ String.valueOf(livro.volumes.titulo) }
-                );
-            } else {
-                getActivity().getContentResolver().insert(
-                        Uri.parse(LivrosDbHelper.ENDERECO_PROVIDER), values
-                );
-            }
-            getActivity().invalidateOptionsMenu();
-            return true;
-
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private boolean isFavorito(Livro livro) {
-        Cursor cursor = getActivity().getContentResolver().query(
-                Uri.parse(LivrosDbHelper.ENDERECO_PROVIDER),
-                        new String[]{ LivrosDbHelper.CAMPO_ID },
-
-                        LivrosDbHelper.CAMPO_TITULO +" = ?",
-
-                        new String[]{ livro.volumes.titulo},
-                        null);
-        boolean existe = cursor.moveToNext();
-        cursor.close();
-        return existe;
-
-    }*/
 
 
 }
