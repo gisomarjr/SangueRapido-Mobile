@@ -25,13 +25,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import br.com.laboratorio.hemope.Aliquota.AliquotaActivity;
+import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
 import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.Paciente.AoClicarNoPacienteListener;
 import br.com.laboratorio.hemope.Paciente.DetalhePacienteActivity;
 import br.com.laboratorio.hemope.Paciente.DetalhePacienteFragment;
 import br.com.laboratorio.hemope.Paciente.ListaPacientesFragment;
 import br.com.laboratorio.hemope.R;
-import br.com.laboratorio.hemope.Util.Scan;
+
 
 public class AcaoPrincipalActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, AoClicarNoPacienteListener {
@@ -46,8 +48,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
      */
     public CharSequence mTitle;
 
-    //Qr Code
-    static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
+
 
 
 
@@ -177,6 +178,11 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     return pacientesFragment;
 
                 case 3:
+                    AliquotaFragment aliquotaFragment = new AliquotaFragment();
+                    Bundle argsaliquotaFragment = new Bundle();
+                    argsaliquotaFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
+                    aliquotaFragment.setArguments(argsaliquotaFragment);
+                    return aliquotaFragment;
 
 
                 default:
@@ -209,55 +215,12 @@ public class AcaoPrincipalActivity extends ActionBarActivity
         public void onAttach(Activity activity) {
             super.onAttach(activity);
 
-            if(getArguments().getInt(ARG_SECTION_NUMBER) == 3){
-                try {
-                    Intent intent = new Intent(ACTION_SCAN);
-                    intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-                    startActivityForResult(intent, 0);
-                } catch (ActivityNotFoundException anfe) {
-                    showDialog(getActivity(), "Sem Scanner Encontrado!", "Baixar um Scanner agora?", "Sim", "Não").show();
-                }
-            }
-
             ((AcaoPrincipalActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
 
-        @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-            if (requestCode == 0) {
-                if (resultCode == RESULT_OK) {
-                    String contents = intent.getStringExtra("SCAN_RESULT");
-                    String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 
-                    Toast toast = Toast.makeText(getActivity(), "ID Aliquota: " + contents , Toast.LENGTH_LONG);
-                    toast.show();
-                }
-            }
-        }
 
-        private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
-            AlertDialog.Builder downloadDialog = new AlertDialog.Builder(act);
-            downloadDialog.setTitle(title);
-            downloadDialog.setMessage(message);
-            downloadDialog.setPositiveButton(buttonYes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Uri uri = Uri.parse("market://search?q=pname:" + "com.google.zxing.client.android");
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    try {
-                        act.startActivity(intent);
-                    } catch (ActivityNotFoundException anfe) {
-
-                    }
-                }
-            });
-            downloadDialog.setNegativeButton(buttonNo, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                }
-            });
-            return downloadDialog.show();
-        }
     }
 
 }
