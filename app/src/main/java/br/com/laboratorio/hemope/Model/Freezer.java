@@ -7,11 +7,11 @@ import java.util.List;
  * Created by User on 03/09/2015.
  */
 public class Freezer implements Serializable {
-    int idFreezer;
-    String codigo;
-    String descricao;
-    String qtdGavetas;
-    boolean status;
-    Laboratorio laboratorio;
-    List<Gaveta> gavetas;
+    public int idFreezer;
+    public String codigo;
+    public String descricao;
+    public String qtdGavetas;
+    public boolean status;
+    public Laboratorio laboratorio;
+    public List<Gaveta> gavetas;
 }

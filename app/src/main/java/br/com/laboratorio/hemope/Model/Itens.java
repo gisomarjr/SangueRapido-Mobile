@@ -9,6 +9,8 @@ import java.util.List;
  * Created by gisomar on 28/08/15.
  */
 public class Itens implements Serializable {
+
+    public Aliquota aliquota;
     List<Aliquota> aliquotas;
     List<Alocacao> alocacoes;
     List<Amostra> amostras;
@@ -24,7 +26,7 @@ public class Itens implements Serializable {
     List<Material> materiais;
     List<TipoAmostra> tipoAmostras;
     List<Usuario> usuarios;
-
+    public Usuario usuario;
     @SerializedName("pacientes")
     public List<Paciente> paciente;
 
