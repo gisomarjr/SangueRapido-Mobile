@@ -23,7 +23,7 @@ public class Itens implements Serializable {
     List<Material> materiais;
     List<TipoAmostra> tipoAmostras;
     List<Usuario> usuarios;
-
+    public Usuario usuario;
     @SerializedName("pacientes")
     public List<Paciente> paciente;
 

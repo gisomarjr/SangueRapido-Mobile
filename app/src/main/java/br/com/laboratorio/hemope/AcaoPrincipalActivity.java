@@ -49,6 +49,8 @@ public class AcaoPrincipalActivity extends ActionBarActivity
     //Qr Code
     static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
