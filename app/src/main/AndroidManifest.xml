@@ -29,15 +29,27 @@
             android:name=".AcaoPrincipalActivity"
             android:label="@string/title_activity_acao_principal" >
 
+<<<<<<< Updated upstream
         </activity>
         <activity
             android:name=".Login.LoginActivity"
             android:label="@string/title_activity_login" >
+=======
+>>>>>>> Stashed changes
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+<<<<<<< Updated upstream
+        <activity
+            android:name=".Aliquota.AliquotaActivity"
+            android:label="@string/title_activity_aliquota" >
+        </activity>
+=======
+
+>>>>>>> Stashed changes
     </application>
 
 </manifest>
