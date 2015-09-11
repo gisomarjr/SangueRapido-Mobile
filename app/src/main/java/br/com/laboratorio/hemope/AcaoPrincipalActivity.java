@@ -1,11 +1,7 @@
 package br.com.laboratorio.hemope;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -23,20 +19,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import br.com.laboratorio.hemope.Aliquota.AliquotaActivity;
-import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
-import br.com.laboratorio.hemope.Model.Paciente;
-import br.com.laboratorio.hemope.Paciente.AoClicarNoPacienteListener;
-import br.com.laboratorio.hemope.Paciente.DetalhePacienteActivity;
-import br.com.laboratorio.hemope.Paciente.DetalhePacienteFragment;
 import br.com.laboratorio.hemope.Paciente.ListaPacientesFragment;
 import br.com.laboratorio.hemope.R;
-
+import br.com.laboratorio.hemope.Util.Scan;
 
 public class AcaoPrincipalActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, AoClicarNoPacienteListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -47,10 +36,6 @@ public class AcaoPrincipalActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     public CharSequence mTitle;
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,24 +115,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(Paciente paciente) {
 
-        if (getResources().getBoolean(R.bool.isPhone)) {
-            Intent it = new Intent(this, DetalhePacienteActivity.class);
-            it.putExtra("paciente", paciente);
-            startActivity(it);
-
-        } else {
-            DetalhePacienteFragment detalhePacienteFragment =
-                    DetalhePacienteFragment.novaInstancia(paciente);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.container, detalhePacienteFragment, "detalhe")
-                    .commit();
-        }
-
-    }
 
 
     /**
@@ -176,13 +144,6 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     argspacientesFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
                     pacientesFragment.setArguments(argspacientesFragment);
                     return pacientesFragment;
-
-                case 3:
-                    AliquotaFragment aliquotaFragment = new AliquotaFragment();
-                    Bundle argsaliquotaFragment = new Bundle();
-                    argsaliquotaFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
-                    aliquotaFragment.setArguments(argsaliquotaFragment);
-                    return aliquotaFragment;
 
 
                 default:
@@ -214,13 +175,9 @@ public class AcaoPrincipalActivity extends ActionBarActivity
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-
             ((AcaoPrincipalActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
-
-
-
     }
 
 }
