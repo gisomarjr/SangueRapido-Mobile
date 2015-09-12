@@ -62,7 +62,9 @@ public class DiagnosticoActivity extends AppCompatActivity implements AoClicarNo
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return getString(position == 0 ? R.string.tab_diagnostico : R.string.tab_diagnostico);
+           // return getString(position == 0 ? "Diagnosticos" : "Diagnosticos");
+
+            return "Diagnosticos";
         }
 
         @Override

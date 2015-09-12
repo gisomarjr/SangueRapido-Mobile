@@ -45,8 +45,6 @@ import br.com.laboratorio.hemope.View.SlidingTabLayout;
 
 public class AliquotaFragment extends Fragment {
 
-
-
         View aliquotaView;
         ViewPager viewPager;
         SlidingTabLayout mSlidingTabLayout;

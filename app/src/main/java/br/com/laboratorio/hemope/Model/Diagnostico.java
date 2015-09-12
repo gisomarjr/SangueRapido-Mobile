@@ -7,11 +7,11 @@ import java.util.List;
  * Created by User on 03/09/2015.
  */
 public class Diagnostico implements Serializable {
-    int idDiagnostico;
-    String codigo;
-    String sigla;
-    String nome;
+    public int idDiagnostico;
+    public String codigo;
+    public String sigla;
+    public String nome;
     boolean status;
-    Cid idCID;
-    List<Amostra> amostras;
+    public Cid cid;
+    public List<Amostra> amostras;
 }
