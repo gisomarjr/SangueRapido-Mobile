@@ -26,7 +26,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import br.com.laboratorio.hemope.Aliquota.AliquotaActivity;
 import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
 import br.com.laboratorio.hemope.Diagnostico.ListaDiagnosticosFragment;
 import br.com.laboratorio.hemope.Model.Paciente;
@@ -49,9 +48,6 @@ public class AcaoPrincipalActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     public CharSequence mTitle;
-
-
-
 
 
     @Override
@@ -110,7 +106,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.acao_principal, menu);
+            //getMenuInflater().inflate(R.menu.acao_principal, menu);
             restoreActionBar();
             return true;
         }

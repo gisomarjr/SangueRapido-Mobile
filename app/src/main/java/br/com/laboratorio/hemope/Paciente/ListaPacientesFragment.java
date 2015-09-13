@@ -1,7 +1,9 @@
 package br.com.laboratorio.hemope.Paciente;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -204,15 +206,30 @@ public class ListaPacientesFragment extends Fragment {
 
         List<Paciente> pacientes = new ArrayList<>();
 
-        if(pacientes != null) {
-            for (Paciente paciente : itensPaciente.paciente) {
-                pacientes.add(paciente);
-                mListaPacientes.add(paciente);
-            }
+       try {
+               if (pacientes != null) {
+                   for (Paciente paciente : itensPaciente.paciente) {
+                       pacientes.add(paciente);
+                       mListaPacientes.add(paciente);
+                   }
 
-        }else{
-            Toast.makeText(getActivity(),"Não encontramos Resultados",Toast.LENGTH_LONG).show();
-        }
+               } else {
+                   Toast.makeText(getActivity(), "Não encontramos Resultados", Toast.LENGTH_LONG).show();
+               }
+           }catch (Exception e){
+               AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+               builder.setTitle("Conexão")
+                       .setMessage("Erro ao tentar se conectar com os Servidores.")
+                       .setCancelable(false)
+                       .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                           public void onClick(DialogInterface dialog, int id) {
+                               dialog.cancel();
+                           }
+                       });
+               AlertDialog alert = builder.create();
+               alert.show();
+
+       }
 
         listView.setAdapter(new PacientesAdapter(getActivity(), pacientes));
 

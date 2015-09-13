@@ -25,6 +25,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
 import br.com.laboratorio.hemope.Model.Aliquota;
@@ -56,6 +57,7 @@ public class AliquotaFragment extends Fragment {
         public AliquotaFragment() {
 
         }
+
 
         //Qr Code
         static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
@@ -122,15 +124,18 @@ public class AliquotaFragment extends Fragment {
                     String idAliquota = intent.getStringExtra("SCAN_RESULT");
                     String formato = intent.getStringExtra("SCAN_RESULT_FORMAT").trim();
 
+                    Log.e("qtdFormato",formato.length()+"");
+                    Log.e("formato",formato);
+
                     //Verifico se é um QRCODE
-                    if(formato == " QR_CODE") {
+                    if(formato.equals("QR_CODE")) {
 
                          try{
                              //Verifico se é um número
                              if(Integer.parseInt(idAliquota) > 0) {
                                     consultarAliquota(idAliquota);
                              }else{
-
+                                 Toast.makeText(getActivity(), "ID da Aliquota Inválido", Toast.LENGTH_LONG).show();
                              }
 
                          } catch (NumberFormatException e) {
