@@ -1,6 +1,8 @@
 package br.com.laboratorio.hemope.Login;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        task = new DownloadPacienteTask();
+
 
     }
 
@@ -45,7 +47,14 @@ public class LoginActivity extends AppCompatActivity {
         String[] credenciais = new String[2];
         credenciais[0] = editTextUsuario.getText().toString();
         credenciais[1] = editTextSenha.getText().toString();
-        task.execute(credenciais);
+
+        task = new DownloadPacienteTask();
+
+        if(task.getStatus() != AsyncTask.Status.RUNNING || task.getStatus() != AsyncTask.Status.PENDING) {
+            task.execute(credenciais);
+        }
+
+
     }
 
     class DownloadPacienteTask extends AsyncTask<String, Void, Itens>{
@@ -83,14 +92,28 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(Itens itens) {
             super.onPostExecute(itens);
 
-            if(itens.usuario.login != null){
-                Intent it = new Intent(getApplication(),AcaoPrincipalActivity.class);
-                startActivity(it);
-                finish();
-            }else{
-                Toast.makeText(getApplicationContext(),"Login ou Senha Inválida.",Toast.LENGTH_LONG).show();
-            }
+         try {
+             if (itens.usuario.login != null) {
+                 Intent it = new Intent(getApplication(), AcaoPrincipalActivity.class);
+                 startActivity(it);
+                 finish();
+             } else {
+                 Toast.makeText(getApplicationContext(), "Login ou Senha Inválida.", Toast.LENGTH_LONG).show();
+             }
+         }catch (Exception e){
+             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+             builder.setTitle("Conexão")
+                     .setMessage("Erro ao tentar se conectar com os Servidores.")
+                     .setCancelable(false)
+                     .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                         public void onClick(DialogInterface dialog, int id) {
+                             dialog.cancel();
+                         }
+                     });
+             AlertDialog alert = builder.create();
+             alert.show();
 
+         }
             progressDialog.dismiss();
 
         }

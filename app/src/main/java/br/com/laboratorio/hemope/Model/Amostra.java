@@ -13,7 +13,7 @@ public class Amostra implements Serializable {
     public Paciente paciente;
     public TipoAmostra tipoAmostra;
     public LocalProcedencia localProcedencia;
-    public Date dataEntrada;
+    public String dataEntrada;
     public Diagnostico diagnostico;
     public List<Aliquota> aliquotas;
     boolean status;

@@ -120,11 +120,26 @@ public class AliquotaFragment extends Fragment {
             if (requestCode == 0) {
                 if (resultCode == Activity.RESULT_OK) {
                     String idAliquota = intent.getStringExtra("SCAN_RESULT");
-                    String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+                    String formato = intent.getStringExtra("SCAN_RESULT_FORMAT").trim();
 
-                    Toast toast = Toast.makeText(getActivity(), "ID Aliquota: " + idAliquota , Toast.LENGTH_LONG);
-                    toast.show();
-                    consultarAliquota(idAliquota);
+                    //Verifico se é um QRCODE
+                    if(formato == " QR_CODE") {
+
+                         try{
+                             //Verifico se é um número
+                             if(Integer.parseInt(idAliquota) > 0) {
+                                    consultarAliquota(idAliquota);
+                             }else{
+
+                             }
+
+                         } catch (NumberFormatException e) {
+                             Toast.makeText(getActivity(), "QRCODE inválido.", Toast.LENGTH_LONG).show();
+                         }
+
+                       }else{
+                        Toast.makeText(getActivity(), "Formato não reconhecido para consultar uma Aliquota :" + formato , Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         }
@@ -189,14 +204,14 @@ public class AliquotaFragment extends Fragment {
         TipoAmostra tipoAmostra = new TipoAmostra();
         LocalProcedencia localProcedencia = new LocalProcedencia();
 
-
+    try {
         aliquota = itens.aliquota;
-        amostra  = itens.aliquota.amostra;
+        amostra = itens.aliquota.amostra;
         alocacao = itens.aliquota.alocacao;
         paciente = itens.aliquota.amostra.paciente;
-        caixa    = itens.aliquota.alocacao.caixa;
-        gaveta   = itens.aliquota.alocacao.caixa.gaveta;
-        freezer  = itens.aliquota.alocacao.caixa.gaveta.freezer;
+        caixa = itens.aliquota.alocacao.caixa;
+        gaveta = itens.aliquota.alocacao.caixa.gaveta;
+        freezer = itens.aliquota.alocacao.caixa.gaveta.freezer;
         localProcedencia = itens.aliquota.amostra.localProcedencia;
         tipoAmostra = itens.aliquota.amostra.tipoAmostra;
         diagnostico = itens.aliquota.amostra.diagnostico;
@@ -204,8 +219,8 @@ public class AliquotaFragment extends Fragment {
 
         TextView txtNomePaciente = (TextView) aliquotaView.findViewById(R.id.labelNomePaciente);
         TextView txtNomeMae = (TextView) aliquotaView.findViewById(R.id.labelNomeMae);
-        TextView txtCPF= (TextView) aliquotaView.findViewById(R.id.labelCPF);
-        TextView txtTelefone= (TextView) aliquotaView.findViewById(R.id.labelTelefone);
+        TextView txtCPF = (TextView) aliquotaView.findViewById(R.id.labelCPF);
+        TextView txtTelefone = (TextView) aliquotaView.findViewById(R.id.labelTelefone);
 
         TextView txtDataEntrada = (TextView) aliquotaView.findViewById(R.id.labelDataEntrada);
         TextView txtDataDescarte = (TextView) aliquotaView.findViewById(R.id.labelDataDescarte);
@@ -225,29 +240,43 @@ public class AliquotaFragment extends Fragment {
         TextView txtCodCid = (TextView) aliquotaView.findViewById(R.id.labelCodCid);
         TextView txtDescricaoCid = (TextView) aliquotaView.findViewById(R.id.labelDescricaoCid);
 
-        txtNomePaciente.setText("Nome do Paciente: "+paciente.nome);
-        txtNomeMae.setText("Nome da Mãe: "+paciente.nomeMae);
-        txtCPF.setText("CPF: "+paciente.cpf);
-        txtTelefone.setText("Telefone: "+paciente.telefone);
+        txtNomePaciente.setText("Nome do Paciente: " + paciente.nome);
+        txtNomeMae.setText("Nome da Mãe: " + paciente.nomeMae);
+        txtCPF.setText("CPF: " + paciente.cpf);
+        txtTelefone.setText("Telefone: " + paciente.telefone);
 
-        txtDataEntrada.setText("Data de Entrada: "+aliquota.dataEntrada);
-        txtDataDescarte.setText("Data de Descarte: "+aliquota.dataDescarte);
+        txtDataEntrada.setText("Data de Entrada: " + aliquota.dataEntrada);
+        txtDataDescarte.setText("Data de Descarte: " + aliquota.dataDescarte);
         txtPosicao.setText("Coluna: " + alocacao.posicaoX + " Linha: " + alocacao.posicaoY);
-        txtCaixa.setText("Caixa: "+caixa.idCaixa);
-        txtGaveta.setText("Gaveta: "+gaveta.idGaveta);
-        txtFreezer.setText("Código do Freezer: "+freezer.codigo);
+        txtCaixa.setText("Caixa: " + caixa.idCaixa);
+        txtGaveta.setText("Gaveta: " + gaveta.idGaveta);
+        txtFreezer.setText("Código do Freezer: " + freezer.codigo);
 
-        txtVolume.setText("Volume: "+String.valueOf(aliquota.volume));
-        txtConcentracao.setText("Concentração: "+String.valueOf(aliquota.concentracao));
-        txtCodAmostra.setText("Cod. Amostra: "+amostra.codigo);
-        txtDataEntradaAmostra.setText("Data de Entrada: "+amostra.dataEntrada);
-        txtTipoAmostra.setText("Tipo da Amostra: "+amostra.tipoAmostra.nome);
-        txtLocalProcedencia.setText("local Procedência: "+amostra.localProcedencia.nome);
-        txtCodDiagnostico.setText("Cod. Diagnóstico: "+diagnostico.codigo);
-        txtSiglaDiagnostico.setText("Sigla Diagnóstico: "+diagnostico.sigla);
-        txtCodCid.setText("Cod. Diagnóstico: "+cid.codigo);
-        txtDescricaoCid.setText("Sigla Diagnóstico: "+cid.descricao);
+        txtVolume.setText("Volume: " + String.valueOf(aliquota.volume));
+        txtConcentracao.setText("Concentração: " + String.valueOf(aliquota.concentracao));
+        txtCodAmostra.setText("Cod. Amostra: " + amostra.codigo);
+        txtDataEntradaAmostra.setText("Data de Entrada: " + amostra.dataEntrada);
+        txtTipoAmostra.setText("Tipo da Amostra: " + amostra.tipoAmostra.nome);
+        txtLocalProcedencia.setText("local Procedência: " + amostra.localProcedencia.nome);
+        txtCodDiagnostico.setText("Cod. Diagnóstico: " + diagnostico.codigo);
+        txtSiglaDiagnostico.setText("Sigla Diagnóstico: " + diagnostico.sigla);
+        txtCodCid.setText("Cod. Diagnóstico: " + cid.codigo);
+        txtDescricaoCid.setText("Sigla Diagnóstico: " + cid.descricao);
         //aliquotaView.findViewById(R.)
+
+    }catch (Exception e){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Conexão")
+                .setMessage("Erro ao tentar se conectar com os Servidores.")
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
     }
 
