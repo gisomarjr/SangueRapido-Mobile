@@ -6,7 +6,7 @@
     <string name="tab_paciente">Listar Pacientes</string>
     <string name="title_activity_detalhe_paciente">Detalhe do Paciente</string>
     <string name="title_activity_scan">Pesquisar Alíquota - QR CODE</string>
-    <string name="title_activity_acao_principal">Hemope Ger. Amostras</string>
+    <string name="title_activity_acao_principal">AcaoPrincipalActivity</string>
 
     <string name="titulo_sessao_freezer">Freezer</string>
     <string name="titulo_sessao_paciente">Pacientes</string>
@@ -17,4 +17,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_example"></string>
+    <string name="title_activity_main_acao">MainAcaoActivity</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
 </resources>

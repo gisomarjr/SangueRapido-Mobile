@@ -2,13 +2,14 @@ package br.com.laboratorio.hemope;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.os.Build;
@@ -25,8 +26,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import br.com.laboratorio.hemope.Aliquota.AliquotaActivity;
 import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
+import br.com.laboratorio.hemope.Diagnostico.ListaDiagnosticosFragment;
 import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.Paciente.AoClicarNoPacienteListener;
 import br.com.laboratorio.hemope.Paciente.DetalhePacienteActivity;
@@ -47,9 +48,6 @@ public class AcaoPrincipalActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     public CharSequence mTitle;
-
-
-
 
 
     @Override
@@ -108,7 +106,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.acao_principal, menu);
+            //getMenuInflater().inflate(R.menu.acao_principal, menu);
             restoreActionBar();
             return true;
         }
@@ -153,7 +151,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends android.support.v4.app.Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -166,7 +164,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static Fragment newInstance(int sectionNumber) {
+        public static android.support.v4.app.Fragment newInstance(int sectionNumber) {
 
             switch(sectionNumber){
 
@@ -183,6 +181,13 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     argsaliquotaFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
                     aliquotaFragment.setArguments(argsaliquotaFragment);
                     return aliquotaFragment;
+
+                case 4:
+                    ListaDiagnosticosFragment diagnosticosFragment = new ListaDiagnosticosFragment();
+                    Bundle argsdiagnosticoFragment = new Bundle();
+                    argsdiagnosticoFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
+                    diagnosticosFragment.setArguments(argsdiagnosticoFragment);
+                    return diagnosticosFragment;
 
 
                 default:

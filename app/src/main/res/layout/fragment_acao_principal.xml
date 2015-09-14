@@ -6,8 +6,10 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="br.com.laboratorio.hemope.AcaoPrincipalActivity$PlaceholderFragment">
 
-    <TextView android:id="@+id/section_label" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="label"/>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="#ff32ff57" />
 </RelativeLayout>
