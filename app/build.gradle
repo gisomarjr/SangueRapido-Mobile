@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "br.com.laboratorio.hemope.marcos"
+        applicationId "br.com.laboratorio.hemope.gismarcos"
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 1

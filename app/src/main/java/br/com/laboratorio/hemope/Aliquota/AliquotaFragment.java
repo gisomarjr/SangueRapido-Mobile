@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +24,6 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
 import br.com.laboratorio.hemope.Model.Aliquota;
@@ -265,8 +263,8 @@ public class AliquotaFragment extends Fragment {
         txtLocalProcedencia.setText("local Procedência: " + amostra.localProcedencia.nome);
         txtCodDiagnostico.setText("Cod. Diagnóstico: " + diagnostico.codigo);
         txtSiglaDiagnostico.setText("Sigla Diagnóstico: " + diagnostico.sigla);
-        txtCodCid.setText("Cod. Diagnóstico: " + cid.codigo);
-        txtDescricaoCid.setText("Sigla Diagnóstico: " + cid.descricao);
+        txtCodCid.setText("Cod. CID: " + cid.codigo);
+        txtDescricaoCid.setText("Sigla CID: " + cid.descricao);
         //aliquotaView.findViewById(R.)
 
     }catch (Exception e){
