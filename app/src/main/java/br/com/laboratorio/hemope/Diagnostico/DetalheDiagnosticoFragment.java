@@ -47,37 +47,38 @@ public class DetalheDiagnosticoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         Amostra amostra = new Amostra();
         Diagnostico diagnostico = new Diagnostico();
         Cid cid = new Cid();
         Paciente paciente = new Paciente();
-        diagnostico = amostra.diagnostico;
-        paciente = amostra.paciente;
-        cid = diagnostico.cid;
+
+
         diagnostico = (Diagnostico) getArguments().getSerializable("diagnostico");
 
         View view = inflater.inflate(R.layout.fragment_detalhe_diagnostico, container, false);
 
-        ImageView imgCapa = (ImageView) view.findViewById(R.id.imgCapa);
-        TextView txtNomePaciente = (TextView) view.findViewById(R.id.labelNomePaciente);
-        TextView txtCpf = (TextView) view.findViewById(R.id.labelCpf);
-        TextView txtCodigoAmostra = (TextView) view.findViewById(R.id.labelCodAmostra);
+        //ImageView imgCapa = (ImageView) view.findViewById(R.id.imgCapa);
+
+       // TextView txtNomePaciente = (TextView) view.findViewById(R.id.labelNomePaciente);
+        //TextView txtCpf = (TextView) view.findViewById(R.id.labelCpf);
+       // TextView txtCodigoAmostra = (TextView) view.findViewById(R.id.labelCodAmostra);
         TextView txtCodigoDiagnostico = (TextView) view.findViewById(R.id.labelCodigoDiagnostico);
         TextView txtSigla = (TextView) view.findViewById(R.id.labelSigla);
         TextView txtNome = (TextView) view.findViewById(R.id.labelNomeDiagnostico);
-        TextView txtCodigoCid = (TextView) view.findViewById(R.id.labelCodigoCid);
-        TextView txtDescricaoCid = (TextView) view.findViewById(R.id.labelDescricaoCid);
+       // TextView txtCodigoCid = (TextView) view.findViewById(R.id.labelCodigoCid);
+       // TextView txtDescricaoCid = (TextView) view.findViewById(R.id.labelDescricaoCid);
 
 
 
-        txtNomePaciente.setText("Nome do Paciente: "+paciente.nome);
+        /*txtNomePaciente.setText("Nome do Paciente: "+paciente.nome);
         txtCpf.setText("CPF: "+paciente.cpf);
-        txtCodigoAmostra.setText("Cód. Amostra: "+amostra.codigo);
+        txtCodigoAmostra.setText("Cód. Amostra: "+amostra.codigo);*/
         txtCodigoDiagnostico.setText("Cód. Diagnóstico: "+diagnostico.codigo);
         txtSigla.setText("Sigla Diagnóstico: "+diagnostico.sigla);
         txtNome.setText("Descrição Diagnóstico: "+diagnostico.nome);
-        txtCodigoCid.setText("Código CID: "+diagnostico.cid.codigo);
-        txtDescricaoCid.setText("Descrição CID: "+diagnostico.cid.descricao);
+        /*txtCodigoCid.setText("Código CID: "+diagnostico.cid.codigo);
+        txtDescricaoCid.setText("Descrição CID: "+diagnostico.cid.descricao);*/
 
 
         return view;

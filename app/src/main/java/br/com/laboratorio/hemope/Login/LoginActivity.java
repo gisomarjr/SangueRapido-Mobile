@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
        static Itens itens;
        DownloadPacienteTask task;
        private static final int MEU_LOADER = 0;
+       static String[] credenciais = new String[2];
 
 
     @Override
@@ -41,11 +42,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         // Recuperando o estado da Activity
         if (savedInstanceState != null) {
             itens = (Itens) savedInstanceState.getSerializable("itens");
-            atualizaTela();
+            atualizaTela(credenciais);
         }
     }
 
-    public void atualizaTela(){
+    public void atualizaTela(String[] credenciais){
         // Essa classe gerencia todos os Loaders
         LoaderManager lm = getSupportLoaderManager();
 
@@ -57,7 +58,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
             // E inicializa o Loader (se ele já foi
             // inicializado, ele apenas continuará)
-            lm.initLoader(MEU_LOADER,null,this);
+            Bundle bundle = new Bundle();
+            bundle.putStringArray("credenciais",credenciais);
+            lm.initLoader(MEU_LOADER,bundle,this);
         }else{
             Intent it = new Intent(getApplication(), AcaoPrincipalActivity.class);
             startActivity(it);
@@ -93,7 +96,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
         @Override
         public Itens loadInBackground() {
-            return LoginActivity.efetuarLoginBackground(null);
+
+            /* credenciais = dados.getStringArray("credenciais");*/
+             Log.e("arrayCredenciais",credenciais[0]);
+
+            return LoginActivity.efetuarLoginBackground(credenciais);
         }
 
         @Override
@@ -136,11 +143,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         EditText editTextUsuario  = (EditText) findViewById(R.id.etUsuario);
         EditText editTextSenha  = (EditText) findViewById(R.id.etSenha);
 
-        String[] credenciais = new String[2];
+
         credenciais[0] = editTextUsuario.getText().toString();
         credenciais[1] = editTextSenha.getText().toString();
 
-        atualizaTela();
+        atualizaTela(credenciais);
 
        /* task = new DownloadPacienteTask();
 

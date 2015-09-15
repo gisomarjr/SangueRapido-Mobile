@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -120,7 +121,7 @@ public class ListaDiagnosticosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_lista_diagnostico, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
 
 
         listView = (ListView)view.findViewById(R.id.listView);
@@ -128,7 +129,7 @@ public class ListaDiagnosticosFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Log.e("click", "clicando");
                 Diagnostico diagnostico = (Diagnostico) listView.getAdapter().getItem(i);
 
                 if (getActivity() instanceof AoClicarNoDiagnosticoListener) {
@@ -172,7 +173,7 @@ public class ListaDiagnosticosFragment extends Fragment {
             OkHttpClient client = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("https://www.dropbox.com/s/vx4e2gqclhpeckk/diagnosticoJSON.json?dl=0")
+                    .url("https://www.dropbox.com/s/vx4e2gqclhpeckk/diagnosticoJSON.json?dl=1")
                     .build();
 
             try {

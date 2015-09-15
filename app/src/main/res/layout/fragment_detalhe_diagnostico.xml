@@ -33,32 +33,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Nome do paciente"
-            android:id="@+id/labelNomePaciente"
-            android:gravity="center"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CPF"
-            android:id="@+id/labelCpf"
-            android:autoLink="web"
-            android:clickable="true"
-            android:gravity="center"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Código da Amostra"
-            android:id="@+id/labelCodAmostra"
-            android:autoLink="web"
-            android:clickable="true"
-            android:gravity="center"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Código do Diagnóstico"
             android:id="@+id/labelCodigoDiagnostico"
             android:gravity="center"/>
@@ -74,20 +48,6 @@
             android:layout_height="wrap_content"
             android:text="nome"
             android:id="@+id/labelNomeDiagnostico" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="codigoCid"
-            android:id="@+id/labelCodigoCid" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DescricaoCID"
-            android:id="@+id/labelDescricaoCid" />
-
 
 
     </LinearLayout>

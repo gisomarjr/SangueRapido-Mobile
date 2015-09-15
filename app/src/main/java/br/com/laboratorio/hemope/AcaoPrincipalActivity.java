@@ -27,7 +27,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
+import br.com.laboratorio.hemope.Diagnostico.AoClicarNoDiagnosticoListener;
+import br.com.laboratorio.hemope.Diagnostico.DetalheDiagnosticoActivity;
+import br.com.laboratorio.hemope.Diagnostico.DetalheDiagnosticoFragment;
 import br.com.laboratorio.hemope.Diagnostico.ListaDiagnosticosFragment;
+import br.com.laboratorio.hemope.Model.Diagnostico;
 import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.Paciente.AoClicarNoPacienteListener;
 import br.com.laboratorio.hemope.Paciente.DetalhePacienteActivity;
@@ -37,7 +41,7 @@ import br.com.laboratorio.hemope.R;
 
 
 public class AcaoPrincipalActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, AoClicarNoPacienteListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, AoClicarNoPacienteListener,AoClicarNoDiagnosticoListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -145,6 +149,25 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     .commit();
         }
 
+    }
+
+    @Override
+    public void onClick(Diagnostico diagnostico) {
+
+        if (getResources().getBoolean(R.bool.isPhone)) {
+            Intent it = new Intent(this, DetalheDiagnosticoActivity.class);
+            it.putExtra("diagnostico", diagnostico);
+            startActivity(it);
+
+        } else {
+
+            DetalheDiagnosticoFragment detalheDiagnosticoFragment =
+                    DetalheDiagnosticoFragment.novaInstancia(diagnostico);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, detalheDiagnosticoFragment, "detalhe")
+                    .commit();
+        }
     }
 
 

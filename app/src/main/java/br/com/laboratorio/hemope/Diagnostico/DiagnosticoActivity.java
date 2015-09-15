@@ -7,13 +7,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import br.com.laboratorio.hemope.Model.Diagnostico;
 import br.com.laboratorio.hemope.R;
 import br.com.laboratorio.hemope.View.SlidingTabLayout;
 
 
-public class DiagnosticoActivity extends AppCompatActivity implements AoClicarNoDiagnosticoListener {
+public class DiagnosticoActivity extends AppCompatActivity {
 
     ViewPager viewPager;
 //    SlidingTabLayout mSlidingTabLayout;
@@ -35,15 +36,16 @@ public class DiagnosticoActivity extends AppCompatActivity implements AoClicarNo
 
     }
 
-    @Override
+   /* @Override
     public void onClick(Diagnostico diagnostico) {
 
         if (getResources().getBoolean(R.bool.isPhone)) {
             Intent it = new Intent(this, DetalheDiagnosticoActivity.class);
             it.putExtra("diagnostico", diagnostico);
             startActivity(it);
-
+            Log.e("status","phone");
         } else {
+            Log.e("status","tablet");
             DetalheDiagnosticoFragment detalheDiagnosticoFragment =
                     DetalheDiagnosticoFragment.novaInstancia(diagnostico);
             getSupportFragmentManager()
@@ -52,7 +54,7 @@ public class DiagnosticoActivity extends AppCompatActivity implements AoClicarNo
                     .commit();
         }
 
-    }
+    }*/
 
 
     private class DiagnosticoPageAdapter extends FragmentPagerAdapter {

@@ -10,6 +10,6 @@ public class Cid implements Serializable {
     public int idCID;
     public String codigo;
     public String descricao;
-    public boolean status;
-    public List<Diagnostico> diagnosticos;
+    public String status;
+   // public List<Diagnostico> diagnosticos;
 }

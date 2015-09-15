@@ -29,5 +29,6 @@ public class Itens implements Serializable {
     public Usuario usuario;
     @SerializedName("pacientes")
     public List<Paciente> paciente;
+    public boolean isSuccess;
 
 }
