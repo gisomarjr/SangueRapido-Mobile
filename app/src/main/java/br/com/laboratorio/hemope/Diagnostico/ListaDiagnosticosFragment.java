@@ -1,7 +1,9 @@
 package br.com.laboratorio.hemope.Diagnostico;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -170,7 +172,7 @@ public class ListaDiagnosticosFragment extends Fragment {
             OkHttpClient client = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("https://www.dropbox.com/s/0j1hn0785s355td/pessoaJson.json?dl=1")
+                    .url("https://www.dropbox.com/s/vx4e2gqclhpeckk/diagnosticoJSON.json?dl=0")
                     .build();
 
             try {
@@ -203,17 +205,28 @@ public class ListaDiagnosticosFragment extends Fragment {
     private void preencherLista() {
 
         List<Diagnostico> diagnosticos = new ArrayList<>();
-
+        try{
         if(diagnosticos != null) {
             for (Diagnostico diagnostico : itensDiagnostico.diagnosticos) {
                 diagnosticos.add(diagnostico);
                 mListaDiagnosticos.add(diagnostico);
             }
 
-        }else{
-            Toast.makeText(getActivity(),"Não encontramos Resultados",Toast.LENGTH_LONG).show();
-        }
-
+        }else {
+            Toast.makeText(getActivity(), "Não encontramos Resultados", Toast.LENGTH_LONG).show();
+        }}catch (Exception e) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Conexão")
+                    .setMessage("Erro ao tentar se conectar com os Servidores.")
+                    .setCancelable(false)
+                    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+            }
         listView.setAdapter(new DiagnosticosAdapter(getActivity(), diagnosticos));
 
         // Se é tablet e existe algum livro na lista, selecione-o

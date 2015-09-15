@@ -23,7 +23,9 @@
         </activity>
         <activity
             android:name=".AcaoPrincipalActivity"
-            android:label="@string/title_activity_acao_principal" >
+            android:label="@string/title_activity_acao_principal"
+            android:screenOrientation="portrait">
+
         </activity>
         <activity
             android:name=".Login.LoginActivity"
