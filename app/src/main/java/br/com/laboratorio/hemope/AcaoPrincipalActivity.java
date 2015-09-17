@@ -1,43 +1,35 @@
 package br.com.laboratorio.hemope;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Fragment;
-import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-
-import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
+import br.com.laboratorio.hemope.Amostra.DetalheAmostraFragment;
+import br.com.laboratorio.hemope.Diagnostico.DetalheDiagnosticoActivity;
+import br.com.laboratorio.hemope.Diagnostico.DetalheDiagnosticoFragment;
 import br.com.laboratorio.hemope.Diagnostico.ListaDiagnosticosFragment;
+import br.com.laboratorio.hemope.Model.Aliquota;
+import br.com.laboratorio.hemope.Model.Amostra;
+import br.com.laboratorio.hemope.Model.Diagnostico;
 import br.com.laboratorio.hemope.Model.Paciente;
-import br.com.laboratorio.hemope.Paciente.AoClicarNoPacienteListener;
 import br.com.laboratorio.hemope.Paciente.DetalhePacienteActivity;
 import br.com.laboratorio.hemope.Paciente.DetalhePacienteFragment;
 import br.com.laboratorio.hemope.Paciente.ListaPacientesFragment;
-import br.com.laboratorio.hemope.R;
+import br.com.laboratorio.hemope.View.AoClicarNoItemListener;
 
 
 public class AcaoPrincipalActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, AoClicarNoPacienteListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, AoClicarNoItemListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -144,6 +136,48 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     .replace(R.id.container, detalhePacienteFragment, "detalhe")
                     .commit();
         }
+
+    }
+
+    @Override
+    public void onClick(Diagnostico diagnostico) {
+
+        if (getResources().getBoolean(R.bool.isPhone)) {
+            Intent it = new Intent(this, DetalheDiagnosticoActivity.class);
+            it.putExtra("diagnostico", diagnostico);
+            startActivity(it);
+
+        } else {
+
+            DetalheDiagnosticoFragment detalheDiagnosticoFragment =
+                    DetalheDiagnosticoFragment.novaInstancia(diagnostico);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, detalheDiagnosticoFragment, "detalhe")
+                    .commit();
+        }
+    }
+
+    @Override
+    public void onClick(Amostra amostra) {
+        if (getResources().getBoolean(R.bool.isPhone)) {
+            Intent it = new Intent(this, DetalheDiagnosticoActivity.class);
+            it.putExtra("amostra", amostra);
+            startActivity(it);
+
+        } else {
+
+            DetalheAmostraFragment detalheAmostraFragment =
+                    DetalheAmostraFragment.novaInstancia(amostra);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, detalheAmostraFragment, "detalhe")
+                    .commit();
+        }
+    }
+
+    @Override
+    public void onClick(Aliquota aliquota) {
 
     }
 

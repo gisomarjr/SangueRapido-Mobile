@@ -1,4 +1,4 @@
-package br.com.laboratorio.hemope.Diagnostico;
+package br.com.laboratorio.hemope.Amostra;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -30,24 +30,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
-import br.com.laboratorio.hemope.Model.Diagnostico;
+import br.com.laboratorio.hemope.Model.Amostra;
 import br.com.laboratorio.hemope.Model.Itens;
 import br.com.laboratorio.hemope.R;
 import br.com.laboratorio.hemope.View.AoClicarNoItemListener;
 
 
-public class ListaDiagnosticosFragment extends Fragment {
+public class ListaAmostrasFragment extends Fragment {
 
     ListView listView;
-    Itens itensDiagnostico;
-    DownloadDiagnosticoTask task;
+    Itens itensAmostra;
+    DownloadAmostraTask task;
     ProgressDialog progressDialog;
 
     static String mSavedName;
     private String searchedName;
-    static ArrayList<Diagnostico> mListaDiagnosticos = new ArrayList<>();
+    static ArrayList<Amostra> mListaAmostras = new ArrayList<>();
 
-    public ListaDiagnosticosFragment() {
+    public ListaAmostrasFragment() {
 
     }
 
@@ -66,7 +66,7 @@ public class ListaDiagnosticosFragment extends Fragment {
         setRetainInstance(true);
         if(savedInstanceState != null){
             mSavedName = savedInstanceState.getString(searchedName);
-            mListaDiagnosticos = (ArrayList<Diagnostico>)savedInstanceState.getSerializable("listaDiagnosticos");
+            mListaAmostras = (ArrayList<Amostra>)savedInstanceState.getSerializable("listaAmostras");
 
         }
 
@@ -80,13 +80,13 @@ public class ListaDiagnosticosFragment extends Fragment {
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setQueryHint("Nome do Diagnostico...");
+        searchView.setQueryHint("Nome do Amostra...");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String pesquisaUsuario) {
 
-                    task = new DownloadDiagnosticoTask();
+                    task = new DownloadAmostraTask();
                     task.execute(pesquisaUsuario);
 
 
@@ -131,10 +131,10 @@ public class ListaDiagnosticosFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.e("click", "clicando");
-                Diagnostico diagnostico = (Diagnostico) listView.getAdapter().getItem(i);
+                Amostra amostra = (Amostra) listView.getAdapter().getItem(i);
 
                 if (getActivity() instanceof AoClicarNoItemListener) {
-                    ((AoClicarNoItemListener)getActivity()).onClick(diagnostico);
+                    ((AoClicarNoItemListener)getActivity()).onClick(amostra);
                 }
             }
         });
@@ -142,14 +142,14 @@ public class ListaDiagnosticosFragment extends Fragment {
         //preencherLista();
         //Pesquisar no banco ---
 
-        if (itensDiagnostico == null) {
+        if (itensAmostra == null) {
             if (task == null) {
-                Toast.makeText(getActivity(), "Para começar, clique na lupa e digite o nome do diagnostico.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Para começar, clique na lupa e digite o nome do amostra.", Toast.LENGTH_LONG).show();
             }
         }
 
-        if (mListaDiagnosticos != null){
-            listView.setAdapter(new DiagnosticosAdapter(getActivity(), mListaDiagnosticos));
+        if (mListaAmostras != null){
+            listView.setAdapter(new AmostrasAdapter(getActivity(), mListaAmostras));
 
         }
 
@@ -161,20 +161,20 @@ public class ListaDiagnosticosFragment extends Fragment {
 
         outState.putString(searchedName, mSavedName);
 
-        outState.putSerializable("listaDiagnosticos", (ArrayList<Diagnostico>) mListaDiagnosticos);
+        outState.putSerializable("listaAmostras", (ArrayList<Amostra>) mListaAmostras);
 
         super.onSaveInstanceState(outState);
 
     }
 
-    class DownloadDiagnosticoTask extends AsyncTask<String, Void, Itens>{
+    class DownloadAmostraTask extends AsyncTask<String, Void, Itens>{
 
         @Override
         protected Itens doInBackground(String... pesquisa) {
             OkHttpClient client = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("https://www.dropbox.com/s/vx4e2gqclhpeckk/diagnosticoJSON.json?dl=1")
+                    .url("https://www.dropbox.com/s/vx4e2gqclhpeckk/amostraJSON.json?dl=1")
                     .build();
 
             try {
@@ -182,23 +182,23 @@ public class ListaDiagnosticosFragment extends Fragment {
                 String json = response.body().string();
 
                 Gson gson = new Gson();
-                itensDiagnostico = gson.fromJson(json, Itens.class);
+                itensAmostra = gson.fromJson(json, Itens.class);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return itensDiagnostico;
+            return itensAmostra;
         }
 
         @Override
         protected void onPreExecute(){
-            progressDialog = ProgressDialog.show(getActivity(), "Aguarde...", "Carregando Diagnosticos...", true);
+            progressDialog = ProgressDialog.show(getActivity(), "Aguarde...", "Carregando Amostras...", true);
             progressDialog.setCancelable(false);
         }
 
         @Override
-        protected void onPostExecute(Itens diagnostico) {
-            super.onPostExecute(diagnostico);
+        protected void onPostExecute(Itens amostra) {
+            super.onPostExecute(amostra);
             progressDialog.dismiss();
             preencherLista();
         }
@@ -206,12 +206,12 @@ public class ListaDiagnosticosFragment extends Fragment {
 
     private void preencherLista() {
 
-        List<Diagnostico> diagnosticos = new ArrayList<>();
+        List<Amostra> amostras = new ArrayList<>();
         try{
-        if(diagnosticos != null) {
-            for (Diagnostico diagnostico : itensDiagnostico.diagnosticos) {
-                diagnosticos.add(diagnostico);
-                mListaDiagnosticos.add(diagnostico);
+        if(amostras != null) {
+            for (Amostra amostra : itensAmostra.amostras) {
+                amostras.add(amostra);
+                mListaAmostras.add(amostra);
             }
 
         }else {
@@ -229,13 +229,13 @@ public class ListaDiagnosticosFragment extends Fragment {
             AlertDialog alert = builder.create();
             alert.show();
             }
-        listView.setAdapter(new DiagnosticosAdapter(getActivity(), diagnosticos));
+        listView.setAdapter(new AmostrasAdapter(getActivity(), amostras));
 
         // Se é tablet e existe algum livro na lista, selecione-o
         if (getActivity() instanceof AoClicarNoItemListener
                 && getResources().getBoolean(R.bool.isTablet)
-                && diagnosticos.size() > 0){
-            ((AoClicarNoItemListener)getActivity()).onClick(diagnosticos.get(0));
+                && amostras.size() > 0){
+            ((AoClicarNoItemListener)getActivity()).onClick(amostras.get(0));
         }
     }
 }
