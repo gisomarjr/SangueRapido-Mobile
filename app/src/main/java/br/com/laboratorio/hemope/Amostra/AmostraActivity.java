@@ -1,4 +1,4 @@
-package br.com.laboratorio.hemope.Diagnostico;
+package br.com.laboratorio.hemope.Amostra;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import br.com.laboratorio.hemope.R;
 
 
-public class DiagnosticoActivity extends AppCompatActivity {
+public class AmostraActivity extends AppCompatActivity {
 
     ViewPager viewPager;
 //    SlidingTabLayout mSlidingTabLayout;
@@ -21,7 +21,7 @@ public class DiagnosticoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         viewPager = (ViewPager)findViewById(R.id.pager);
-        viewPager.setAdapter(new DiagnosticoPageAdapter(
+        viewPager.setAdapter(new AmostraPageAdapter(
                 getSupportFragmentManager()));
 
         /*mSlidingTabLayout = (SlidingTabLayout)findViewById(R.id.tabs);
@@ -33,42 +33,42 @@ public class DiagnosticoActivity extends AppCompatActivity {
     }
 
    /* @Override
-    public void onClick(Diagnostico diagnostico) {
+    public void onClick(Amostra amostra) {
 
         if (getResources().getBoolean(R.bool.isPhone)) {
             Intent it = new Intent(this, DetalheAmostraActivity.class);
-            it.putExtra("diagnostico", diagnostico);
+            it.putExtra("amostra", amostra);
             startActivity(it);
             Log.e("status","phone");
         } else {
             Log.e("status","tablet");
-            DetalheAmostraFragment detalheDiagnosticoFragment =
-                    DetalheAmostraFragment.novaInstancia(diagnostico);
+            DetalheAmostraFragment detalheAmostraFragment =
+                    DetalheAmostraFragment.novaInstancia(amostra);
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.container, detalheDiagnosticoFragment, "detalhe")
+                    .replace(R.id.container, detalheAmostraFragment, "detalhe")
                     .commit();
         }
 
     }*/
 
 
-    private class DiagnosticoPageAdapter extends FragmentPagerAdapter {
-        public DiagnosticoPageAdapter(FragmentManager fm) {
+    private class AmostraPageAdapter extends FragmentPagerAdapter {
+        public AmostraPageAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-           // return getString(position == 0 ? "Diagnosticos" : "Diagnosticos");
+           // return getString(position == 0 ? "Amostras" : "Amostras");
 
-            return "Diagnosticos";
+            return "Amostras";
         }
 
         @Override
         public Fragment getItem(int i) {
            // if (i == 0){
-                return new ListaDiagnosticosFragment();
+                return new ListaAmostrasFragment();
             //} /*else {
               //  return new ListaAmostrasFragment();
         }
