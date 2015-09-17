@@ -13,7 +13,7 @@ public class Itens implements Serializable {
     public Aliquota aliquota;
     List<Aliquota> aliquotas;
     List<Alocacao> alocacoes;
-    List<Amostra> amostras;
+    public List<Amostra> amostras;
     List<Caixa> caixas;
     List<Cid> cids;
     @SerializedName("diagnosticos")

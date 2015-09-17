@@ -32,6 +32,7 @@ import br.com.laboratorio.hemope.AcaoPrincipalActivity;
 import br.com.laboratorio.hemope.Model.Itens;
 import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.R;
+import br.com.laboratorio.hemope.View.AoClicarNoItemListener;
 
 
 public class ListaPacientesFragment extends Fragment {
@@ -131,8 +132,8 @@ public class ListaPacientesFragment extends Fragment {
 
                 Paciente paciente = (Paciente) listView.getAdapter().getItem(i);
 
-                if (getActivity() instanceof AoClicarNoPacienteListener) {
-                    ((AoClicarNoPacienteListener)getActivity()).onClick(paciente);
+                if (getActivity() instanceof AoClicarNoItemListener) {
+                    ((AoClicarNoItemListener)getActivity()).onClick(paciente);
                 }
             }
         });
@@ -234,10 +235,10 @@ public class ListaPacientesFragment extends Fragment {
         listView.setAdapter(new PacientesAdapter(getActivity(), pacientes));
 
         // Se é tablet e existe algum livro na lista, selecione-o
-        if (getActivity() instanceof AoClicarNoPacienteListener
+        if (getActivity() instanceof AoClicarNoItemListener
                 && getResources().getBoolean(R.bool.isTablet)
                 && pacientes.size() > 0){
-            ((AoClicarNoPacienteListener)getActivity()).onClick(pacientes.get(0));
+            ((AoClicarNoItemListener)getActivity()).onClick(pacientes.get(0));
         }
     }
 }
