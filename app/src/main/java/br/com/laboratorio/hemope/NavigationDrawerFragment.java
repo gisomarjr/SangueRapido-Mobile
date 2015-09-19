@@ -106,6 +106,7 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.titulo_sessao_paciente),
                         getString(R.string.titulo_sessao_aliquota),
                         getString(R.string.titulo_sessao_diagnostico),
+                        getString(R.string.titulo_sessao_alocacao),
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
