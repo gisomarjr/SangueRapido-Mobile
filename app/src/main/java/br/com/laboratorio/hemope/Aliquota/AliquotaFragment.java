@@ -144,17 +144,19 @@ public class AliquotaFragment extends Fragment {
                 case R.id.novaAlocacaoAliquota:
 
                     try {
-                        FragmentTransaction transaction = getFragmentManager()
-                                .beginTransaction();
-                        Bundle argsaLocacaoFragment = new Bundle();
-                        argsaLocacaoFragment.putInt(ARG_SECTION_NUMBER, 5);
-                        argsaLocacaoFragment.putSerializable("itens", itens);
-                        Fragment novaAlocacaoFragment = new AlocacaoFragment();
+                        if(itens.aliquota.idAliquota != null) {
+                            FragmentTransaction transaction = getFragmentManager()
+                                    .beginTransaction();
+                            Bundle argsaLocacaoFragment = new Bundle();
+                            argsaLocacaoFragment.putInt(ARG_SECTION_NUMBER, 5);
+                            argsaLocacaoFragment.putSerializable("itens", itens);
+                            Fragment novaAlocacaoFragment = new AlocacaoFragment();
 
-                        novaAlocacaoFragment.setArguments(argsaLocacaoFragment);
-                        transaction.addToBackStack(null);
-                        transaction.replace(R.id.container, novaAlocacaoFragment);
-                        transaction.commit();
+                            novaAlocacaoFragment.setArguments(argsaLocacaoFragment);
+                            transaction.addToBackStack(null);
+                            transaction.replace(R.id.container, novaAlocacaoFragment);
+                            transaction.commit();
+                        }
                     }catch (java.lang.NullPointerException objetoNull){
                         Toast.makeText(getActivity(), "É necessário consultar uma Aliquota para realizar a alocação.", Toast.LENGTH_SHORT).show();
                     }
