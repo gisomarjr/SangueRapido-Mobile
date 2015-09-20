@@ -8,8 +8,8 @@ import java.io.Serializable;
 public class Alocacao implements Serializable {
 
    public int idAlocacao;
-   public int posicaoX;
-   public int posicaoY;
+   public String posicaoX;
+   public String posicaoY;
    public boolean status;
    public Caixa caixa;
    public Aliquota aliquota;

@@ -148,7 +148,7 @@ public class AliquotaFragment extends Fragment {
                                 .beginTransaction();
                         Bundle argsaLocacaoFragment = new Bundle();
                         argsaLocacaoFragment.putInt(ARG_SECTION_NUMBER, 5);
-                        argsaLocacaoFragment.putString("idAliquota", itens.aliquota.idAliquota);
+                        argsaLocacaoFragment.putSerializable("itens", itens);
                         Fragment novaAlocacaoFragment = new AlocacaoFragment();
 
                         novaAlocacaoFragment.setArguments(argsaLocacaoFragment);

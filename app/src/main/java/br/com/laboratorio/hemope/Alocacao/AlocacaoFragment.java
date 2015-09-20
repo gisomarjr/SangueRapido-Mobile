@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -46,29 +48,19 @@ public class AlocacaoFragment extends Fragment {
 
         }
 
-        //Qr Code
-        static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
-
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
 
-            if(getArguments().getInt(ARG_SECTION_NUMBER) == 5){
-               /* try {
-                    Intent intent = new Intent(ACTION_SCAN);
-                    intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-                    startActivityForResult(intent, 0);
-                } catch (ActivityNotFoundException anfe) {
-                    showDialog(getActivity(), "Sem Scanner Encontrado!", "Baixar um Scanner agora?", "Sim", "Não").show();
-                }*/
-            }
+            itens = (Itens) getArguments().getSerializable("itens");
+            Toast.makeText(getActivity(),itens.aliquota.idAliquota,Toast.LENGTH_LONG).show();
 
 
-            Toast.makeText(getActivity(),getArguments().getString("idAliquota"),Toast.LENGTH_LONG).show();
-            ((AcaoPrincipalActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
+
+                    ((AcaoPrincipalActivity) activity).onSectionAttached(
+                            getArguments().getInt(ARG_SECTION_NUMBER));
         }
 
 
@@ -102,43 +94,22 @@ public class AlocacaoFragment extends Fragment {
                                  Bundle savedInstanceState) {
 
             alocacaoView = inflater.inflate(R.layout.fragment_alocacao, container, false);
+            TextView textFreezer = (TextView) alocacaoView.findViewById(R.id.dadosFreezer);
+            TextView textGaveta = (TextView) alocacaoView.findViewById(R.id.dadosGaveta);
+            TextView textCaixa = (TextView) alocacaoView.findViewById(R.id.dadosCaixa);
+            TextView textPosicao = (TextView) alocacaoView.findViewById(R.id.dadosPosicao);
+
+            textFreezer.setText("Freezer: " +itens.aliquota.alocacao.caixa.gaveta.freezer.codigo);
+            textGaveta.setText(String.valueOf("Gaveta: "+itens.aliquota.alocacao.caixa.gaveta.idGaveta));
+            textCaixa.setText(String.valueOf("Caixa: "+itens.aliquota.alocacao.caixa.idCaixa));
+            textPosicao.setText("Posição: " +itens.aliquota.alocacao.posicaoY + " - " + itens.aliquota.alocacao.posicaoX);
+
             return alocacaoView;
         }
 
-        @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
-            if (requestCode == 0) {
-                if (resultCode == Activity.RESULT_OK) {
-                    String idAliquota = intent.getStringExtra("SCAN_RESULT");
-                    String formato = intent.getStringExtra("SCAN_RESULT_FORMAT").trim();
 
-                    Log.e("qtdFormato",formato.length()+"");
-                    Log.e("formato",formato);
-
-                    //Verifico se é um QRCODE
-                    if(formato.equals("QR_CODE")) {
-
-                         try{
-                             //Verifico se é um número
-                             if(Integer.parseInt(idAliquota) > 0) {
-                                    consultarAliquota(idAliquota);
-                             }else{
-                                 Toast.makeText(getActivity(), "ID da Aliquota Inválido", Toast.LENGTH_LONG).show();
-                             }
-
-                         } catch (NumberFormatException e) {
-                             Toast.makeText(getActivity(), "QRCODE inválido.", Toast.LENGTH_LONG).show();
-                         }
-
-                       }else{
-                        Toast.makeText(getActivity(), "Formato não reconhecido para consultar uma Aliquota :" + formato , Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        }
-
-        public void consultarAliquota(String idAliquota){
+    public void consultarAliquota(String idAliquota){
 
             task = new DownloadAliquotaTask();
             task.execute(idAliquota);
@@ -181,6 +152,8 @@ public class AlocacaoFragment extends Fragment {
                 preencherActivity();
             }
     }
+
+
 
 
     public void preencherActivity(){
