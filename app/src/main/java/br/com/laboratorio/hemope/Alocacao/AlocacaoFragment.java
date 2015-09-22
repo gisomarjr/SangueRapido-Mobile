@@ -17,7 +17,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +29,10 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
+import br.com.laboratorio.hemope.Model.Freezer;
 import br.com.laboratorio.hemope.Model.Itens;
 import br.com.laboratorio.hemope.R;
 import br.com.laboratorio.hemope.View.SlidingTabLayout;
@@ -39,7 +43,7 @@ public class AlocacaoFragment extends Fragment {
         View alocacaoView;
         ViewPager viewPager;
         SlidingTabLayout mSlidingTabLayout;
-        DownloadAliquotaTask task;
+        DownloadFreezerTask task;
 
         Itens itens;
         ProgressDialog progressDialog;
@@ -56,8 +60,6 @@ public class AlocacaoFragment extends Fragment {
 
             itens = (Itens) getArguments().getSerializable("itens");
             Toast.makeText(getActivity(),itens.aliquota.idAliquota,Toast.LENGTH_LONG).show();
-
-
 
                     ((AcaoPrincipalActivity) activity).onSectionAttached(
                             getArguments().getInt(ARG_SECTION_NUMBER));
@@ -104,26 +106,51 @@ public class AlocacaoFragment extends Fragment {
             textCaixa.setText(String.valueOf("Caixa: "+itens.aliquota.alocacao.caixa.idCaixa));
             textPosicao.setText("Posição: " +itens.aliquota.alocacao.posicaoY + " - " + itens.aliquota.alocacao.posicaoX);
 
+            final ArrayList<String> freezerArrayList = new ArrayList<>();
+
+            freezerArrayList.add(itens.aliquota.alocacao.caixa.gaveta.freezer.codigo);
+            freezerArrayList.add(itens.aliquota.alocacao.caixa.gaveta.freezer.codigo);
+            freezerArrayList.add(itens.aliquota.alocacao.caixa.gaveta.freezer.codigo);
+
+            //Adapter Freezer
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, freezerArrayList);
+            final Spinner spinner = (Spinner) alocacaoView.findViewById(R.id.spinnerFreezer);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                    Toast.makeText(getActivity(), ""+freezerArrayList.get(pos), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    Toast.makeText(getActivity(), "Selections cleared.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
             return alocacaoView;
         }
 
 
 
-    public void consultarAliquota(String idAliquota){
+        /*public void consultarAliquota(String idAliquota){
 
-            task = new DownloadAliquotaTask();
-            task.execute(idAliquota);
-        }
+                task = new DownloadAliquotaTask();
+                task.execute(idAliquota);
+        }*/
 
 
-        class DownloadAliquotaTask extends AsyncTask<String, Void, Itens> {
+        class DownloadFreezerTask extends AsyncTask<String, Void, Itens> {
 
             @Override
-            protected Itens doInBackground(String... pesquisa) {
+            protected Itens doInBackground(String... arrayCodigosFreezer) {
                 OkHttpClient client = new OkHttpClient();
 
                 Request request = new Request.Builder()
-                        .url("https://www.dropbox.com/s/10enzhvm6lnb0j6/aliquota.json?dl=1")
+                        .url("")
                         .build();
 
                 try {
@@ -141,22 +168,22 @@ public class AlocacaoFragment extends Fragment {
 
             @Override
             protected void onPreExecute(){
-                progressDialog = ProgressDialog.show(getActivity(), "Aguarde...", "Carregando dados da Alocação...", true);
+                progressDialog = ProgressDialog.show(getActivity(), "Aguarde...", "Carregando Freezer...", true);
                 progressDialog.setCancelable(false);
             }
 
             @Override
-            protected void onPostExecute(Itens aliquota) {
-                super.onPostExecute(aliquota);
+            protected void onPostExecute(Itens freezer) {
+                super.onPostExecute(freezer);
                 progressDialog.dismiss();
-                preencherActivity();
+                preencherSpinnerFreezer();
             }
     }
 
 
 
 
-    public void preencherActivity(){
+    public void preencherSpinnerFreezer(){
 
     try {
 

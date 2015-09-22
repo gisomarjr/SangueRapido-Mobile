@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
-import br.com.laboratorio.hemope.Alocacao.AlocacaoFragment;
 import br.com.laboratorio.hemope.Amostra.DetalheAmostraFragment;
 import br.com.laboratorio.hemope.Diagnostico.DetalheDiagnosticoActivity;
 import br.com.laboratorio.hemope.Diagnostico.DetalheDiagnosticoFragment;
@@ -81,9 +80,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
             case 4:
                 mTitle = getString(R.string.titulo_sessao_diagnostico);
                 break;
-            case 5:
-                mTitle = getString(R.string.titulo_sessao_alocacao);
-                break;
+
         }
     }
 
@@ -226,12 +223,6 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     diagnosticosFragment.setArguments(argsdiagnosticoFragment);
                     return diagnosticosFragment;
 
-                case 5:
-                    AlocacaoFragment alocacaoFragment = new AlocacaoFragment();
-                    Bundle argsalocacaoFragment = new Bundle();
-                    argsalocacaoFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
-                    alocacaoFragment.setArguments(argsalocacaoFragment);
-                    return alocacaoFragment;
 
 
                 default:

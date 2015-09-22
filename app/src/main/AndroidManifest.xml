@@ -21,17 +21,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.com.laboratorio.hemope.Diagnostico.DiagnosticoActivity" />
         </activity>
-        <activity
-            android:name=".Paciente.PacienteActivity"
-            android:label="@string/app_name" >
-        </activity>
+
         <activity
             android:name=".Paciente.DetalhePacienteActivity"
             android:label="@string/title_activity_detalhe_paciente"
-            android:parentActivityName=".Paciente.PacienteActivity" >
+            android:parentActivityName=".AcaoPrincipalActivity" >
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.com.laboratorio.hemope.Paciente.PacienteActivity" />
+                android:name="android.support.PARENT_ACTIVI/TY"
+                android:value="br.com.laboratorio.hemope.AcaoPrincipalActivity" />
         </activity>
         <activity
             android:name=".AcaoPrincipalActivity"
@@ -48,10 +45,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Alocacao.AlocacaoActivity"
-            android:label="@string/title_activity_alocacao" >
-        </activity>
+
     </application>
 
 </manifest>
