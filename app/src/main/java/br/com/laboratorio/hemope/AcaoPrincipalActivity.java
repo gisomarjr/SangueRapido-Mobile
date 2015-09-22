@@ -58,7 +58,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
     }
 
     @Override
-    public void onNavigationDrawerItemSelected(int position) {
+    public void onNavigationDrawerItemSelected(int position){
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
@@ -224,6 +224,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     return diagnosticosFragment;
 
 
+
                 default:
                     PlaceholderFragment fragment = new PlaceholderFragment();
                     Bundle argsfragment = new Bundle();
@@ -245,15 +246,12 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                                  Bundle savedInstanceState) {
 
             View rootView = inflater.inflate(R.layout.fragment_acao_principal, container, false);
-
-
             return rootView;
         }
 
         @Override
-        public void onAttach(Activity activity) {
+        public void onAttach(Activity activity){
             super.onAttach(activity);
-
             ((AcaoPrincipalActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }

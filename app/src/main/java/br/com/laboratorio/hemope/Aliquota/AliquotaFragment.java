@@ -10,11 +10,18 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +33,7 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
+import br.com.laboratorio.hemope.Alocacao.AlocacaoFragment;
 import br.com.laboratorio.hemope.Model.Aliquota;
 import br.com.laboratorio.hemope.Model.Alocacao;
 import br.com.laboratorio.hemope.Model.Amostra;
@@ -56,6 +64,15 @@ public class AliquotaFragment extends Fragment {
 
         }
 
+        public void lerQrCod(){
+            try {
+                Intent intent = new Intent(ACTION_SCAN);
+                intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+                startActivityForResult(intent, 0);
+            } catch (ActivityNotFoundException anfe) {
+                showDialog(getActivity(), "Sem Scanner Encontrado!", "Baixar um Scanner agora?", "Sim", "Não").show();
+            }
+        }
 
         //Qr Code
         static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
@@ -67,13 +84,7 @@ public class AliquotaFragment extends Fragment {
             super.onAttach(activity);
 
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 3){
-                try {
-                    Intent intent = new Intent(ACTION_SCAN);
-                    intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-                    startActivityForResult(intent, 0);
-                } catch (ActivityNotFoundException anfe) {
-                    showDialog(getActivity(), "Sem Scanner Encontrado!", "Baixar um Scanner agora?", "Sim", "Não").show();
-                }
+                lerQrCod();
             }
 
             ((AcaoPrincipalActivity) activity).onSectionAttached(
@@ -109,9 +120,51 @@ public class AliquotaFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            setHasOptionsMenu(true);
 
             aliquotaView = inflater.inflate(R.layout.fragment_aliquota, container, false);
+
             return aliquotaView;
+        }
+
+        @Override
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+            // TODO Add your menu entries here
+            inflater.inflate(R.menu.menu_aliquota, menu);
+            super.onCreateOptionsMenu(menu, inflater);
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.novaConsultaAliquota:
+                    lerQrCod();
+                    break;
+
+                case R.id.novaAlocacaoAliquota:
+
+                    try {
+                        if(itens.aliquota.idAliquota != null) {
+                            FragmentTransaction transaction = getFragmentManager()
+                                    .beginTransaction();
+                            Bundle argsaLocacaoFragment = new Bundle();
+                            argsaLocacaoFragment.putInt(ARG_SECTION_NUMBER, 5);
+                            argsaLocacaoFragment.putSerializable("itens", itens);
+                            Fragment novaAlocacaoFragment = new AlocacaoFragment();
+
+                            novaAlocacaoFragment.setArguments(argsaLocacaoFragment);
+                            transaction.addToBackStack(null);
+                            transaction.replace(R.id.container, novaAlocacaoFragment);
+                            transaction.commit();
+                        }
+                    }catch (java.lang.NullPointerException objetoNull){
+                        Toast.makeText(getActivity(), "É necessário consultar uma Aliquota para realizar a alocação.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    break;
+            }
+            return true;
+
         }
 
         @Override
@@ -265,7 +318,7 @@ public class AliquotaFragment extends Fragment {
         txtSiglaDiagnostico.setText("Sigla Diagnóstico: " + diagnostico.sigla);
         txtCodCid.setText("Cod. CID: " + cid.codigo);
         txtDescricaoCid.setText("Sigla CID: " + cid.descricao);
-        //aliquotaView.findViewById(R.)
+        Toast.makeText(getActivity(), "Carregamento Concluído.", Toast.LENGTH_SHORT).show();
 
     }catch (Exception e){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
