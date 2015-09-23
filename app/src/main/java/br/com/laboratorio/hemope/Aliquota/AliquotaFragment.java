@@ -10,11 +10,19 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +34,7 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
+import br.com.laboratorio.hemope.Alocacao.AlocacaoFragment;
 import br.com.laboratorio.hemope.Model.Aliquota;
 import br.com.laboratorio.hemope.Model.Alocacao;
 import br.com.laboratorio.hemope.Model.Amostra;
@@ -39,23 +48,33 @@ import br.com.laboratorio.hemope.Model.LocalProcedencia;
 import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.Model.TipoAmostra;
 import br.com.laboratorio.hemope.R;
+import br.com.laboratorio.hemope.Util;
 import br.com.laboratorio.hemope.View.SlidingTabLayout;
 
 
 public class AliquotaFragment extends Fragment {
 
-        View aliquotaView;
+        static View aliquotaView;
         ViewPager viewPager;
         SlidingTabLayout mSlidingTabLayout;
-        DownloadAliquotaTask task;
 
-        Itens itens;
+
+        static Itens _itens;
         ProgressDialog progressDialog;
 
         public AliquotaFragment() {
 
         }
 
+        public void lerQrCod(){
+            try {
+                Intent intent = new Intent(ACTION_SCAN);
+                intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+                startActivityForResult(intent, 0);
+            } catch (ActivityNotFoundException anfe) {
+                Util.showDialog(getActivity(), "Sem Scanner Encontrado!", "Baixar um Scanner agora?", "Sim", "Não").show();
+            }
+        }
 
         //Qr Code
         static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
@@ -67,13 +86,7 @@ public class AliquotaFragment extends Fragment {
             super.onAttach(activity);
 
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 3){
-                try {
-                    Intent intent = new Intent(ACTION_SCAN);
-                    intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-                    startActivityForResult(intent, 0);
-                } catch (ActivityNotFoundException anfe) {
-                    showDialog(getActivity(), "Sem Scanner Encontrado!", "Baixar um Scanner agora?", "Sim", "Não").show();
-                }
+                lerQrCod();
             }
 
             ((AcaoPrincipalActivity) activity).onSectionAttached(
@@ -81,37 +94,54 @@ public class AliquotaFragment extends Fragment {
         }
 
 
-
-        private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
-            AlertDialog.Builder downloadDialog = new AlertDialog.Builder(act);
-            downloadDialog.setTitle(title);
-            downloadDialog.setMessage(message);
-            downloadDialog.setPositiveButton(buttonYes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Uri uri = Uri.parse("market://search?q=pname:" + "com.google.zxing.client.android");
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    try {
-                        act.startActivity(intent);
-                    } catch (ActivityNotFoundException anfe) {
-
-                    }
-                }
-            });
-            downloadDialog.setNegativeButton(buttonNo, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                }
-            });
-            return downloadDialog.show();
-        }
-
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            setHasOptionsMenu(true);
 
             aliquotaView = inflater.inflate(R.layout.fragment_aliquota, container, false);
+
             return aliquotaView;
+        }
+
+        @Override
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+            // TODO Add your menu entries here
+            inflater.inflate(R.menu.menu_aliquota, menu);
+            super.onCreateOptionsMenu(menu, inflater);
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.novaConsultaAliquota:
+                    lerQrCod();
+                    break;
+
+                case R.id.novaAlocacaoAliquota:
+
+                    try {
+                        if(_itens.aliquota.idAliquota != null) {
+                            FragmentTransaction transaction = getFragmentManager()
+                                    .beginTransaction();
+                            Bundle argsaLocacaoFragment = new Bundle();
+                            argsaLocacaoFragment.putInt(ARG_SECTION_NUMBER, 5);
+                            argsaLocacaoFragment.putSerializable("itens", _itens);
+                            Fragment novaAlocacaoFragment = new AlocacaoFragment();
+
+                            novaAlocacaoFragment.setArguments(argsaLocacaoFragment);
+                            transaction.addToBackStack(null);
+                            transaction.replace(R.id.container, novaAlocacaoFragment);
+                            transaction.commit();
+                        }
+                    }catch (java.lang.NullPointerException objetoNull){
+                        Toast.makeText(getActivity(), "É necessário consultar uma Aliquota para realizar a alocação.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    break;
+            }
+            return true;
+
         }
 
         @Override
@@ -131,7 +161,10 @@ public class AliquotaFragment extends Fragment {
                          try{
                              //Verifico se é um número
                              if(Integer.parseInt(idAliquota) > 0) {
-                                    consultarAliquota(idAliquota);
+
+                                 Util.DownloadTask downloadTask = new Util.DownloadTask("Carregando","Aguarde dados da Aliquota...","aliquota",_itens,getActivity());
+                                 downloadTask.execute("https://www.dropbox.com/s/10enzhvm6lnb0j6/aliquota.json?dl=1");
+
                              }else{
                                  Toast.makeText(getActivity(), "ID da Aliquota Inválido", Toast.LENGTH_LONG).show();
                              }
@@ -147,53 +180,10 @@ public class AliquotaFragment extends Fragment {
             }
         }
 
-        public void consultarAliquota(String idAliquota){
 
 
-            task = new DownloadAliquotaTask();
-            task.execute(idAliquota);
-        }
 
-
-        class DownloadAliquotaTask extends AsyncTask<String, Void, Itens> {
-
-            @Override
-            protected Itens doInBackground(String... pesquisa) {
-                OkHttpClient client = new OkHttpClient();
-
-                Request request = new Request.Builder()
-                        .url("https://www.dropbox.com/s/10enzhvm6lnb0j6/aliquota.json?dl=1")
-                        .build();
-
-                try {
-                    Response response = client.newCall(request).execute();
-                    String json = response.body().string();
-
-                    Gson gson = new Gson();
-                    itens = gson.fromJson(json, Itens.class);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return itens;
-            }
-
-            @Override
-            protected void onPreExecute(){
-                progressDialog = ProgressDialog.show(getActivity(), "Aguarde...", "Carregando dados da Aliquota...", true);
-                progressDialog.setCancelable(false);
-            }
-
-            @Override
-            protected void onPostExecute(Itens aliquota) {
-                super.onPostExecute(aliquota);
-                progressDialog.dismiss();
-                preencherActivity();
-            }
-    }
-
-
-    public void preencherActivity(){
+    public static void preencherActivityAliquota(Itens itens, FragmentActivity context){
 
         Paciente paciente = new Paciente();
         Aliquota aliquota = new Aliquota();
@@ -208,6 +198,7 @@ public class AliquotaFragment extends Fragment {
         LocalProcedencia localProcedencia = new LocalProcedencia();
 
     try {
+        _itens = itens;
         aliquota = itens.aliquota;
         amostra = itens.aliquota.amostra;
         alocacao = itens.aliquota.alocacao;
@@ -265,20 +256,12 @@ public class AliquotaFragment extends Fragment {
         txtSiglaDiagnostico.setText("Sigla Diagnóstico: " + diagnostico.sigla);
         txtCodCid.setText("Cod. CID: " + cid.codigo);
         txtDescricaoCid.setText("Sigla CID: " + cid.descricao);
-        //aliquotaView.findViewById(R.)
+        Toast.makeText(context, "Carregamento Concluído.", Toast.LENGTH_SHORT).show();
 
     }catch (Exception e){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Conexão")
-                .setMessage("Erro ao tentar se conectar com os Servidores.")
-                .setCancelable(false)
-                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
+
+        Util.exibirMensagem("conexão","Erro ao tentar se conectar com os Servidores.",context);
+
     }
 
     }

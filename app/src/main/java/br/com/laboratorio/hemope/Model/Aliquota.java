@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class Aliquota implements Serializable {
 
-   public int idAliquota;
+   public String idAliquota;
    public String dataEntrada;
    public String dataDescarte;
    public String situacao;
