@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ import br.com.laboratorio.hemope.AcaoPrincipalActivity;
 import br.com.laboratorio.hemope.Model.Freezer;
 import br.com.laboratorio.hemope.Model.Itens;
 import br.com.laboratorio.hemope.R;
+import br.com.laboratorio.hemope.Util;
 import br.com.laboratorio.hemope.View.SlidingTabLayout;
 
 
@@ -43,7 +45,6 @@ public class AlocacaoFragment extends Fragment {
         View alocacaoView;
         ViewPager viewPager;
         SlidingTabLayout mSlidingTabLayout;
-        DownloadFreezerTask task;
 
         Itens itens;
         ProgressDialog progressDialog;
@@ -112,6 +113,9 @@ public class AlocacaoFragment extends Fragment {
             freezerArrayList.add(itens.aliquota.alocacao.caixa.gaveta.freezer.codigo);
             freezerArrayList.add(itens.aliquota.alocacao.caixa.gaveta.freezer.codigo);
 
+            Util.DownloadTask downloadTask = new Util.DownloadTask("Carregando","Aguarde...","freezer",itens,getActivity());
+            downloadTask.execute("https://www.dropbox.com/s/z8a4jj9cr9719t1/usualios_login.json?dl=1");
+
             //Adapter Freezer
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, freezerArrayList);
             final Spinner spinner = (Spinner) alocacaoView.findViewById(R.id.spinnerFreezer);
@@ -136,73 +140,21 @@ public class AlocacaoFragment extends Fragment {
 
 
 
-        /*public void consultarAliquota(String idAliquota){
 
-                task = new DownloadAliquotaTask();
-                task.execute(idAliquota);
-        }*/
-
-
-        class DownloadFreezerTask extends AsyncTask<String, Void, Itens> {
-
-            @Override
-            protected Itens doInBackground(String... arrayCodigosFreezer) {
-                OkHttpClient client = new OkHttpClient();
-
-                Request request = new Request.Builder()
-                        .url("")
-                        .build();
-
-                try {
-                    Response response = client.newCall(request).execute();
-                    String json = response.body().string();
-
-                    Gson gson = new Gson();
-                    itens = gson.fromJson(json, Itens.class);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return itens;
-            }
-
-            @Override
-            protected void onPreExecute(){
-                progressDialog = ProgressDialog.show(getActivity(), "Aguarde...", "Carregando Freezer...", true);
-                progressDialog.setCancelable(false);
-            }
-
-            @Override
-            protected void onPostExecute(Itens freezer) {
-                super.onPostExecute(freezer);
-                progressDialog.dismiss();
-                preencherSpinnerFreezer();
-            }
-    }
-
-
-
-
-    public void preencherSpinnerFreezer(){
+    public static void preencherSpinnerFreezer(Itens itensCarregados, FragmentActivity context){
 
     try {
 
+        Util.exibirMensagem("Sucesso",itensCarregados.usuario.login,context);
 
         }catch (Exception e){
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Conexão")
-                    .setMessage("Erro ao tentar se conectar com os Servidores.")
-                    .setCancelable(false)
-                    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
+        Util.exibirMensagem("Conexão","Erro ao tentar se conectar com os Servidores.",context);
+
         }
 
     }
+
+
 
 
 }

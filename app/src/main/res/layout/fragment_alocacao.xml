@@ -15,6 +15,13 @@
         tools:context="br.com.laboratorio.hemope.Alocacao.AlocacaoFragment"
         android:id="@+id/fragment_alocacao">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView1"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/linha_azul"
+            android:paddingBottom="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,6 +60,15 @@
             android:id="@+id/dadosPosicao"
             android:layout_gravity="center_horizontal" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/linha_azul"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,7 +90,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinnerFreezer"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:spinnerMode="dialog"/>
 
 
         <TextView
@@ -89,7 +106,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinnerGaveta"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:spinnerMode="dialog"/>
 
 
         <TextView
