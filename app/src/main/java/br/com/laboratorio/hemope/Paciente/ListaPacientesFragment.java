@@ -32,6 +32,7 @@ import br.com.laboratorio.hemope.AcaoPrincipalActivity;
 import br.com.laboratorio.hemope.Model.Itens;
 import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.R;
+import br.com.laboratorio.hemope.Util;
 import br.com.laboratorio.hemope.View.AoClicarNoItemListener;
 
 
@@ -205,12 +206,13 @@ public class ListaPacientesFragment extends Fragment {
 
     private void preencherLista() {
 
-        List<Paciente> pacientes = new ArrayList<>();
+
+
 
        try {
-               if (pacientes != null) {
+               if (mListaPacientes != null) {
                    for (Paciente paciente : itensPaciente.paciente) {
-                       pacientes.add(paciente);
+
                        mListaPacientes.add(paciente);
                    }
 
@@ -218,27 +220,18 @@ public class ListaPacientesFragment extends Fragment {
                    Toast.makeText(getActivity(), "Não encontramos Resultados", Toast.LENGTH_LONG).show();
                }
            }catch (Exception e){
-               AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-               builder.setTitle("Conexão")
-                       .setMessage("Erro ao tentar se conectar com os Servidores.")
-                       .setCancelable(false)
-                       .setNegativeButton("OK", new DialogInterface.OnClickListener() {
-                           public void onClick(DialogInterface dialog, int id) {
-                               dialog.cancel();
-                           }
-                       });
-               AlertDialog alert = builder.create();
-               alert.show();
 
-       }
+                Util.exibirMensagem("Conexão","Erro ao tentar se conectar com os Servidores.",getActivity());
 
-        listView.setAdapter(new PacientesAdapter(getActivity(), pacientes));
+            }
+
+        listView.setAdapter(new PacientesAdapter(getActivity(), mListaPacientes));
 
         // Se é tablet e existe algum livro na lista, selecione-o
         if (getActivity() instanceof AoClicarNoItemListener
                 && getResources().getBoolean(R.bool.isTablet)
-                && pacientes.size() > 0){
-            ((AoClicarNoItemListener)getActivity()).onClick(pacientes.get(0));
+                && mListaPacientes.size() > 0){
+            ((AoClicarNoItemListener)getActivity()).onClick(mListaPacientes.get(0));
         }
     }
 }
