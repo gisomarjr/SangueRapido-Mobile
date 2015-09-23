@@ -1,9 +1,13 @@
 package br.com.laboratorio.hemope;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 
@@ -14,6 +18,7 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
+import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
 import br.com.laboratorio.hemope.Alocacao.AlocacaoFragment;
 import br.com.laboratorio.hemope.Model.Itens;
 
@@ -94,6 +99,9 @@ public class Util {
                     break;
                 case "caixa":
                     break;
+                case  "aliquota":
+                    AliquotaFragment.preencherActivityAliquota(_itens,_context);
+                    break;
             }
 
         }
@@ -120,6 +128,29 @@ public class Util {
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
+        AlertDialog.Builder downloadDialog = new AlertDialog.Builder(act);
+        downloadDialog.setTitle(title);
+        downloadDialog.setMessage(message);
+        downloadDialog.setPositiveButton(buttonYes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Uri uri = Uri.parse("market://search?q=pname:" + "com.google.zxing.client.android");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                try {
+                    act.startActivity(intent);
+                } catch (ActivityNotFoundException anfe) {
+
+                }
+            }
+        });
+        downloadDialog.setNegativeButton(buttonNo, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        return downloadDialog.show();
     }
 
 }
