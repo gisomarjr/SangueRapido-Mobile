@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageView1"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/linha_azul"
+
             android:paddingBottom="20dp" />
 
         <TextView
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageView2"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/linha_azul"
+
             android:paddingTop="10dp"
             android:paddingBottom="10dp" />
 

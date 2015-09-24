@@ -30,5 +30,8 @@ public class Itens implements Serializable {
     @SerializedName("pacientes")
     public List<Paciente> paciente;
     public boolean isSuccess;
+    public boolean errorCode;
+    public String errorMessage;
+
 
 }
