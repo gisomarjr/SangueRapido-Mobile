@@ -64,28 +64,27 @@ public class DetalheAmostraFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_detalhe_amostra, container, false);
 
-        //ImageView imgCapa = (ImageView) view.findViewById(R.id.imgCapa);
-
-       // TextView txtNomePaciente = (TextView) view.findViewById(R.id.labelNomePaciente);
-        //TextView txtCpf = (TextView) view.findViewById(R.id.labelCpf);
-       // TextView txtCodigoAmostra = (TextView) view.findViewById(R.id.labelCodAmostra);
+       TextView txtNomePaciente = (TextView) view.findViewById(R.id.labelNomePaciente);
         TextView txtCodigoAmostra = (TextView) view.findViewById(R.id.labelCodigoAmostra);
-        TextView txtSigla = (TextView) view.findViewById(R.id.labelSigla);
-       // TextView txtNome = (TextView) view.findViewById(R.id.labelNomeAmostra);
-       // TextView txtCodigoCid = (TextView) view.findViewById(R.id.labelCodigoCid);
-       // TextView txtDescricaoCid = (TextView) view.findViewById(R.id.labelDescricaoCid);
+        TextView txtTipoAmostra = (TextView) view.findViewById(R.id.labelTipoAmostra);
+        TextView txtLocalProc = (TextView) view.findViewById(R.id.labelLocalProcedencia);
+        TextView txtDataEntrada = (TextView) view.findViewById(R.id.labelDataEntrada);
+        TextView txtCodigoDiagnostico = (TextView) view.findViewById(R.id.labelCodigoDiagnostico);
+        TextView txtSigla = (TextView) view.findViewById(R.id.labelSiglaDiagnostico);
+        TextView txtNomeDiagnostico = (TextView) view.findViewById(R.id.labelNomeDiagnostico);
+        TextView txtCodigoCid = (TextView) view.findViewById(R.id.labelCodigoCid);
+        TextView txtDescricaoCid = (TextView) view.findViewById(R.id.labelDescricaoCid);
 
-
-
-        /*txtNomePaciente.setText("Nome do Paciente: "+paciente.nome);
-        txtCpf.setText("CPF: "+paciente.cpf);
-        txtCodigoAmostra.setText("Cód. Amostra: "+amostra.codigo);*/
         txtCodigoAmostra.setText("Cód. Diagnóstico: "+amostra.codigo);
-       // txtSigla.setText("Sigla Diagnóstico: "+amostra.sigla);
-        //txtNome.setText("Descrição Diagnóstico: "+amostra.nome);
-        /*txtCodigoCid.setText("Código CID: "+amostra.cid.codigo);
-        txtDescricaoCid.setText("Descrição CID: "+amostra.cid.descricao);*/
-
+        txtNomePaciente.setText("Paciente: "+paciente.nome);
+        txtTipoAmostra.setText("Tipo da amostra: "+tipoAmostra.nome);
+        txtLocalProc.setText("Local Procedência: "+localProcedencia.nome);
+        txtDataEntrada.setText("Data de Entrada: "+amostra.dataEntrada);
+        txtCodigoDiagnostico.setText("Código diagnóstico: "+diagnostico.codigo);
+        txtSigla.setText("Sigla diagnóstico: "+diagnostico.sigla);
+        txtNomeDiagnostico.setText("Desc. Diagnóstico: "+diagnostico.nome);
+        txtCodigoCid.setText("Cód. CID: "+cid.codigo);
+        txtDescricaoCid.setText("Descrição CID: "+cid.descricao);
 
         return view;
     }

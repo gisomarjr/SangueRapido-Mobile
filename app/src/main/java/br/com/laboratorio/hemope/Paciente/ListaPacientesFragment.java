@@ -1,12 +1,10 @@
 package br.com.laboratorio.hemope.Paciente;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
@@ -19,14 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
 import br.com.laboratorio.hemope.Model.Itens;
@@ -37,10 +28,10 @@ import br.com.laboratorio.hemope.View.AoClicarNoItemListener;
 
 
 public class ListaPacientesFragment extends Fragment {
-
-    ListView listView;
-    Itens itensPaciente;
-    DownloadPacienteTask task;
+    //"https://www.dropbox.com/s/0j1hn0785s355td/pessoaJson.json?dl=1"
+    static ListView listView;
+    Itens itens;
+   // DownloadPacienteTask task;
     ProgressDialog progressDialog;
 
     static String mSavedName;
@@ -86,8 +77,8 @@ public class ListaPacientesFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String pesquisaUsuario) {
 
-                task = new DownloadPacienteTask();
-                task.execute(pesquisaUsuario);
+                Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Consultando Pacientes...","consultarPacientes",itens,getActivity());
+                downloadTask.execute("https://www.dropbox.com/s/0j1hn0785s355td/pessoaJson.json?dl=1");
 
 
                 return false;
@@ -142,10 +133,10 @@ public class ListaPacientesFragment extends Fragment {
         //preencherLista();
         //Pesquisar no banco ---
 
-        if (itensPaciente == null) {
-            if (task == null) {
+        if (itens == null) {
+
                 Toast.makeText(getActivity(), "Para começar, clique na lupa e digite o nome do paciente.", Toast.LENGTH_LONG).show();
-            }
+
         }
 
         if (mListaPacientes != null){
@@ -167,71 +158,33 @@ public class ListaPacientesFragment extends Fragment {
 
     }
 
-    class DownloadPacienteTask extends AsyncTask<String, Void, Itens>{
 
-        @Override
-        protected Itens doInBackground(String... pesquisa) {
-            OkHttpClient client = new OkHttpClient();
-
-            Request request = new Request.Builder()
-                    .url("https://www.dropbox.com/s/0j1hn0785s355td/pessoaJson.json?dl=1")
-                    .build();
-
-            try {
-                Response response = client.newCall(request).execute();
-                String json = response.body().string();
-
-                Gson gson = new Gson();
-                itensPaciente = gson.fromJson(json, Itens.class);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return itensPaciente;
-        }
-
-        @Override
-        protected void onPreExecute(){
-            progressDialog = ProgressDialog.show(getActivity(), "Aguarde...", "Carregando Pacientes...", true);
-            progressDialog.setCancelable(false);
-        }
-
-        @Override
-        protected void onPostExecute(Itens paciente) {
-            super.onPostExecute(paciente);
-            progressDialog.dismiss();
-            preencherLista();
-        }
-    }
-
-    private void preencherLista() {
-
-
-
+    static public void preencherLista(Itens itens, FragmentActivity context) {
 
        try {
+
                if (mListaPacientes != null) {
-                   for (Paciente paciente : itensPaciente.paciente) {
+                   for (Paciente paciente : itens.paciente) {
 
                        mListaPacientes.add(paciente);
                    }
 
                } else {
-                   Toast.makeText(getActivity(), "Não encontramos Resultados", Toast.LENGTH_LONG).show();
+                   Toast.makeText(context, "Não encontramos Resultados", Toast.LENGTH_LONG).show();
                }
            }catch (Exception e){
 
-                Util.exibirMensagem("Conexão","Erro ao tentar se conectar com os Servidores.",getActivity());
+                Util.exibirMensagem("Conexão","Erro ao tentar se conectar com os Servidores.",context);
 
             }
 
-        listView.setAdapter(new PacientesAdapter(getActivity(), mListaPacientes));
+        listView.setAdapter(new PacientesAdapter(context, mListaPacientes));
 
         // Se é tablet e existe algum livro na lista, selecione-o
-        if (getActivity() instanceof AoClicarNoItemListener
-                && getResources().getBoolean(R.bool.isTablet)
+        if (context instanceof AoClicarNoItemListener
+                && context.getResources().getBoolean(R.bool.isTablet)
                 && mListaPacientes.size() > 0){
-            ((AoClicarNoItemListener)getActivity()).onClick(mListaPacientes.get(0));
+            ((AoClicarNoItemListener)context).onClick(mListaPacientes.get(0));
         }
     }
 }

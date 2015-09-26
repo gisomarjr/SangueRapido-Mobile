@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -20,7 +19,11 @@ import java.io.IOException;
 
 import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
 import br.com.laboratorio.hemope.Alocacao.AlocacaoFragment;
+import br.com.laboratorio.hemope.Amostra.ListaAmostrasFragment;
+import br.com.laboratorio.hemope.Diagnostico.ListaDiagnosticosFragment;
+import br.com.laboratorio.hemope.Login.LoginActivity;
 import br.com.laboratorio.hemope.Model.Itens;
+import br.com.laboratorio.hemope.Paciente.ListaPacientesFragment;
 
 /**
  * Created by gisomar on 22/09/15.
@@ -101,6 +104,18 @@ public class Util {
                     break;
                 case  "aliquota":
                     AliquotaFragment.preencherActivityAliquota(_itens,_context);
+                    break;
+                case "verificaLogin":
+                    LoginActivity.verificaLogin(_itens,_context);
+                    break;
+                case "consultarPacientes":
+                    ListaPacientesFragment.preencherLista(_itens, _context);
+                    break;
+                case "consultarDiagnosticos":
+                    ListaDiagnosticosFragment.preencherLista(_itens,_context);
+                    break;
+                case "consultarAmostras":
+                    ListaAmostrasFragment.preencherLista(_itens,_context);
                     break;
             }
 
