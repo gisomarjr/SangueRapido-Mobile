@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.laboratorio.hemope.Model.Amostra;
+import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.R;
 
 
@@ -28,17 +29,18 @@ public class AmostrasAdapter extends ArrayAdapter<Amostra>{
         }
 
         ImageView imageView = (ImageView)convertView.findViewById(R.id.imgCapa);
-        TextView txtCodigo = (TextView)convertView.findViewById(R.id.codigo);
-        TextView txtSigla = (TextView)convertView.findViewById(R.id.sigla);
+        TextView txtCodigo = (TextView)convertView.findViewById(R.id.codAmostra);
+        TextView txtPaciente = (TextView)convertView.findViewById(R.id.nomePaciente);
 
 
         Amostra amostra = getItem(position);
-
+        Paciente paciente = new Paciente();
+        paciente = amostra.paciente;
 
         //Log.i("qtdAmostras", itensAmostra.amostra.size() + " - Position: " +position);
 
         txtCodigo.setText(amostra.codigo);
-     //   txtSigla.setText(amostra.sigla);
+        txtPaciente.setText(paciente.nome);
 
         /*//verifico se a imagem é nula
         if(livro.volumes.urlImagens != null) {

@@ -1,12 +1,10 @@
 package br.com.laboratorio.hemope.Diagnostico;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -20,27 +18,20 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
 import br.com.laboratorio.hemope.Model.Diagnostico;
 import br.com.laboratorio.hemope.Model.Itens;
 import br.com.laboratorio.hemope.R;
+import br.com.laboratorio.hemope.Util;
 import br.com.laboratorio.hemope.View.AoClicarNoItemListener;
 
 
 public class ListaDiagnosticosFragment extends Fragment {
-
-    ListView listView;
-    Itens itensDiagnostico;
-    DownloadDiagnosticoTask task;
+//
+static ListView listView;
+    Itens itens;
     ProgressDialog progressDialog;
 
     static String mSavedName;
@@ -86,8 +77,8 @@ public class ListaDiagnosticosFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String pesquisaUsuario) {
 
-                    task = new DownloadDiagnosticoTask();
-                    task.execute(pesquisaUsuario);
+                Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Consultando Diagnostico...","consultarDiagnosticos",itens,getActivity());
+                downloadTask.execute("https://www.dropbox.com/s/vx4e2gqclhpeckk/diagnosticoJSON.json?dl=1");
 
 
                 return false;
@@ -142,10 +133,10 @@ public class ListaDiagnosticosFragment extends Fragment {
         //preencherLista();
         //Pesquisar no banco ---
 
-        if (itensDiagnostico == null) {
-            if (task == null) {
+        if (itens == null) {
+
                 Toast.makeText(getActivity(), "Para começar, clique na lupa e digite o nome do diagnostico.", Toast.LENGTH_LONG).show();
-            }
+
         }
 
         if (mListaDiagnosticos != null){
@@ -167,75 +158,33 @@ public class ListaDiagnosticosFragment extends Fragment {
 
     }
 
-    class DownloadDiagnosticoTask extends AsyncTask<String, Void, Itens>{
 
-        @Override
-        protected Itens doInBackground(String... pesquisa) {
-            OkHttpClient client = new OkHttpClient();
 
-            Request request = new Request.Builder()
-                    .url("https://www.dropbox.com/s/vx4e2gqclhpeckk/diagnosticoJSON.json?dl=1")
-                    .build();
+    public static void preencherLista(Itens itens, FragmentActivity context) {
 
-            try {
-                Response response = client.newCall(request).execute();
-                String json = response.body().string();
+        try {
 
-                Gson gson = new Gson();
-                itensDiagnostico = gson.fromJson(json, Itens.class);
+            if (mListaDiagnosticos != null) {
+                for (Diagnostico diagnostico : itens.diagnosticos) {
 
-            } catch (IOException e) {
-                e.printStackTrace();
+                    mListaDiagnosticos.add(diagnostico);
+                }
+
+            } else {
+                Toast.makeText(context, "Não encontramos Resultados", Toast.LENGTH_LONG).show();
             }
-            return itensDiagnostico;
+        }catch (Exception e){
+
+            Util.exibirMensagem("Conexão", "Erro ao tentar se conectar com os Servidores.", context);
+
         }
 
-        @Override
-        protected void onPreExecute(){
-            progressDialog = ProgressDialog.show(getActivity(), "Aguarde...", "Carregando Diagnosticos...", true);
-            progressDialog.setCancelable(false);
-        }
-
-        @Override
-        protected void onPostExecute(Itens diagnostico) {
-            super.onPostExecute(diagnostico);
-            progressDialog.dismiss();
-            preencherLista();
-        }
-    }
-
-    private void preencherLista() {
-
-        List<Diagnostico> diagnosticos = new ArrayList<>();
-        try{
-        if(diagnosticos != null) {
-            for (Diagnostico diagnostico : itensDiagnostico.diagnosticos) {
-                diagnosticos.add(diagnostico);
-                mListaDiagnosticos.add(diagnostico);
-            }
-
-        }else {
-            Toast.makeText(getActivity(), "Não encontramos Resultados", Toast.LENGTH_LONG).show();
-        }}catch (Exception e) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Conexão")
-                    .setMessage("Erro ao tentar se conectar com os Servidores.")
-                    .setCancelable(false)
-                    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-            }
-        listView.setAdapter(new DiagnosticosAdapter(getActivity(), diagnosticos));
+        listView.setAdapter(new DiagnosticosAdapter(context, mListaDiagnosticos));
 
         // Se é tablet e existe algum livro na lista, selecione-o
-        if (getActivity() instanceof AoClicarNoItemListener
-                && getResources().getBoolean(R.bool.isTablet)
-                && diagnosticos.size() > 0){
-            ((AoClicarNoItemListener)getActivity()).onClick(diagnosticos.get(0));
-        }
-    }
+        if (context instanceof AoClicarNoItemListener
+                && context.getResources().getBoolean(R.bool.isTablet)
+                && mListaDiagnosticos.size() > 0){
+            ((AoClicarNoItemListener)context).onClick(mListaDiagnosticos.get(0));
+        }    }
 }
