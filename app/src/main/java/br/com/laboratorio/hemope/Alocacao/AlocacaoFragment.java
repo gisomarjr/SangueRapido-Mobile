@@ -36,7 +36,11 @@ public class AlocacaoFragment extends Fragment {
         Itens itens;
         ProgressDialog progressDialog;
 
+         static Spinner spinnerGaveta  = null;
+         static Spinner spinnerCaixa  = null;
+
         public AlocacaoFragment() {
+
 
         }
 
@@ -67,9 +71,10 @@ public class AlocacaoFragment extends Fragment {
             textCaixa.setText(String.valueOf("Caixa: "+itens.aliquota.alocacao.caixa.idCaixa));
             textPosicao.setText("Posição: " +itens.aliquota.alocacao.posicaoY + " - " + itens.aliquota.alocacao.posicaoX);
 
+             spinnerGaveta  = (Spinner) alocacaoView.findViewById(R.id.spinnerGaveta);
+             spinnerCaixa  = (Spinner) alocacaoView.findViewById(R.id.spinnerCaixa);
 
-
-            Util.DownloadTask downloadTask = new Util.DownloadTask("Carregando","Aguarde...","freezer",itens,getActivity());
+            Util.DownloadTask downloadTask = new Util.DownloadTask("Carregando dados da Alocação","Aguarde...","freezer",itens,getActivity());
             downloadTask.execute("https://www.dropbox.com/s/7vc1yyk9kot53z0/aliquotaJson.json?dl=1");
 
 
@@ -87,36 +92,14 @@ public class AlocacaoFragment extends Fragment {
         final ArrayList<Gaveta> gavetaArrayList = new ArrayList<>();
         final ArrayList<Caixa> caixaArrayList = new ArrayList<>();
 
-        Freezer freezer = new Freezer();
-        Gaveta gaveta = new Gaveta();
-        Caixa caixa = new Caixa();
-
         for(Freezer f: itensCarregados.freezers){
             freezerArrayList.add(f);
-                /*for(Gaveta g: f.gavetas) {
-                    gavetaArrayList.add(String.valueOf(g.idGaveta));
-                    for(Caixa c: g.caixas){
-                        caixaArrayList.add(String.valueOf(c.idCaixa));
-                    }
-                }*/
         }
 
-        //Adapter Freezer
-        ArrayAdapter<Freezer> adapter = new ArrayAdapter<Freezer>(context, android.R.layout.simple_spinner_item, freezerArrayList);
+        FreezerArrayAdapter adapter = new FreezerArrayAdapter(context, android.R.layout.simple_spinner_item, freezerArrayList);
         final Spinner spinner = (Spinner) alocacaoView.findViewById(R.id.spinnerFreezer);
         //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
-        //Adapter Gaveta
-        ArrayAdapter<Gaveta> adapterGaveta = new ArrayAdapter<Gaveta>(context, android.R.layout.simple_spinner_item, gavetaArrayList);
-        final Spinner spinnerGaveta = (Spinner) alocacaoView.findViewById(R.id.spinnerGaveta);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerGaveta.setAdapter(adapterGaveta);
-        //Adapter Caixa
-        ArrayAdapter<Caixa> adapterCaixa = new ArrayAdapter<Caixa>(context, android.R.layout.simple_spinner_item, caixaArrayList);
-        final Spinner spinnerCaixa = (Spinner) alocacaoView.findViewById(R.id.spinnerCaixa);
-        adapterCaixa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCaixa.setAdapter(adapterCaixa);
 
         //freezer
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -124,7 +107,17 @@ public class AlocacaoFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Freezer f = (Freezer) parent.getSelectedItem();
-                Toast.makeText(context, f.codigo+"", Toast.LENGTH_SHORT).show();
+
+                gavetaArrayList.clear();
+
+                for(Gaveta g: f.gavetas) {
+                    gavetaArrayList.add(g);
+
+                }
+
+                //Adapter Gaveta
+                GavetaArrayAdapter adapterGaveta = new GavetaArrayAdapter(context, android.R.layout.simple_spinner_item, gavetaArrayList);
+                spinnerGaveta.setAdapter(adapterGaveta);
             }
 
             @Override
@@ -139,7 +132,18 @@ public class AlocacaoFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-                Toast.makeText(context, ""+gavetaArrayList.get(pos), Toast.LENGTH_SHORT).show();
+                Gaveta g = (Gaveta) parent.getSelectedItem();
+
+                caixaArrayList.clear();
+
+                for(Caixa c: g.caixas){
+                    caixaArrayList.add(c);
+                }
+
+                //Adapter Caixa
+                CaixaArrayAdapter adapterCaixa = new CaixaArrayAdapter(context, android.R.layout.simple_spinner_item, caixaArrayList);
+
+                spinnerCaixa.setAdapter(adapterCaixa);
             }
 
             @Override
@@ -155,7 +159,7 @@ public class AlocacaoFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-                Toast.makeText(context, ""+caixaArrayList.get(pos), Toast.LENGTH_SHORT).show();
+
             }
 
             @Override

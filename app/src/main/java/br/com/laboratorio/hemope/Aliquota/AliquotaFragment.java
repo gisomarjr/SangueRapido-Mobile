@@ -162,7 +162,7 @@ public class AliquotaFragment extends Fragment {
                              //Verifico se é um número
                              if(Integer.parseInt(idAliquota) > 0) {
 
-                                 Util.DownloadTask downloadTask = new Util.DownloadTask("Carregando","Aguarde dados da Aliquota...","aliquota",_itens,getActivity());
+                                 Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Carregando dados da Aliquota...","aliquota",_itens,getActivity());
                                  downloadTask.execute("https://www.dropbox.com/s/10enzhvm6lnb0j6/aliquota.json?dl=1");
 
                              }else{
