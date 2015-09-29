@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,14 +71,11 @@ public class AlocacaoFragment extends Fragment {
             textCaixa.setText(String.valueOf("Caixa: "+itens.aliquota.alocacao.caixa.idCaixa));
             textPosicao.setText("Posição: " +itens.aliquota.alocacao.posicaoY + " - " + itens.aliquota.alocacao.posicaoX);
 
-            spinnerGaveta  = (Spinner) alocacaoView.findViewById(R.id.spinnerGaveta);
-            spinnerCaixa  = (Spinner) alocacaoView.findViewById(R.id.spinnerCaixa);
-
-            String urlGeral = alocacaoView.getResources().getString(R.string.urlGeralWebService);
-            String urlSecundaria = alocacaoView.getResources().getString(R.string.urlGeralWebServiceListarFreezer);
+             spinnerGaveta  = (Spinner) alocacaoView.findViewById(R.id.spinnerGaveta);
+             spinnerCaixa  = (Spinner) alocacaoView.findViewById(R.id.spinnerCaixa);
 
             Util.DownloadTask downloadTask = new Util.DownloadTask("Carregando dados da Alocação","Aguarde...","freezer",itens,getActivity());
-            downloadTask.execute(urlGeral + urlSecundaria);
+            downloadTask.execute("https://www.dropbox.com/s/7vc1yyk9kot53z0/aliquotaJson.json?dl=1");
 
 
             return alocacaoView;

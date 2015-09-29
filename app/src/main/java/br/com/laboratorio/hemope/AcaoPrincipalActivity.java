@@ -91,6 +91,10 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                 break;
 
 
+            case 33:
+                mTitle = getString(R.string.titulo_sessao_alocacao);
+                break;
+
         }
     }
 
