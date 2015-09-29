@@ -33,7 +33,7 @@ public class ListaDiagnosticosFragment extends Fragment {
 static ListView listView;
     Itens itens;
     ProgressDialog progressDialog;
-
+    View view;
     static String mSavedName;
     private String searchedName;
     static ArrayList<Diagnostico> mListaDiagnosticos = new ArrayList<>();
@@ -76,9 +76,10 @@ static ListView listView;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String pesquisaUsuario) {
-
+                String urlGeral = view.getResources().getString(R.string.urlGeralWebService);
+                String urlSecundaria = view.getResources().getString(R.string.urlGeralWebServiceConsultarDiagnostico);
                 Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Consultando Diagnostico...","consultarDiagnosticos",itens,getActivity());
-                downloadTask.execute("https://www.dropbox.com/s/vx4e2gqclhpeckk/diagnosticoJSON.json?dl=1");
+                downloadTask.execute(urlGeral+urlSecundaria+"?codigoAmostra="+pesquisaUsuario);
 
 
                 return false;
@@ -113,7 +114,7 @@ static ListView listView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        view = inflater.inflate(R.layout.fragment_main, container, false);
 
 
         listView = (ListView)view.findViewById(R.id.listView);

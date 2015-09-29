@@ -14,7 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,14 +29,14 @@ import br.com.laboratorio.hemope.Util;
  * Created by User on 29/09/2015.
  */
 public class ListaProcedenciasFragment extends Fragment{
-    static ListView listView;
-    Itens itens;
+    //static ListView listView;
+    static Itens _itens;
     ProgressDialog progressDialog;
 
     static String mSavedName;
     private String searchedName;
     static ArrayList<LocalProcedencia> mListaProcedencias = new ArrayList<>();
-    View view;
+    static View view;
 
     public ListaProcedenciasFragment() {
 
@@ -80,9 +80,9 @@ public class ListaProcedenciasFragment extends Fragment{
                 String urlGeral = view.getResources().getString(R.string.urlGeralWebService);
                 String urlSecundaria = view.getResources().getString(R.string.urlGeralWebServiceConsultarProcedencia);
 
-                Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Consultando Procedencias...","consultarProcedencias",itens,getActivity());
-                downloadTask.execute(urlGeral + urlSecundaria + "?texto="+pesquisaUsuario);
-                Log.i("urlProcedencia", urlGeral + urlSecundaria + "?texto=" + pesquisaUsuario);
+                Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Consultando Procedencias...","consultarProcedencias",_itens,getActivity());
+                downloadTask.execute(urlGeral + urlSecundaria + "?codigoAmostra="+pesquisaUsuario);
+                Log.i("urlProcedencia", urlGeral + urlSecundaria + "?codigoAmostra=" + pesquisaUsuario);
                 return false;
             }
 
@@ -115,25 +115,17 @@ public class ListaProcedenciasFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_main, container, false);
+        view = inflater.inflate(R.layout.item_procedencia, container, false);
 
 
-        listView = (ListView)view.findViewById(R.id.listView);
-        /**listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-
-        });*/
-
-        //preencherLista();
-        //Pesquisar no banco ---
-
-        if (itens == null) {
+        if (_itens == null) {
 
             Toast.makeText(getActivity(), "Para começar, clique na lupa e digite o nome do procedencia.", Toast.LENGTH_LONG).show();
         }
 
         if (mListaProcedencias != null){
-            listView.setAdapter(new ProcedenciasAdapter(getActivity(), mListaProcedencias));
+
 
         }
 
@@ -154,14 +146,13 @@ public class ListaProcedenciasFragment extends Fragment{
 
 
     public static void preencherLista(Itens itens, FragmentActivity context) {
-
+        LocalProcedencia localProcedencia = new LocalProcedencia();
         try {
-
-            if (itens.localProcedencias.size() > 0) {
-                for (LocalProcedencia procedencia : itens.localProcedencias) {
-
-                    mListaProcedencias.add(procedencia);
-                }
+            _itens = itens;
+            if (itens!=null) {
+                localProcedencia = itens.localProcedencia;
+                TextView txtLocalProcedencia = (TextView) view.findViewById(R.id.localProcedencia);
+                txtLocalProcedencia.setText(localProcedencia.nome);
 
             } else {
                 Toast.makeText(context, "Não encontramos Resultados", Toast.LENGTH_LONG).show();
@@ -172,7 +163,7 @@ public class ListaProcedenciasFragment extends Fragment{
 
         }
 
-        listView.setAdapter(new ProcedenciasAdapter(context, mListaProcedencias));
+        //listView.setAdapter(new ProcedenciasAdapter(context, mListaProcedencias));
   }
 
 }
