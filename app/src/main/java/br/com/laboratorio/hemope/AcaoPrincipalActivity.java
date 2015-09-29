@@ -27,6 +27,7 @@ import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.Paciente.DetalhePacienteActivity;
 import br.com.laboratorio.hemope.Paciente.DetalhePacienteFragment;
 import br.com.laboratorio.hemope.Paciente.ListaPacientesFragment;
+import br.com.laboratorio.hemope.Procedencia.ListaProcedenciasFragment;
 import br.com.laboratorio.hemope.View.AoClicarNoItemListener;
 
 
@@ -85,6 +86,10 @@ public class AcaoPrincipalActivity extends ActionBarActivity
             case 5:
                 mTitle = getString(R.string.titulo_sessao_amostras);
                 break;
+            case 6:
+                mTitle = getString(R.string.titulo_sessao_procedencias);
+                break;
+
 
         }
     }
@@ -181,6 +186,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
         }
     }
 
+
     @Override
     public void onClick(Aliquota aliquota) {
 
@@ -234,7 +240,12 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     argsamostraFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
                     amostrasFragment.setArguments(argsamostraFragment);
                     return amostrasFragment;
-
+                case 6:
+                    ListaProcedenciasFragment listaProcedenciasFragment = new ListaProcedenciasFragment();
+                    Bundle argsprocedenciasFragment = new Bundle();
+                    argsprocedenciasFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
+                    listaProcedenciasFragment.setArguments(argsprocedenciasFragment);
+                    return listaProcedenciasFragment;
 
                 default:
                     PlaceholderFragment fragment = new PlaceholderFragment();

@@ -24,6 +24,7 @@ import br.com.laboratorio.hemope.Diagnostico.ListaDiagnosticosFragment;
 import br.com.laboratorio.hemope.Login.LoginActivity;
 import br.com.laboratorio.hemope.Model.Itens;
 import br.com.laboratorio.hemope.Paciente.ListaPacientesFragment;
+import br.com.laboratorio.hemope.Procedencia.ListaProcedenciasFragment;
 
 /**
  * Created by gisomar on 22/09/15.
@@ -116,6 +117,9 @@ public class Util {
                     break;
                 case "consultarAmostras":
                     ListaAmostrasFragment.preencherLista(_itens,_context);
+                    break;
+                case "consultarProcedencias":
+                    ListaProcedenciasFragment.preencherLista(_itens, _context);
                     break;
             }
 

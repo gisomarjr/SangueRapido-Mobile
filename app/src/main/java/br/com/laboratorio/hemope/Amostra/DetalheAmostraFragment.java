@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import br.com.laboratorio.hemope.Model.Amostra;
+import br.com.laboratorio.hemope.Model.Diagnostico;
 import br.com.laboratorio.hemope.Model.LocalProcedencia;
 import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.Model.TipoAmostra;
@@ -48,7 +49,7 @@ public class DetalheAmostraFragment extends Fragment {
 
         Amostra amostra = new Amostra();
         amostra = (Amostra) getArguments().getSerializable("amostra");
-        //Diagnostico diagnostico = new Diagnostico();
+        Diagnostico diagnostico = new Diagnostico();
         //Cid cid = new Cid();
         Paciente paciente = new Paciente();
         TipoAmostra tipoAmostra = new TipoAmostra();
@@ -75,17 +76,24 @@ public class DetalheAmostraFragment extends Fragment {
         //TextView txtCodigoCid = (TextView) view.findViewById(R.id.labelCodigoCid);
         //TextView txtDescricaoCid = (TextView) view.findViewById(R.id.labelDescricaoCid);
 
+        if(amostra.diagnostico != null) {
+            diagnostico = amostra.diagnostico;
+            txtCodigoDiagnostico.setText("Cod. Diagnóstico: " + diagnostico.codigo);
+            txtSigla.setText("Sigla Diagnóstico: " + diagnostico.sigla);
+            txtNomeDiagnostico.setText("Cod. CID: " + diagnostico.nome);
+
+        }else{
+            txtCodigoDiagnostico.setText("Cod. Diagnóstico: -");
+            txtSigla.setText("Sigla Diagnóstico: -");
+            txtNomeDiagnostico.setText("Cod. CID: -");
+        }
+
+
         txtCodigoAmostra.setText("Cód. Diagnóstico: "+amostra.codigo);
         txtNomePaciente.setText("Paciente: "+paciente.nome);
         txtTipoAmostra.setText("Tipo da amostra: "+tipoAmostra.nome);
         txtLocalProc.setText("Local Procedência: "+localProcedencia.nome);
         txtDataEntrada.setText("Data de Entrada: "+amostra.dataEntrada);
-        //txtCodigoDiagnostico.setText("Código diagnóstico: "+diagnostico.codigo);
-        //txtSigla.setText("Sigla diagnóstico: "+diagnostico.sigla);
-        //txtNomeDiagnostico.setText("Desc. Diagnóstico: "+diagnostico.nome);
-        //txtCodigoCid.setText("Cód. CID: "+cid.codigo);
-        //txtDescricaoCid.setText("Descrição CID: "+cid.descricao);
-
         return view;
     }
 

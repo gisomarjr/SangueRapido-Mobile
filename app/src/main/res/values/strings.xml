@@ -35,4 +35,6 @@
     <string name="urlGeralWebServiceEfetuarLogin">usuario/autenticacao/</string>
     <string name="urlGeralWebServiceConsultarPaciente">paciente/pesquisar2/</string>
     <string name="urlGeralWebServiceConsultarAliquota">paciente/consultarAliquota/</string>
+    <string name="urlGeralWebServiceConsultarProcedencia">procedencias/consultarProcedencias</string>
+    <string name="titulo_sessao_procedencias">Procedências</string>
 </resources>

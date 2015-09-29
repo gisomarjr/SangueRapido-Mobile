@@ -20,11 +20,11 @@ public class Itens implements Serializable {
     public List<Diagnostico> diagnosticos;
     List<Endereco> enderecos;
     public List<Freezer> freezers;
-    List<Gaveta> gavetas;
-    List<Laboratorio> laboratorios;
-    List<LocalProcedencia> localProcedencias;
-    List<Material> materiais;
-    List<TipoAmostra> tipoAmostras;
+    public List<Gaveta> gavetas;
+    public List<Laboratorio> laboratorios;
+    public List<LocalProcedencia> localProcedencias;
+    public List<Material> materiais;
+    public List<TipoAmostra> tipoAmostras;
     List<Usuario> usuarios;
     public Usuario usuario;
     @SerializedName("pacientes")

@@ -3,23 +3,21 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:padding="16dp">
 
-    <ImageView
-        android:layout_width="70dp"
-        android:layout_height="90dp"
-        android:id="@+id/imgCapa"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Disgnosticos"
+        android:id="@+id/diagnosticos"
+        android:layout_gravity="center" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="codigo"
         android:id="@+id/codigo"
-        android:layout_alignTop="@+id/imgCapa"
-        android:layout_toRightOf="@+id/imgCapa"
-        android:layout_toEndOf="@+id/imgCapa" />
+        android:layout_gravity="center" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,8 +25,7 @@
         android:text="sigla"
         android:id="@+id/sigla"
         android:layout_below="@+id/codigo"
-        android:layout_toRightOf="@+id/imgCapa"
-        android:layout_toEndOf="@+id/imgCapa" />
+        android:layout_gravity="center" />
 
 
 
