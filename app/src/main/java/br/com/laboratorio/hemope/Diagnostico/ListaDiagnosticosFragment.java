@@ -164,7 +164,7 @@ static ListView listView;
 
         try {
 
-            if (mListaDiagnosticos != null) {
+            if (itens.diagnosticos.size() > 0) {
                 for (Diagnostico diagnostico : itens.diagnosticos) {
 
                     mListaDiagnosticos.add(diagnostico);

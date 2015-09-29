@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
+import br.com.laboratorio.hemope.Amostra.DetalheAmostraActivity;
 import br.com.laboratorio.hemope.Amostra.DetalheAmostraFragment;
 import br.com.laboratorio.hemope.Amostra.ListaAmostrasFragment;
 import br.com.laboratorio.hemope.Diagnostico.DetalheDiagnosticoActivity;
@@ -165,7 +166,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
     @Override
     public void onClick(Amostra amostra) {
         if (getResources().getBoolean(R.bool.isPhone)) {
-            Intent it = new Intent(this, DetalheDiagnosticoActivity.class);
+            Intent it = new Intent(this, DetalheAmostraActivity.class);
             it.putExtra("amostra", amostra);
             startActivity(it);
 

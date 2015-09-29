@@ -37,6 +37,7 @@ public class ListaAmostrasFragment extends Fragment {
     static String mSavedName;
     private String searchedName;
     static ArrayList<Amostra> mListaAmostras = new ArrayList<>();
+    View view;
 
     public ListaAmostrasFragment() {
 
@@ -71,14 +72,18 @@ public class ListaAmostrasFragment extends Fragment {
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setQueryHint("Nome do Amostra...");
+        searchView.setQueryHint("Nome da Amostra...");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String pesquisaUsuario) {
 
+                String urlGeral = view.getResources().getString(R.string.urlGeralWebService);
+                String urlSecundaria = view.getResources().getString(R.string.urlGeralWebServiceConsultarAmostra);
+
                 Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Consultando Amostras...","consultarAmostras",itens,getActivity());
-                downloadTask.execute("https://www.dropbox.com/s/vx4e2gqclhpeckk/amostraJSON.json?dl=1");
+                downloadTask.execute(urlGeral + urlSecundaria + "?texto="+pesquisaUsuario);
+                Log.i("urlAmostra",urlGeral + urlSecundaria + "?texto="+pesquisaUsuario);
                 return false;
             }
 
@@ -111,7 +116,7 @@ public class ListaAmostrasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        view = inflater.inflate(R.layout.fragment_main, container, false);
 
 
         listView = (ListView)view.findViewById(R.id.listView);
@@ -161,7 +166,7 @@ public class ListaAmostrasFragment extends Fragment {
 
         try {
 
-            if (mListaAmostras != null) {
+            if (itens.amostras.size() > 0) {
                 for (Amostra amostra : itens.amostras) {
 
                     mListaAmostras.add(amostra);

@@ -52,8 +52,11 @@ public class LoginActivity extends AppCompatActivity{
         credenciais[0] = editTextUsuario.getText().toString();
         credenciais[1] = editTextSenha.getText().toString();
 
+        String urlGeral = view.getResources().getString(R.string.urlGeralWebService);
+        String urlSecundaria = view.getResources().getString(R.string.urlGeralWebServiceEfetuarLogin);
+
         Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Verificando o seu Login...","verificaLogin",itens,LoginActivity.this);
-        downloadTask.execute("https://www.dropbox.com/s/z8a4jj9cr9719t1/usualios_login.json?dl=1");
+        downloadTask.execute(urlGeral + urlSecundaria + "?login="+credenciais[0] + "&senha="+ credenciais[1]);
 
     }
 
