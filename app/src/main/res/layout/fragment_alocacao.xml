@@ -114,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Selecione a posição da Caixa Disponível"
+            android:text="Selecione a Caixa"
             android:id="@+id/txtSelecionarCaixa"
             android:layout_gravity="center_horizontal" />
 
@@ -122,6 +122,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinnerCaixa"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Selecione uma Alocação Disponível"
+            android:id="@+id/txtSelecionarAlocacao"
+            android:layout_gravity="center_horizontal" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerAlocacao"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="194dp"
+            android:layout_height="wrap_content"
+            android:text="Alterar Alocação"
+            android:id="@+id/btnAlterarAlocacao"
+            android:background="@drawable/blue_button"
+            style="@style/button_text"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </ScrollView>
