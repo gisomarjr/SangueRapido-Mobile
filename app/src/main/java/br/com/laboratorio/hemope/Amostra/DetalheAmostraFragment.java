@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import br.com.laboratorio.hemope.Model.Amostra;
-import br.com.laboratorio.hemope.Model.Cid;
 import br.com.laboratorio.hemope.Model.Diagnostico;
 import br.com.laboratorio.hemope.Model.LocalProcedencia;
 import br.com.laboratorio.hemope.Model.Paciente;
@@ -49,22 +48,24 @@ public class DetalheAmostraFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         Amostra amostra = new Amostra();
+        amostra = (Amostra) getArguments().getSerializable("amostra");
         Diagnostico diagnostico = new Diagnostico();
-        Cid cid = new Cid();
+        //Cid cid = new Cid();
         Paciente paciente = new Paciente();
         TipoAmostra tipoAmostra = new TipoAmostra();
         LocalProcedencia localProcedencia = new LocalProcedencia();
-        diagnostico = amostra.diagnostico;
-        cid = diagnostico.cid;
+
+        //cid = diagnostico.cid;
         paciente = amostra.paciente;
         tipoAmostra = amostra.tipoAmostra;
         localProcedencia = amostra.localProcedencia;
+        //diagnostico = amostra.diagnostico;
 
-        amostra = (Amostra) getArguments().getSerializable("amostra");
+
 
         View view = inflater.inflate(R.layout.fragment_detalhe_amostra, container, false);
 
-       TextView txtNomePaciente = (TextView) view.findViewById(R.id.labelNomePaciente);
+        TextView txtNomePaciente = (TextView) view.findViewById(R.id.labelPaciente);
         TextView txtCodigoAmostra = (TextView) view.findViewById(R.id.labelCodigoAmostra);
         TextView txtTipoAmostra = (TextView) view.findViewById(R.id.labelTipoAmostra);
         TextView txtLocalProc = (TextView) view.findViewById(R.id.labelLocalProcedencia);
@@ -72,20 +73,27 @@ public class DetalheAmostraFragment extends Fragment {
         TextView txtCodigoDiagnostico = (TextView) view.findViewById(R.id.labelCodigoDiagnostico);
         TextView txtSigla = (TextView) view.findViewById(R.id.labelSiglaDiagnostico);
         TextView txtNomeDiagnostico = (TextView) view.findViewById(R.id.labelNomeDiagnostico);
-        TextView txtCodigoCid = (TextView) view.findViewById(R.id.labelCodigoCid);
-        TextView txtDescricaoCid = (TextView) view.findViewById(R.id.labelDescricaoCid);
+        //TextView txtCodigoCid = (TextView) view.findViewById(R.id.labelCodigoCid);
+        //TextView txtDescricaoCid = (TextView) view.findViewById(R.id.labelDescricaoCid);
+
+        if(amostra.diagnostico != null) {
+            diagnostico = amostra.diagnostico;
+            txtCodigoDiagnostico.setText("Cod. Diagnóstico: " + diagnostico.codigo);
+            txtSigla.setText("Sigla Diagnóstico: " + diagnostico.sigla);
+            txtNomeDiagnostico.setText("Cod. CID: " + diagnostico.nome);
+
+        }else{
+            txtCodigoDiagnostico.setText("Cod. Diagnóstico: -");
+            txtSigla.setText("Sigla Diagnóstico: -");
+            txtNomeDiagnostico.setText("Cod. CID: -");
+        }
+
 
         txtCodigoAmostra.setText("Cód. Diagnóstico: "+amostra.codigo);
         txtNomePaciente.setText("Paciente: "+paciente.nome);
         txtTipoAmostra.setText("Tipo da amostra: "+tipoAmostra.nome);
         txtLocalProc.setText("Local Procedência: "+localProcedencia.nome);
         txtDataEntrada.setText("Data de Entrada: "+amostra.dataEntrada);
-        txtCodigoDiagnostico.setText("Código diagnóstico: "+diagnostico.codigo);
-        txtSigla.setText("Sigla diagnóstico: "+diagnostico.sigla);
-        txtNomeDiagnostico.setText("Desc. Diagnóstico: "+diagnostico.nome);
-        txtCodigoCid.setText("Cód. CID: "+cid.codigo);
-        txtDescricaoCid.setText("Descrição CID: "+cid.descricao);
-
         return view;
     }
 

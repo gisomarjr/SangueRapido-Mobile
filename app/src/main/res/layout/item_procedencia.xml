@@ -1,26 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:padding="16dp">
-
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="codigo"
-        android:id="@+id/codigo"
-        android:layout_gravity="center" />
+        android:text="Locais Procedência: "
+        android:id="@+id/LocaisProcedencia"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sigla"
-        android:id="@+id/sigla"
-        android:layout_below="@+id/codigo"
-        android:layout_gravity="center" />
-
+        android:text="Local Procedência"
+        android:id="@+id/localProcedencia"
+ />
 
 
 </RelativeLayout>

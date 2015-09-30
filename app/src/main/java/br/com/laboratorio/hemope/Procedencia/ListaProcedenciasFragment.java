@@ -1,4 +1,4 @@
-package br.com.laboratorio.hemope.Diagnostico;
+package br.com.laboratorio.hemope.Procedencia;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -14,31 +14,31 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
-import br.com.laboratorio.hemope.Model.Diagnostico;
 import br.com.laboratorio.hemope.Model.Itens;
+import br.com.laboratorio.hemope.Model.LocalProcedencia;
 import br.com.laboratorio.hemope.R;
 import br.com.laboratorio.hemope.Util;
-import br.com.laboratorio.hemope.View.AoClicarNoItemListener;
 
-
-public class ListaDiagnosticosFragment extends Fragment {
-//
-static ListView listView;
-    Itens itens;
+/**
+ * Created by User on 29/09/2015.
+ */
+public class ListaProcedenciasFragment extends Fragment{
+    //static ListView listView;
+    static Itens _itens;
     ProgressDialog progressDialog;
-    View view;
+
     static String mSavedName;
     private String searchedName;
-    static ArrayList<Diagnostico> mListaDiagnosticos = new ArrayList<>();
+    static ArrayList<LocalProcedencia> mListaProcedencias = new ArrayList<>();
+    static View view;
 
-    public ListaDiagnosticosFragment() {
+    public ListaProcedenciasFragment() {
 
     }
 
@@ -46,7 +46,7 @@ static ListView listView;
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((AcaoPrincipalActivity) activity).onSectionAttached(
-                (4));
+                (6));
     }
 
     @Override
@@ -57,7 +57,7 @@ static ListView listView;
         setRetainInstance(true);
         if(savedInstanceState != null){
             mSavedName = savedInstanceState.getString(searchedName);
-            mListaDiagnosticos = (ArrayList<Diagnostico>)savedInstanceState.getSerializable("listaDiagnosticos");
+            mListaProcedencias = (ArrayList<LocalProcedencia>)savedInstanceState.getSerializable("listaProcedencias");
 
         }
 
@@ -71,17 +71,18 @@ static ListView listView;
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setQueryHint("Nome do Diagnostico...");
+        searchView.setQueryHint("Nome da Procedencia...");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String pesquisaUsuario) {
+
                 String urlGeral = view.getResources().getString(R.string.urlGeralWebService);
-                String urlSecundaria = view.getResources().getString(R.string.urlGeralWebServiceConsultarDiagnostico);
-                Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Consultando Diagnostico...","consultarDiagnosticos",itens,getActivity());
-                downloadTask.execute(urlGeral+urlSecundaria+"?codigoAmostra="+pesquisaUsuario);
+                String urlSecundaria = view.getResources().getString(R.string.urlGeralWebServiceConsultarProcedencia);
 
-
+                Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Consultando Procedencias...","consultarProcedencias",_itens,getActivity());
+                downloadTask.execute(urlGeral + urlSecundaria + "?codigoAmostra="+pesquisaUsuario);
+                Log.i("urlProcedencia", urlGeral + urlSecundaria + "?codigoAmostra=" + pesquisaUsuario);
                 return false;
             }
 
@@ -114,34 +115,17 @@ static ListView listView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_main, container, false);
+        view = inflater.inflate(R.layout.item_procedencia, container, false);
 
 
-        listView = (ListView)view.findViewById(R.id.listView);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.e("click", "clicando");
-                Diagnostico diagnostico = (Diagnostico) listView.getAdapter().getItem(i);
+        if (_itens == null) {
 
-                if (getActivity() instanceof AoClicarNoItemListener) {
-                    ((AoClicarNoItemListener)getActivity()).onClick(diagnostico);
-                }
-            }
-        });
-
-        //preencherLista();
-        //Pesquisar no banco ---
-
-        if (itens == null) {
-
-                Toast.makeText(getActivity(), "Para começar, clique na lupa e digite o nome do diagnostico.", Toast.LENGTH_LONG).show();
-
+            Toast.makeText(getActivity(), "Para começar, clique na lupa e digite o nome do procedencia.", Toast.LENGTH_LONG).show();
         }
 
-        if (mListaDiagnosticos != null){
-            listView.setAdapter(new DiagnosticosAdapter(getActivity(), mListaDiagnosticos));
+        if (mListaProcedencias != null){
+
 
         }
 
@@ -153,7 +137,7 @@ static ListView listView;
 
         outState.putString(searchedName, mSavedName);
 
-        outState.putSerializable("listaDiagnosticos", (ArrayList<Diagnostico>) mListaDiagnosticos);
+        outState.putSerializable("listaProcedencias", (ArrayList<LocalProcedencia>) mListaProcedencias);
 
         super.onSaveInstanceState(outState);
 
@@ -162,14 +146,13 @@ static ListView listView;
 
 
     public static void preencherLista(Itens itens, FragmentActivity context) {
-
+        LocalProcedencia localProcedencia = new LocalProcedencia();
         try {
-
-            if (itens.diagnosticos.size() > 0) {
-                for (Diagnostico diagnostico : itens.diagnosticos) {
-
-                    mListaDiagnosticos.add(diagnostico);
-                }
+            _itens = itens;
+            if (itens!=null) {
+                localProcedencia = itens.localProcedencia;
+                TextView txtLocalProcedencia = (TextView) view.findViewById(R.id.localProcedencia);
+                txtLocalProcedencia.setText(localProcedencia.nome);
 
             } else {
                 Toast.makeText(context, "Não encontramos Resultados", Toast.LENGTH_LONG).show();
@@ -180,12 +163,7 @@ static ListView listView;
 
         }
 
-        listView.setAdapter(new DiagnosticosAdapter(context, mListaDiagnosticos));
+        //listView.setAdapter(new ProcedenciasAdapter(context, mListaProcedencias));
+  }
 
-        // Se é tablet e existe algum livro na lista, selecione-o
-        if (context instanceof AoClicarNoItemListener
-                && context.getResources().getBoolean(R.bool.isTablet)
-                && mListaDiagnosticos.size() > 0){
-            ((AoClicarNoItemListener)context).onClick(mListaDiagnosticos.get(0));
-        }    }
 }

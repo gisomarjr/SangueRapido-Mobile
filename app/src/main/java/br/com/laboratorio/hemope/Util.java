@@ -23,7 +23,9 @@ import br.com.laboratorio.hemope.Amostra.ListaAmostrasFragment;
 import br.com.laboratorio.hemope.Diagnostico.ListaDiagnosticosFragment;
 import br.com.laboratorio.hemope.Login.LoginActivity;
 import br.com.laboratorio.hemope.Model.Itens;
+import br.com.laboratorio.hemope.Model.LocalProcedencia;
 import br.com.laboratorio.hemope.Paciente.ListaPacientesFragment;
+import br.com.laboratorio.hemope.Procedencia.ListaProcedenciasFragment;
 
 /**
  * Created by gisomar on 22/09/15.
@@ -44,6 +46,7 @@ public class Util {
         String _acaoMetodo;
         Itens _itens;
         FragmentActivity _context;
+        LocalProcedencia _localProcedencia;
 
         /**
          * Construtor da Classe parametros obrigatorios
@@ -117,6 +120,12 @@ public class Util {
                 case "consultarAmostras":
                     ListaAmostrasFragment.preencherLista(_itens,_context);
                     break;
+                case "consultarProcedencias":
+                    ListaProcedenciasFragment.preencherLista(_itens, _context);
+                    break;
+                case "alterarDadosAlocacao":
+                    AlocacaoFragment.atualizarTelaAlterarAlocacao(_itens,_context);
+
             }
 
         }

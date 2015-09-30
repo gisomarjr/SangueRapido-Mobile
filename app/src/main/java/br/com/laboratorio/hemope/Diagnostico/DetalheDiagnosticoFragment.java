@@ -8,12 +8,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.com.laboratorio.hemope.Model.Amostra;
 import br.com.laboratorio.hemope.Model.Cid;
-import br.com.laboratorio.hemope.Model.Endereco;
 import br.com.laboratorio.hemope.Model.Diagnostico;
 import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.R;
@@ -66,10 +64,8 @@ public class DetalheDiagnosticoFragment extends Fragment {
         TextView txtCodigoDiagnostico = (TextView) view.findViewById(R.id.labelCodigoDiagnostico);
         TextView txtSigla = (TextView) view.findViewById(R.id.labelSigla);
         TextView txtNome = (TextView) view.findViewById(R.id.labelNomeDiagnostico);
-       // TextView txtCodigoCid = (TextView) view.findViewById(R.id.labelCodigoCid);
-       // TextView txtDescricaoCid = (TextView) view.findViewById(R.id.labelDescricaoCid);
-
-
+       TextView txtCodigoCid = (TextView) view.findViewById(R.id.labelCodigoCid);
+       TextView txtDescricaoCid = (TextView) view.findViewById(R.id.labelDescricaoCid);
 
         /*txtNomePaciente.setText("Nome do Paciente: "+paciente.nome);
         txtCpf.setText("CPF: "+paciente.cpf);
@@ -77,8 +73,17 @@ public class DetalheDiagnosticoFragment extends Fragment {
         txtCodigoDiagnostico.setText("Cód. Diagnóstico: "+diagnostico.codigo);
         txtSigla.setText("Sigla Diagnóstico: "+diagnostico.sigla);
         txtNome.setText("Descrição Diagnóstico: "+diagnostico.nome);
-        /*txtCodigoCid.setText("Código CID: "+diagnostico.cid.codigo);
-        txtDescricaoCid.setText("Descrição CID: "+diagnostico.cid.descricao);*/
+        if(diagnostico.cid!=null) {
+
+            txtCodigoCid.setText("Código CID: "+diagnostico.cid.codigo);
+            txtDescricaoCid.setText("Descrição CID: "+diagnostico.cid.descricao);
+        }else{
+            txtCodigoCid.setText("Código CID: -");
+            txtDescricaoCid.setText("Descrição CID: -");
+
+        }
+
+        /**/
 
 
         return view;

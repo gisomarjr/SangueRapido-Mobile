@@ -28,4 +28,16 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="titulo_sessao_amostras">Amostras</string>
+
+    <string name="urlGeralWebService">http://sanguerapido.somee.com/ws/</string>
+    <string name="urlGeralWebServiceListarFreezer">alocacao/ObterDadosAlocacaoDisponiveis</string>
+    <string name="urlGeralWebServiceConsultarAmostra">amostra/consultaramostras/</string>
+    <string name="urlGeralWebServiceEfetuarLogin">usuario/autenticacao/</string>
+    <string name="urlGeralWebServiceConsultarPaciente">paciente/pesquisar2/</string>
+    <string name="urlGeralWebServiceConsultarAliquota">paciente/consultarAliquota/</string>
+    <string name="urlGeralWebServiceConsultarProcedencia">amostra/consultarprocedencia</string>
+    <string name="urlGeralWebServiceAlterarAlocacao">aliquota/AlterarAlocacao/</string>
+    <string name="urlGeralWebServiceConsultarFreezer">alocacao/ObterDadosAlocacaoDisponiveis</string>
+     <string name="titulo_sessao_procedencias">Procedências</string>
+    <string name="urlGeralWebServiceConsultarDiagnostico">paciente/consultardiagnosticos</string>
 </resources>

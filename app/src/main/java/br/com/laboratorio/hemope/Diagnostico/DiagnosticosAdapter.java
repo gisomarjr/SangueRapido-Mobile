@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -27,7 +26,6 @@ public class DiagnosticosAdapter extends ArrayAdapter<Diagnostico>{
                     .inflate(R.layout.item_diagnostico, null);
         }
 
-        ImageView imageView = (ImageView)convertView.findViewById(R.id.imgCapa);
         TextView txtCodigo = (TextView)convertView.findViewById(R.id.codigo);
         TextView txtSigla = (TextView)convertView.findViewById(R.id.sigla);
 
@@ -37,20 +35,9 @@ public class DiagnosticosAdapter extends ArrayAdapter<Diagnostico>{
 
         //Log.i("qtdDiagnosticos", itensDiagnostico.diagnostico.size() + " - Position: " +position);
 
-        txtCodigo.setText(diagnostico.codigo);
-        txtSigla.setText(diagnostico.sigla);
+        txtCodigo.setText("Código do diagnóstico: "+diagnostico.codigo);
+        txtSigla.setText("Sigla diagnóstico: "+diagnostico.sigla);
 
-        /*//verifico se a imagem é nula
-        if(livro.volumes.urlImagens != null) {
-            Picasso.with(getContext())
-                    .load(livro.volumes.urlImagens.urlImagem)
-                    .into(imageView);
-        }else {
-            //imagem caso o não encontre o livro
-            Picasso.with(getContext())
-                    .load("http://rlv.zcache.com.br/ponto_de_interrogacao_dos_desenhos_animados_papel_timbrado-ra082215bdfb44a0d9fc49d7ba691a9df_vg63g_8byvr_512.jpg")
-                    .into(imageView);
-        }*/
 
         return convertView;
     }
