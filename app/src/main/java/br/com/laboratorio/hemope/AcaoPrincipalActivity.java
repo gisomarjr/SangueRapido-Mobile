@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
+import br.com.laboratorio.hemope.Amostra.DetalheAmostraActivity;
 import br.com.laboratorio.hemope.Amostra.DetalheAmostraFragment;
 import br.com.laboratorio.hemope.Amostra.ListaAmostrasFragment;
 import br.com.laboratorio.hemope.Diagnostico.DetalheDiagnosticoActivity;
@@ -26,6 +27,7 @@ import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.Paciente.DetalhePacienteActivity;
 import br.com.laboratorio.hemope.Paciente.DetalhePacienteFragment;
 import br.com.laboratorio.hemope.Paciente.ListaPacientesFragment;
+import br.com.laboratorio.hemope.Procedencia.ListaProcedenciasFragment;
 import br.com.laboratorio.hemope.View.AoClicarNoItemListener;
 
 
@@ -83,6 +85,12 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                 break;
             case 5:
                 mTitle = getString(R.string.titulo_sessao_amostras);
+                break;
+
+
+
+            case 33:
+                mTitle = getString(R.string.titulo_sessao_alocacao);
                 break;
 
         }
@@ -165,7 +173,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
     @Override
     public void onClick(Amostra amostra) {
         if (getResources().getBoolean(R.bool.isPhone)) {
-            Intent it = new Intent(this, DetalheDiagnosticoActivity.class);
+            Intent it = new Intent(this, DetalheAmostraActivity.class);
             it.putExtra("amostra", amostra);
             startActivity(it);
 
@@ -179,6 +187,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     .commit();
         }
     }
+
 
     @Override
     public void onClick(Aliquota aliquota) {
@@ -196,7 +205,16 @@ public class AcaoPrincipalActivity extends ActionBarActivity
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
+        public static android.support.v4.app.Fragment newInstance(int sectionNumber,String idAliquota) {
 
+            AliquotaFragment aliquotaFragment = new AliquotaFragment();
+            Bundle argsaliquotaFragment = new Bundle();
+            argsaliquotaFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            argsaliquotaFragment.putString("idAliquota", idAliquota);
+            aliquotaFragment.setArguments(argsaliquotaFragment);
+            return aliquotaFragment;
+
+        }
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -233,7 +251,12 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     argsamostraFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
                     amostrasFragment.setArguments(argsamostraFragment);
                     return amostrasFragment;
-
+                case 6:
+                    ListaProcedenciasFragment listaProcedenciasFragment = new ListaProcedenciasFragment();
+                    Bundle argsprocedenciasFragment = new Bundle();
+                    argsprocedenciasFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
+                    listaProcedenciasFragment.setArguments(argsprocedenciasFragment);
+                    return listaProcedenciasFragment;
 
                 default:
                     PlaceholderFragment fragment = new PlaceholderFragment();

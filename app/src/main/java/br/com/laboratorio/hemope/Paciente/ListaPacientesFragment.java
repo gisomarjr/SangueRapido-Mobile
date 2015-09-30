@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,6 +38,7 @@ public class ListaPacientesFragment extends Fragment {
     static String mSavedName;
     private String searchedName;
     static ArrayList<Paciente> mListaPacientes = new ArrayList<>();
+    View view;
 
     public ListaPacientesFragment() {
 
@@ -77,9 +79,13 @@ public class ListaPacientesFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String pesquisaUsuario) {
 
-                Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Consultando Pacientes...","consultarPacientes",itens,getActivity());
-                downloadTask.execute("https://www.dropbox.com/s/0j1hn0785s355td/pessoaJson.json?dl=1");
+                String urlGeral = view.getResources().getString(R.string.urlGeralWebService);
+                String urlSecundaria = view.getResources().getString(R.string.urlGeralWebServiceConsultarPaciente);
+                mListaPacientes.clear();
 
+                Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Consultando Pacientes...","consultarPacientes",itens,getActivity());
+                downloadTask.execute(urlGeral + urlSecundaria + "?nomePaciente="+pesquisaUsuario);
+                Log.i("link",urlGeral + urlSecundaria + "?nomePaciente="+pesquisaUsuario);
 
                 return false;
             }
@@ -113,7 +119,7 @@ public class ListaPacientesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        view = inflater.inflate(R.layout.fragment_main, container, false);
 
 
         listView = (ListView)view.findViewById(R.id.listView);
@@ -163,7 +169,7 @@ public class ListaPacientesFragment extends Fragment {
 
        try {
 
-               if (mListaPacientes != null) {
+               if (itens.paciente.size() > 0) {
                    for (Paciente paciente : itens.paciente) {
 
                        mListaPacientes.add(paciente);

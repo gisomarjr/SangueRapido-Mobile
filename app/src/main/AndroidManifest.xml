@@ -36,6 +36,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".Amostra.DetalheAmostraActivity"
+            android:label="@string/titulo_sessao_amostras"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity
             android:name=".Login.LoginActivity"
             android:label="Efetuar Login - HEMOPE"
             android:screenOrientation="portrait" >

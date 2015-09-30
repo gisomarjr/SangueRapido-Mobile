@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +20,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
+import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
+import br.com.laboratorio.hemope.Model.Alocacao;
 import br.com.laboratorio.hemope.Model.Caixa;
 import br.com.laboratorio.hemope.Model.Freezer;
 import br.com.laboratorio.hemope.Model.Gaveta;
@@ -33,10 +37,17 @@ public class AlocacaoFragment extends Fragment {
         ViewPager viewPager;
         SlidingTabLayout mSlidingTabLayout;
 
-        Itens itens;
+        static Itens itens;
         ProgressDialog progressDialog;
 
+         static Spinner spinnerGaveta  = null;
+         static Spinner spinnerCaixa  = null;
+         static Spinner spinnerAlocacao = null;
+
+        static String idAlocacaoAtualizar;
+
         public AlocacaoFragment() {
+
 
         }
 
@@ -48,8 +59,7 @@ public class AlocacaoFragment extends Fragment {
             //pega os dados da alocação da tela AlocacaoFragment
             itens = (Itens) getArguments().getSerializable("itens");
 
-                    ((AcaoPrincipalActivity) activity).onSectionAttached(
-                            getArguments().getInt(ARG_SECTION_NUMBER));
+                    ((AcaoPrincipalActivity) activity).onSectionAttached(33);
         }
 
         @Override
@@ -67,16 +77,47 @@ public class AlocacaoFragment extends Fragment {
             textCaixa.setText(String.valueOf("Caixa: "+itens.aliquota.alocacao.caixa.idCaixa));
             textPosicao.setText("Posição: " +itens.aliquota.alocacao.posicaoY + " - " + itens.aliquota.alocacao.posicaoX);
 
+             spinnerGaveta  = (Spinner) alocacaoView.findViewById(R.id.spinnerGaveta);
+             spinnerCaixa  = (Spinner) alocacaoView.findViewById(R.id.spinnerCaixa);
+             spinnerAlocacao = (Spinner) alocacaoView.findViewById(R.id.spinnerAlocacao);
 
+            String urlGeral = alocacaoView.getResources().getString(R.string.urlGeralWebService);
+            String urlSecundaria = alocacaoView.getResources().getString(R.string.urlGeralWebServiceConsultarFreezer);
 
-            Util.DownloadTask downloadTask = new Util.DownloadTask("Carregando","Aguarde...","freezer",itens,getActivity());
-            downloadTask.execute("https://www.dropbox.com/s/7vc1yyk9kot53z0/aliquotaJson.json?dl=1");
+            Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde...","Carregando dados da Alocação","freezer",itens,getActivity());
+            downloadTask.execute(urlGeral + urlSecundaria);
 
+            Button button = (Button) alocacaoView.findViewById(R.id.btnAlterarAlocacao);
+
+            button.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    String urlGeral = alocacaoView.getResources().getString(R.string.urlGeralWebService);
+                    String urlSecundaria = alocacaoView.getResources().getString(R.string.urlGeralWebServiceAlterarAlocacao);
+
+                    Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde...","Alterando dados da Alocação","alterarDadosAlocacao",itens,getActivity());
+                    downloadTask.execute(urlGeral + urlSecundaria + "?idAliquota=" + itens.aliquota.idAliquota + "&idAlocacao=" + idAlocacaoAtualizar);
+                    Log.i("linkAlterarAlocacao",urlGeral + urlSecundaria + "?idAliquota=" + itens.aliquota.idAliquota + "&idAlocacao=" + idAlocacaoAtualizar);
+
+                }
+            });
 
             return alocacaoView;
         }
 
 
+    public static void atualizarTelaAlterarAlocacao(Itens itensCarregados, FragmentActivity context){
+
+        if(itensCarregados.isSuccess){
+            Util.exibirMensagem("Sucesso","Aliquota Atualizada com Sucesso...", context);
+            AliquotaFragment.preencherActivityAliquota(itens,context);
+        }else{
+            Util.exibirMensagem("Erro",itensCarregados.errorMessage, context);
+        }
+
+    }
 
 
     public static void preencherSpinnerFreezer(Itens itensCarregados, final FragmentActivity context){
@@ -86,37 +127,16 @@ public class AlocacaoFragment extends Fragment {
         final ArrayList<Freezer> freezerArrayList = new ArrayList<Freezer>();
         final ArrayList<Gaveta> gavetaArrayList = new ArrayList<>();
         final ArrayList<Caixa> caixaArrayList = new ArrayList<>();
-
-        Freezer freezer = new Freezer();
-        Gaveta gaveta = new Gaveta();
-        Caixa caixa = new Caixa();
+        final ArrayList<Alocacao> alocacaoArrayList = new ArrayList<>();
 
         for(Freezer f: itensCarregados.freezers){
             freezerArrayList.add(f);
-                /*for(Gaveta g: f.gavetas) {
-                    gavetaArrayList.add(String.valueOf(g.idGaveta));
-                    for(Caixa c: g.caixas){
-                        caixaArrayList.add(String.valueOf(c.idCaixa));
-                    }
-                }*/
         }
 
-        //Adapter Freezer
-        ArrayAdapter<Freezer> adapter = new ArrayAdapter<Freezer>(context, android.R.layout.simple_spinner_item, freezerArrayList);
+        FreezerArrayAdapter adapter = new FreezerArrayAdapter(context, android.R.layout.simple_spinner_item, freezerArrayList);
         final Spinner spinner = (Spinner) alocacaoView.findViewById(R.id.spinnerFreezer);
         //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
-        //Adapter Gaveta
-        ArrayAdapter<Gaveta> adapterGaveta = new ArrayAdapter<Gaveta>(context, android.R.layout.simple_spinner_item, gavetaArrayList);
-        final Spinner spinnerGaveta = (Spinner) alocacaoView.findViewById(R.id.spinnerGaveta);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerGaveta.setAdapter(adapterGaveta);
-        //Adapter Caixa
-        ArrayAdapter<Caixa> adapterCaixa = new ArrayAdapter<Caixa>(context, android.R.layout.simple_spinner_item, caixaArrayList);
-        final Spinner spinnerCaixa = (Spinner) alocacaoView.findViewById(R.id.spinnerCaixa);
-        adapterCaixa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCaixa.setAdapter(adapterCaixa);
 
         //freezer
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -124,7 +144,17 @@ public class AlocacaoFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Freezer f = (Freezer) parent.getSelectedItem();
-                Toast.makeText(context, f.codigo+"", Toast.LENGTH_SHORT).show();
+
+                gavetaArrayList.clear();
+
+                for(Gaveta g: f.gavetas) {
+                    gavetaArrayList.add(g);
+
+                }
+
+                //Adapter Gaveta
+                GavetaArrayAdapter adapterGaveta = new GavetaArrayAdapter(context, android.R.layout.simple_spinner_item, gavetaArrayList);
+                spinnerGaveta.setAdapter(adapterGaveta);
             }
 
             @Override
@@ -139,7 +169,18 @@ public class AlocacaoFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-                Toast.makeText(context, ""+gavetaArrayList.get(pos), Toast.LENGTH_SHORT).show();
+                Gaveta g = (Gaveta) parent.getSelectedItem();
+
+                caixaArrayList.clear();
+
+                for(Caixa c: g.caixas){
+                    caixaArrayList.add(c);
+                }
+
+                //Adapter Caixa
+                CaixaArrayAdapter adapterCaixa = new CaixaArrayAdapter(context, android.R.layout.simple_spinner_item, caixaArrayList);
+
+                spinnerCaixa.setAdapter(adapterCaixa);
             }
 
             @Override
@@ -155,7 +196,20 @@ public class AlocacaoFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-                Toast.makeText(context, ""+caixaArrayList.get(pos), Toast.LENGTH_SHORT).show();
+                Caixa c = (Caixa) parent.getSelectedItem();
+
+                alocacaoArrayList.clear();
+
+                for(Alocacao a: c.alocacoes){
+
+                    alocacaoArrayList.add(a);
+                }
+
+                //Adapter Caixa
+                AlocacaoArrayAdapter adapterAlocacao = new AlocacaoArrayAdapter(context, android.R.layout.simple_spinner_item, alocacaoArrayList);
+
+                spinnerAlocacao.setAdapter(adapterAlocacao);
+
             }
 
             @Override
@@ -164,7 +218,26 @@ public class AlocacaoFragment extends Fragment {
             }
         });
 
-        }catch (Exception e){
+
+        //Caixa
+        spinnerAlocacao.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                Alocacao alocacao = (Alocacao) parent.getSelectedItem();
+                idAlocacaoAtualizar = String.valueOf(alocacao.idAlocacao);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(context, "Selections cleared.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }catch (Exception e){
         Util.exibirMensagem("Conexão","Erro ao tentar se conectar com os Servidores.",context);
 
         }

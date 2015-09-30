@@ -1,17 +1,12 @@
 package br.com.laboratorio.hemope.Aliquota;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -21,17 +16,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import java.io.IOException;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
 import br.com.laboratorio.hemope.Alocacao.AlocacaoFragment;
@@ -85,8 +71,18 @@ public class AliquotaFragment extends Fragment {
         public void onAttach(Activity activity) {
             super.onAttach(activity);
 
-            if(getArguments().getInt(ARG_SECTION_NUMBER) == 3){
-                lerQrCod();
+            if(!getArguments().containsKey("idAliquota")) {
+
+                if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
+                    lerQrCod();
+                }
+            }else{
+                String urlGeral = aliquotaView.getResources().getString(R.string.urlGeralWebService);
+                String urlSecundaria = aliquotaView.getResources().getString(R.string.urlGeralWebServiceConsultarAliquota);
+
+                Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Carregando dados da Aliquota...","aliquota",_itens,getActivity());
+                downloadTask.execute(urlGeral + urlSecundaria + "?codigoAliquota=" + getArguments().getString("idAliquota"));
+                Log.i("link",urlGeral + urlSecundaria + "?codigoAliquota=" + getArguments().getString("idAliquota"));
             }
 
             ((AcaoPrincipalActivity) activity).onSectionAttached(
@@ -160,14 +156,18 @@ public class AliquotaFragment extends Fragment {
 
                          try{
                              //Verifico se é um número
-                             if(Integer.parseInt(idAliquota) > 0) {
+                             //if(Integer.parseInt(idAliquota) > 0) {
 
-                                 Util.DownloadTask downloadTask = new Util.DownloadTask("Carregando","Aguarde dados da Aliquota...","aliquota",_itens,getActivity());
-                                 downloadTask.execute("https://www.dropbox.com/s/10enzhvm6lnb0j6/aliquota.json?dl=1");
+                                 String urlGeral = aliquotaView.getResources().getString(R.string.urlGeralWebService);
+                                 String urlSecundaria = aliquotaView.getResources().getString(R.string.urlGeralWebServiceConsultarAliquota);
 
-                             }else{
+                                 Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Carregando dados da Aliquota...","aliquota",_itens,getActivity());
+                                 downloadTask.execute(urlGeral + urlSecundaria + "?codigoAliquota=" + idAliquota);
+                                 Log.i("link",urlGeral + urlSecundaria + "?codigoAliquota=" + idAliquota);
+
+                            /* }else{
                                  Toast.makeText(getActivity(), "ID da Aliquota Inválido", Toast.LENGTH_LONG).show();
-                             }
+                             }*/
 
                          } catch (NumberFormatException e) {
                              Toast.makeText(getActivity(), "QRCODE inválido.", Toast.LENGTH_LONG).show();
@@ -198,67 +198,81 @@ public class AliquotaFragment extends Fragment {
         LocalProcedencia localProcedencia = new LocalProcedencia();
 
     try {
-        _itens = itens;
-        aliquota = itens.aliquota;
-        amostra = itens.aliquota.amostra;
-        alocacao = itens.aliquota.alocacao;
-        paciente = itens.aliquota.amostra.paciente;
-        caixa = itens.aliquota.alocacao.caixa;
-        gaveta = itens.aliquota.alocacao.caixa.gaveta;
-        freezer = itens.aliquota.alocacao.caixa.gaveta.freezer;
-        localProcedencia = itens.aliquota.amostra.localProcedencia;
-        tipoAmostra = itens.aliquota.amostra.tipoAmostra;
-        diagnostico = itens.aliquota.amostra.diagnostico;
-        cid = itens.aliquota.amostra.diagnostico.cid;
+             _itens = itens;
+          if(_itens.aliquota != null) {
+            aliquota = itens.aliquota;
+            amostra = itens.aliquota.amostra;
+            alocacao = itens.aliquota.alocacao;
+            paciente = itens.aliquota.amostra.paciente;
+            caixa = itens.aliquota.alocacao.caixa;
+            gaveta = itens.aliquota.alocacao.caixa.gaveta;
+            freezer = itens.aliquota.alocacao.caixa.gaveta.freezer;
+            localProcedencia = itens.aliquota.amostra.localProcedencia;
+            tipoAmostra = itens.aliquota.amostra.tipoAmostra;
 
-        TextView txtNomePaciente = (TextView) aliquotaView.findViewById(R.id.labelNomePaciente);
-        TextView txtNomeMae = (TextView) aliquotaView.findViewById(R.id.labelNomeMae);
-        TextView txtCPF = (TextView) aliquotaView.findViewById(R.id.labelCPF);
-        TextView txtTelefone = (TextView) aliquotaView.findViewById(R.id.labelTelefone);
 
-        TextView txtDataEntrada = (TextView) aliquotaView.findViewById(R.id.labelDataEntrada);
-        TextView txtDataDescarte = (TextView) aliquotaView.findViewById(R.id.labelDataDescarte);
-        TextView txtCaixa = (TextView) aliquotaView.findViewById(R.id.labelIdCaixa);
-        TextView txtGaveta = (TextView) aliquotaView.findViewById(R.id.labelIdGaveta);
-        TextView txtFreezer = (TextView) aliquotaView.findViewById(R.id.labelCodigoFreezer);
-        TextView txtPosicao = (TextView) aliquotaView.findViewById(R.id.labelPosicao);
+            TextView txtNomePaciente = (TextView) aliquotaView.findViewById(R.id.labelNomePaciente);
+            TextView txtNomeMae = (TextView) aliquotaView.findViewById(R.id.labelNomeMae);
+            TextView txtCPF = (TextView) aliquotaView.findViewById(R.id.labelCPF);
+            TextView txtTelefone = (TextView) aliquotaView.findViewById(R.id.labelTelefone);
 
-        TextView txtVolume = (TextView) aliquotaView.findViewById(R.id.labelVolume);
-        TextView txtConcentracao = (TextView) aliquotaView.findViewById(R.id.labelConcentracao);
-        TextView txtCodAmostra = (TextView) aliquotaView.findViewById(R.id.labelCodigoAmostra);
-        TextView txtDataEntradaAmostra = (TextView) aliquotaView.findViewById(R.id.labelDataEntradaAmostra);
-        TextView txtTipoAmostra = (TextView) aliquotaView.findViewById(R.id.labelTipoAmostra);
-        TextView txtLocalProcedencia = (TextView) aliquotaView.findViewById(R.id.labelLocalProcedencia);
-        TextView txtCodDiagnostico = (TextView) aliquotaView.findViewById(R.id.labelCodDiagnostico);
-        TextView txtSiglaDiagnostico = (TextView) aliquotaView.findViewById(R.id.labelSiglaDiagnostico);
-        TextView txtCodCid = (TextView) aliquotaView.findViewById(R.id.labelCodCid);
-        TextView txtDescricaoCid = (TextView) aliquotaView.findViewById(R.id.labelDescricaoCid);
 
-        txtNomePaciente.setText("Nome do Paciente: " + paciente.nome);
-        txtNomeMae.setText("Nome da Mãe: " + paciente.nomeMae);
-        txtCPF.setText("CPF: " + paciente.cpf);
-        txtTelefone.setText("Telefone: " + paciente.telefone);
+            TextView txtDataEntrada = (TextView) aliquotaView.findViewById(R.id.labelDataEntrada);
+            TextView txtDataDescarte = (TextView) aliquotaView.findViewById(R.id.labelDataDescarte);
+            TextView txtCaixa = (TextView) aliquotaView.findViewById(R.id.labelIdCaixa);
+            TextView txtGaveta = (TextView) aliquotaView.findViewById(R.id.labelIdGaveta);
+            TextView txtFreezer = (TextView) aliquotaView.findViewById(R.id.labelCodigoFreezer);
+            TextView txtPosicao = (TextView) aliquotaView.findViewById(R.id.labelPosicao);
 
-        txtDataEntrada.setText("Data de Entrada: " + aliquota.dataEntrada);
-        txtDataDescarte.setText("Data de Descarte: " + aliquota.dataDescarte);
-        txtPosicao.setText("Coluna: " + alocacao.posicaoX + " Linha: " + alocacao.posicaoY);
-        txtCaixa.setText("Caixa: " + caixa.idCaixa);
-        txtGaveta.setText("Gaveta: " + gaveta.idGaveta);
-        txtFreezer.setText("Código do Freezer: " + freezer.codigo);
+            TextView txtVolume = (TextView) aliquotaView.findViewById(R.id.labelVolume);
+            TextView txtConcentracao = (TextView) aliquotaView.findViewById(R.id.labelConcentracao);
+            TextView txtCodAmostra = (TextView) aliquotaView.findViewById(R.id.labelCodigoAmostra);
+            TextView txtDataEntradaAmostra = (TextView) aliquotaView.findViewById(R.id.labelDataEntradaAmostra);
+            TextView txtTipoAmostra = (TextView) aliquotaView.findViewById(R.id.labelTipoAmostra);
+            TextView txtLocalProcedencia = (TextView) aliquotaView.findViewById(R.id.labelLocalProcedencia);
+            TextView txtCodDiagnostico = (TextView) aliquotaView.findViewById(R.id.labelCodDiagnostico);
+            TextView txtSiglaDiagnostico = (TextView) aliquotaView.findViewById(R.id.labelSiglaDiagnostico);
+            TextView txtCodCid = (TextView) aliquotaView.findViewById(R.id.labelCodCid);
+            TextView txtDescricaoCid = (TextView) aliquotaView.findViewById(R.id.labelDescricaoCid);
 
-        txtVolume.setText("Volume: " + String.valueOf(aliquota.volume));
-        txtConcentracao.setText("Concentração: " + String.valueOf(aliquota.concentracao));
-        txtCodAmostra.setText("Cod. Amostra: " + amostra.codigo);
-        txtDataEntradaAmostra.setText("Data de Entrada: " + amostra.dataEntrada);
-        txtTipoAmostra.setText("Tipo da Amostra: " + amostra.tipoAmostra.nome);
-        txtLocalProcedencia.setText("local Procedência: " + amostra.localProcedencia.nome);
-        txtCodDiagnostico.setText("Cod. Diagnóstico: " + diagnostico.codigo);
-        txtSiglaDiagnostico.setText("Sigla Diagnóstico: " + diagnostico.sigla);
-        txtCodCid.setText("Cod. CID: " + cid.codigo);
-        txtDescricaoCid.setText("Sigla CID: " + cid.descricao);
-        Toast.makeText(context, "Carregamento Concluído.", Toast.LENGTH_SHORT).show();
+              if(itens.diagnosticos != null) {
+                  diagnostico = itens.aliquota.amostra.diagnostico;
+                  cid = itens.aliquota.amostra.diagnostico.cid;
+                  txtCodDiagnostico.setText("Cod. Diagnóstico: " + diagnostico.codigo);
+                  txtSiglaDiagnostico.setText("Sigla Diagnóstico: " + diagnostico.sigla);
+                  txtCodCid.setText("Cod. CID: " + cid.codigo);
+                  txtDescricaoCid.setText("Sigla CID: " + cid.descricao);
+              }else{
+                  txtCodDiagnostico.setText("Cod. Diagnóstico: -");
+                  txtSiglaDiagnostico.setText("Sigla Diagnóstico: -");
+                  txtCodCid.setText("Cod. CID: -");
+                  txtDescricaoCid.setText("Sigla CID: -");
+              }
 
-    }catch (Exception e){
+            txtNomePaciente.setText("Nome do Paciente: " + paciente.nome);
+            txtNomeMae.setText("Nome da Mãe: " + paciente.nomeMae);
+            txtCPF.setText("CPF: " + paciente.cpf);
+            txtTelefone.setText("Telefone: " + paciente.telefone);
+
+            txtDataEntrada.setText("Data de Entrada: " + aliquota.dataEntrada);
+            txtDataDescarte.setText("Data de Descarte: " + aliquota.dataDescarte);
+            txtPosicao.setText("Coluna: " + alocacao.posicaoX + " Linha: " + alocacao.posicaoY);
+            txtCaixa.setText("Caixa: " + caixa.idCaixa);
+            txtGaveta.setText("Gaveta: " + gaveta.idGaveta);
+            txtFreezer.setText("Código do Freezer: " + freezer.codigo);
+
+            txtVolume.setText("Volume: " + String.valueOf(aliquota.volume));
+            txtConcentracao.setText("Concentração: " + String.valueOf(aliquota.concentracao));
+            txtCodAmostra.setText("Cod. Amostra: " + amostra.codigo);
+            txtDataEntradaAmostra.setText("Data de Entrada: " + amostra.dataEntrada);
+            txtTipoAmostra.setText("Tipo da Amostra: " + amostra.tipoAmostra.nome);
+            txtLocalProcedencia.setText("local Procedência: " + amostra.localProcedencia.nome);
+
+            Toast.makeText(context, "Carregamento Concluído.", Toast.LENGTH_SHORT).show();
+        }else{
+            Util.exibirMensagem("Aliquota","Nenhuma Aliquota Encontrada com o QR Code Informado.",context);
+        }
+   }catch (Exception e){
 
         Util.exibirMensagem("conexão","Erro ao tentar se conectar com os Servidores.",context);
 
