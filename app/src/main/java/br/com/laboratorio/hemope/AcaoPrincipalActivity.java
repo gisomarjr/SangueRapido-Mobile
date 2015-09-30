@@ -86,9 +86,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
             case 5:
                 mTitle = getString(R.string.titulo_sessao_amostras);
                 break;
-            case 6:
-                mTitle = getString(R.string.titulo_sessao_procedencias);
-                break;
+
 
 
             case 33:
@@ -207,7 +205,16 @@ public class AcaoPrincipalActivity extends ActionBarActivity
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
+        public static android.support.v4.app.Fragment newInstance(int sectionNumber,String idAliquota) {
 
+            AliquotaFragment aliquotaFragment = new AliquotaFragment();
+            Bundle argsaliquotaFragment = new Bundle();
+            argsaliquotaFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            argsaliquotaFragment.putString("idAliquota", idAliquota);
+            aliquotaFragment.setArguments(argsaliquotaFragment);
+            return aliquotaFragment;
+
+        }
 
         /**
          * Returns a new instance of this fragment for the given section

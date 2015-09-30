@@ -123,6 +123,9 @@ public class Util {
                 case "consultarProcedencias":
                     ListaProcedenciasFragment.preencherLista(_itens, _context);
                     break;
+                case "alterarDadosAlocacao":
+                    AlocacaoFragment.atualizarTelaAlterarAlocacao(_itens,_context);
+
             }
 
         }

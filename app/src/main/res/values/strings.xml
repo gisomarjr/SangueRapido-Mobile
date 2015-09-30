@@ -36,6 +36,8 @@
     <string name="urlGeralWebServiceConsultarPaciente">paciente/pesquisar2/</string>
     <string name="urlGeralWebServiceConsultarAliquota">paciente/consultarAliquota/</string>
     <string name="urlGeralWebServiceConsultarProcedencia">amostra/consultarprocedencia</string>
-    <string name="titulo_sessao_procedencias">Procedências</string>
+    <string name="urlGeralWebServiceAlterarAlocacao">aliquota/AlterarAlocacao/</string>
+    <string name="urlGeralWebServiceConsultarFreezer">alocacao/ObterDadosAlocacaoDisponiveis</string>
+     <string name="titulo_sessao_procedencias">Procedências</string>
     <string name="urlGeralWebServiceConsultarDiagnostico">paciente/consultardiagnosticos</string>
 </resources>

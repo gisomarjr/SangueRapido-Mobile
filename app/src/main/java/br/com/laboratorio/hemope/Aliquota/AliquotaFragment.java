@@ -71,8 +71,18 @@ public class AliquotaFragment extends Fragment {
         public void onAttach(Activity activity) {
             super.onAttach(activity);
 
-            if(getArguments().getInt(ARG_SECTION_NUMBER) == 3){
-                lerQrCod();
+            if(!getArguments().containsKey("idAliquota")) {
+
+                if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
+                    lerQrCod();
+                }
+            }else{
+                String urlGeral = aliquotaView.getResources().getString(R.string.urlGeralWebService);
+                String urlSecundaria = aliquotaView.getResources().getString(R.string.urlGeralWebServiceConsultarAliquota);
+
+                Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Carregando dados da Aliquota...","aliquota",_itens,getActivity());
+                downloadTask.execute(urlGeral + urlSecundaria + "?codigoAliquota=" + getArguments().getString("idAliquota"));
+                Log.i("link",urlGeral + urlSecundaria + "?codigoAliquota=" + getArguments().getString("idAliquota"));
             }
 
             ((AcaoPrincipalActivity) activity).onSectionAttached(
@@ -189,7 +199,7 @@ public class AliquotaFragment extends Fragment {
 
     try {
              _itens = itens;
-          if(_itens != null) {
+          if(_itens.aliquota != null) {
             aliquota = itens.aliquota;
             amostra = itens.aliquota.amostra;
             alocacao = itens.aliquota.alocacao;

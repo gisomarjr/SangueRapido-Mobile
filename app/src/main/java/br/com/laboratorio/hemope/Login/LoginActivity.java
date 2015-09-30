@@ -55,9 +55,13 @@ public class LoginActivity extends AppCompatActivity{
         String urlGeral = view.getResources().getString(R.string.urlGeralWebService);
         String urlSecundaria = view.getResources().getString(R.string.urlGeralWebServiceEfetuarLogin);
 
-        Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Verificando o seu Login...","verificaLogin",itens,LoginActivity.this);
-        downloadTask.execute(urlGeral + urlSecundaria + "?login="+credenciais[0] + "&senha="+ credenciais[1]);
+        if(!editTextSenha.getText().toString().equals("") && !editTextSenha.getText().toString().equals("")) {
 
+            Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde", "Verificando o seu Login...", "verificaLogin", itens, LoginActivity.this);
+            downloadTask.execute(urlGeral + urlSecundaria + "?login=" + credenciais[0] + "&senha=" + credenciais[1]);
+        }else{
+            Util.exibirMensagem("Campos","Favor informar as credenciais de acesso!", this);
+        }
     }
 
    public static void verificaLogin(Itens itens, FragmentActivity context) {
