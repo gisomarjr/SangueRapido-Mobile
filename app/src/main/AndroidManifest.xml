@@ -9,17 +9,14 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".Diagnostico.DiagnosticoActivity"
-            android:label="@string/app_name" >
-        </activity>
+
         <activity
             android:name=".Diagnostico.DetalheDiagnosticoActivity"
             android:label="Detalhe Diagnostico"
             android:parentActivityName=".Diagnostico.DetalheDiagnosticoActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.com.laboratorio.hemope.Diagnostico.DiagnosticoActivity" />
+                android:value="br.com.laboratorio.hemope.AcaoPrincipalActivity"/>
         </activity>
 
         <activity
@@ -27,7 +24,7 @@
             android:label="@string/title_activity_detalhe_paciente"
             android:parentActivityName=".AcaoPrincipalActivity" >
             <meta-data
-                android:name="android.support.PARENT_ACTIVI/TY"
+                android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.com.laboratorio.hemope.AcaoPrincipalActivity" />
         </activity>
         <activity
@@ -39,6 +36,9 @@
             android:name=".Amostra.DetalheAmostraActivity"
             android:label="@string/titulo_sessao_amostras"
             android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.com.laboratorio.hemope.AcaoPrincipalActivity" />
         </activity>
 
         <activity
