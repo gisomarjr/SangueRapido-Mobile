@@ -20,9 +20,6 @@ import br.com.laboratorio.hemope.R;
 public class DetalhePacienteFragment extends Fragment {
 
 
-
-    private static final String LIVROS_SHARE_HASHTAG = "#WorldsBooks ";
-    private static String SHARE_DEFAULT_TEXT = "";
     private static final String LOG_TAG = DetalhePacienteFragment.class.getSimpleName();
 
     private Paciente paciente;
@@ -93,16 +90,6 @@ public class DetalhePacienteFragment extends Fragment {
         txtPais.setText(endereco.pais);
         txtRua.setText(endereco.rua);
         txtNumero.setText(endereco.numero);
-       /* if(livro.volumes.urlImagens != null) {
-            Picasso.with(getActivity())
-                    .load(livro.volumes.urlImagens.urlImagem)
-                    .into(imgCapa);
-        }else{
-            //imagem caso o não encontre o livro
-            Picasso.with(getActivity())
-                    .load("http://rlv.zcache.com.br/ponto_de_interrogacao_dos_desenhos_animados_papel_timbrado-ra082215bdfb44a0d9fc49d7ba691a9df_vg63g_8byvr_512.jpg")
-                    .into(imgCapa);
-        }*/
         return view;
     }
 

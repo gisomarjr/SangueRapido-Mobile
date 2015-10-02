@@ -80,6 +80,7 @@ public class ListaAmostrasFragment extends Fragment {
 
                 String urlGeral = view.getResources().getString(R.string.urlGeralWebService);
                 String urlSecundaria = view.getResources().getString(R.string.urlGeralWebServiceConsultarAmostra);
+                mListaAmostras.clear();
 
                 Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Consultando Amostras...","consultarAmostras",itens,getActivity());
                 downloadTask.execute(urlGeral + urlSecundaria + "?texto="+pesquisaUsuario);
