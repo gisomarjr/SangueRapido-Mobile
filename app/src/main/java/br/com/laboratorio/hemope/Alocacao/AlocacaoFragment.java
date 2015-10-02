@@ -107,16 +107,36 @@ public class AlocacaoFragment extends Fragment {
             return alocacaoView;
         }
 
-
+    //verificando se obteve sucesso na atualização da aliquota
     public static void atualizarTelaAlterarAlocacao(Itens itensCarregados, FragmentActivity context){
 
         if(itensCarregados.isSuccess){
             Util.exibirMensagem("Sucesso","Aliquota Atualizada com Sucesso...", context);
-            AliquotaFragment.preencherActivityAliquota(itens,context);
+
+            String urlGeral = alocacaoView.getResources().getString(R.string.urlGeralWebService);
+            String urlSecundaria = alocacaoView.getResources().getString(R.string.urlGeralWebServiceConsultarAliquota);
+
+            Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Atualizando dados da Aliquota...","atualizaTelaAlocacaoDados",itens,context);
+            downloadTask.execute(urlGeral + urlSecundaria + "?codigoAliquota=" + itens.aliquota.codigo);
+            Log.i("link",urlGeral + urlSecundaria + "?codigoAliquota=" + itens.aliquota.codigo);
+
         }else{
             Util.exibirMensagem("Erro",itensCarregados.errorMessage, context);
         }
 
+    }
+    //obteve sucesso na alteração da aliquota e atualiza a tela
+    public static void atualizaTelaAlocacaoDados(Itens itensCarregados, FragmentActivity context){
+
+        TextView textFreezer = (TextView) alocacaoView.findViewById(R.id.dadosFreezer);
+        TextView textGaveta = (TextView) alocacaoView.findViewById(R.id.dadosGaveta);
+        TextView textCaixa = (TextView) alocacaoView.findViewById(R.id.dadosCaixa);
+        TextView textPosicao = (TextView) alocacaoView.findViewById(R.id.dadosPosicao);
+
+        textFreezer.setText("Freezer: " +itensCarregados.aliquota.alocacao.caixa.gaveta.freezer.codigo);
+        textGaveta.setText(String.valueOf("Gaveta: "+itensCarregados.aliquota.alocacao.caixa.gaveta.idGaveta));
+        textCaixa.setText(String.valueOf("Caixa: "+itensCarregados.aliquota.alocacao.caixa.idCaixa));
+        textPosicao.setText("Posição: " +itensCarregados.aliquota.alocacao.posicaoY + " - " + itensCarregados.aliquota.alocacao.posicaoX);
     }
 
 

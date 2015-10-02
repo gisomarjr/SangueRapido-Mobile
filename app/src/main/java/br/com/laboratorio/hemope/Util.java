@@ -123,6 +123,10 @@ public class Util {
                     break;
                 case "alterarDadosAlocacao":
                     AlocacaoFragment.atualizarTelaAlterarAlocacao(_itens,_context);
+                    break;
+                case "atualizaTelaAlocacaoDados":
+                    AlocacaoFragment.atualizaTelaAlocacaoDados(_itens,_context);
+                    break;
 
             }
 

@@ -1,3 +1,3 @@
 # SangueRapido-Mobile
 
-Atividades de Marcos Bastos
+Atividades de desenvolvimento de Gisomar Júnior
