@@ -23,7 +23,6 @@ import br.com.laboratorio.hemope.Amostra.ListaAmostrasFragment;
 import br.com.laboratorio.hemope.Diagnostico.ListaDiagnosticosFragment;
 import br.com.laboratorio.hemope.Login.LoginActivity;
 import br.com.laboratorio.hemope.Model.Itens;
-import br.com.laboratorio.hemope.Model.LocalProcedencia;
 import br.com.laboratorio.hemope.Paciente.ListaPacientesFragment;
 import br.com.laboratorio.hemope.Procedencia.ListaProcedenciasFragment;
 
@@ -46,7 +45,6 @@ public class Util {
         String _acaoMetodo;
         Itens _itens;
         FragmentActivity _context;
-        LocalProcedencia _localProcedencia;
 
         /**
          * Construtor da Classe parametros obrigatorios

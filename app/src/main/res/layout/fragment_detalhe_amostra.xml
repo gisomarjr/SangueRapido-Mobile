@@ -12,7 +12,7 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:orientation="vertical"
         android:gravity="center"
-        tools:context="br.com.laboratorio.hemope.Paciente.DetalheAmostraActivity$PlaceholderFragment">
+        tools:context="br.com.laboratorio.hemope.Amostra.DetalheAmostraActivity$PlaceholderFragment">
 
 
         <TextView
