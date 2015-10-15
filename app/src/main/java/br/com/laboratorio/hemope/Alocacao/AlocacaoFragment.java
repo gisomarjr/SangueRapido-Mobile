@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
-import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
 import br.com.laboratorio.hemope.Model.Alocacao;
 import br.com.laboratorio.hemope.Model.Caixa;
 import br.com.laboratorio.hemope.Model.Freezer;
@@ -45,11 +43,6 @@ public class AlocacaoFragment extends Fragment {
          static Spinner spinnerAlocacao = null;
 
         static String idAlocacaoAtualizar;
-
-        public AlocacaoFragment() {
-
-
-        }
 
         private static final String ARG_SECTION_NUMBER = "section_number";
 

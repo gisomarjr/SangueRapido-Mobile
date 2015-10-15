@@ -12,4 +12,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:src="#ff32ff57" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Listar Freezer"
+        android:id="@+id/btListarFreezer"
+        android:onClick="listarFreezer"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

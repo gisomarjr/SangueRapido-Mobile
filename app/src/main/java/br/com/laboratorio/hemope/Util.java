@@ -21,6 +21,7 @@ import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
 import br.com.laboratorio.hemope.Alocacao.AlocacaoFragment;
 import br.com.laboratorio.hemope.Amostra.ListaAmostrasFragment;
 import br.com.laboratorio.hemope.Diagnostico.ListaDiagnosticosFragment;
+import br.com.laboratorio.hemope.Freezer.ListarFreezerActivity;
 import br.com.laboratorio.hemope.Login.LoginActivity;
 import br.com.laboratorio.hemope.Model.Itens;
 import br.com.laboratorio.hemope.Paciente.ListaPacientesFragment;
@@ -127,7 +128,11 @@ public class Util {
                 case "atualizaTelaAlocacaoDados":
                     AlocacaoFragment.atualizaTelaAlocacaoDados(_itens,_context);
                     break;
-
+                case "atualizarCountFreezerAba":
+                    Intent it = new Intent(_context,ListarFreezerActivity.class);
+                    it.putExtra("itens",_itens);
+                    _context.startActivity(it);
+                    break;
             }
 
         }
