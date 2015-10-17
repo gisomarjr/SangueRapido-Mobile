@@ -31,6 +31,7 @@
 
     <string name="urlGeralWebService">http://sanguerapido.somee.com/ws/</string>
     <string name="urlGeralWebServiceListarFreezer">alocacao/ObterDadosAlocacaoDisponiveis</string>
+    <string name="urlGeralWebServiceListarTodosOsFreezers">alocacao/ObterDadosAlocacoes</string>
     <string name="urlGeralWebServiceConsultarAmostra">amostra/consultaramostras/</string>
     <string name="urlGeralWebServiceEfetuarLogin">usuario/autenticacao/</string>
     <string name="urlGeralWebServiceConsultarPaciente">paciente/pesquisar2/</string>
