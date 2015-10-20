@@ -121,33 +121,6 @@
         android:layout_below="@+id/labelIdCaixa"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Freezer"
-        android:id="@+id/labelCodigoFreezer"
-        android:layout_below="@+id/labelIdGaveta"
-        android:layout_alignLeft="@+id/labelTelefone"
-        android:layout_alignStart="@+id/labelTelefone" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Posicao"
-        android:id="@+id/labelPosicao"
-        android:layout_below="@+id/labelCodigoFreezer"
-        android:layout_alignLeft="@+id/labelCodigoFreezer"
-        android:layout_alignStart="@+id/labelCodigoFreezer" />
-
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Dados da Amostra"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/labelVolume"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_alignEnd="@+id/textView2" />
 
         <TextView
             android:layout_width="wrap_content"

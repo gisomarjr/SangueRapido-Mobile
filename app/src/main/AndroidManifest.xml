@@ -28,7 +28,7 @@
         <activity
             android:name=".AcaoPrincipalActivity"
             android:label="@string/title_activity_acao_principal"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,11 +47,14 @@
             android:name=".Login.LoginActivity"
             android:label="Efetuar Login - HEMOPE"
             android:screenOrientation="portrait" >
-
         </activity>
         <activity
             android:name=".Freezer.ListarFreezerActivity"
             android:label="@string/title_activity_listar_freezer" >
+        </activity>
+        <activity
+            android:name=".Gavetas.ListaGavetasActivity"
+            android:label="@string/title_activity_lista_gavetas" >
         </activity>
     </application>
 

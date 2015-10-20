@@ -23,6 +23,7 @@ import br.com.laboratorio.hemope.Diagnostico.ListaDiagnosticosFragment;
 import br.com.laboratorio.hemope.Model.Aliquota;
 import br.com.laboratorio.hemope.Model.Amostra;
 import br.com.laboratorio.hemope.Model.Diagnostico;
+import br.com.laboratorio.hemope.Model.Gaveta;
 import br.com.laboratorio.hemope.Model.Itens;
 import br.com.laboratorio.hemope.Model.Paciente;
 import br.com.laboratorio.hemope.Paciente.DetalhePacienteActivity;
@@ -75,6 +76,21 @@ public class AcaoPrincipalActivity extends ActionBarActivity
 
 
     }
+
+    public void listarGavetas(View view){
+
+
+        String urlGeral = getResources().getString(R.string.urlGeralWebService);
+        String urlSecundaria = getResources().getString(R.string.urlGeralWebServiceListarFreezer);
+
+        Itens itens = new Itens();
+
+        Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde...","Carregando dados do Freezer","atualizarCountFreezerAba",itens,this);
+        downloadTask.execute(urlGeral + urlSecundaria);
+
+
+    }
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position){
@@ -166,7 +182,13 @@ public class AcaoPrincipalActivity extends ActionBarActivity
         }
 
     }
+    @Override
+    public void onClick(Gaveta gaveta) {
 
+
+
+
+    }
     @Override
     public void onClick(Diagnostico diagnostico) {
 

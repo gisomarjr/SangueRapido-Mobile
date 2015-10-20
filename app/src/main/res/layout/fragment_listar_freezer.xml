@@ -7,13 +7,41 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:gravity="center"
+    android:id="@+id/relativeFreezer"
+    android:clickable="true"
 
     tools:context="br.com.laboratorio.hemope.Freezer.ListarFreezerFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:id="@+id/textAba" android:layout_width="match_parent" android:layout_height="match_parent"
+    <TextView android:id="@+id/textAba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/hello_blank_fragment" />
+        android:text="Código do Freezer"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descrição do Freezer"
+        android:id="@+id/labelDescFreezer"
+        android:layout_below="@+id/textAba"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Capacidade Gavetas"
+        android:id="@+id/labelCapacidade"
+        android:layout_below="@+id/labelDescFreezer"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
 
 
 </RelativeLayout>

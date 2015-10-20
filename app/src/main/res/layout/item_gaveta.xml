@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageViewGaveta"
+        android:src="@drawable/gaveta"
+        android:layout_gravity="left"
+
+        android:paddingBottom="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Código da gaveta"
+        android:id="@+id/txtCodigoGaveta"
+        android:layout_gravity="center_horizontal"
+        android:layout_toRightOf="@+id/imageViewGaveta"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Codigo Freezer"
+        android:id="@+id/txtCodigoFreezer"
+        android:layout_gravity="right"
+        android:layout_below="@+id/txtCodigoGaveta"
+        android:layout_toRightOf="@+id/imageViewGaveta"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="txtQtdCaixas"
+        android:id="@+id/txtQtdCaixas"
+        android:layout_gravity="right"
+        android:layout_below="@+id/txtCodigoFreezer"
+        android:layout_toRightOf="@+id/imageViewGaveta"/>
+
+
+</RelativeLayout>

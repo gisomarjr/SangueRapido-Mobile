@@ -4,6 +4,7 @@ package br.com.laboratorio.hemope.View;
 import br.com.laboratorio.hemope.Model.Aliquota;
 import br.com.laboratorio.hemope.Model.Amostra;
 import br.com.laboratorio.hemope.Model.Diagnostico;
+import br.com.laboratorio.hemope.Model.Gaveta;
 import br.com.laboratorio.hemope.Model.Paciente;
 
 public interface AoClicarNoItemListener {
@@ -11,4 +12,5 @@ public interface AoClicarNoItemListener {
     void onClick(Diagnostico diagnostico);
     void onClick(Amostra amostra);
     void onClick(Aliquota aliquota);
+    void onClick(Gaveta gaveta);
 }
