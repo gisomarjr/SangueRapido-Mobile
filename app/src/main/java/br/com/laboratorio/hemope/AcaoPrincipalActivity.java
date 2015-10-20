@@ -67,7 +67,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
 
 
         String urlGeral = getResources().getString(R.string.urlGeralWebService);
-        String urlSecundaria = getResources().getString(R.string.urlGeralWebServiceListarFreezer);
+        String urlSecundaria = getResources().getString(R.string.urlGeralWebServiceListarTodosOsFreezers);
 
         Itens itens = new Itens();
 
