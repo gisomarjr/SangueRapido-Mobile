@@ -2,7 +2,6 @@ package br.com.laboratorio.hemope.Gavetas;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ public class ListaGavetasActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             ArrayList<Gaveta> listGavetas = (ArrayList<Gaveta>) getIntent().getSerializableExtra("gavetas");
-            Toast.makeText(this, "" + listGavetas.get(0).idGaveta, Toast.LENGTH_LONG).show();
+          //  Toast.makeText(this, "" + listGavetas.get(0).idGaveta, Toast.LENGTH_LONG).show();
             ListaGavetasFragment listaGavetasFragment = ListaGavetasFragment.novaInstancia(listGavetas);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, listaGavetasFragment, "detalhe")

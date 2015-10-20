@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -83,7 +82,7 @@ public class ListarFreezerFragment extends Fragment {
             @Override
             public void onClick(View v){
                 Freezer f = mParam2.freezers.get(mParam1);
-                Toast.makeText(getActivity(), ""+f.gavetas.get(0).numeroCaixas, Toast.LENGTH_LONG).show();
+             //   Toast.makeText(getActivity(), ""+f.gavetas.get(0).numeroCaixas, Toast.LENGTH_LONG).show();
                 //gavetaArrayList.get(0).numeroCaixas
                 gavetaArrayList.clear();
                 int i = 0;
@@ -94,7 +93,7 @@ public class ListarFreezerFragment extends Fragment {
                     i++;
                 }
 
-                Toast.makeText(getActivity(), ""+gavetaArrayList.size(), Toast.LENGTH_LONG).show();
+               // Toast.makeText(getActivity(), ""+gavetaArrayList.size(), Toast.LENGTH_LONG).show();
                Intent it = new Intent(getActivity(), ListaGavetasActivity.class);
 
                 it.putExtra("gavetas", gavetaArrayList);
