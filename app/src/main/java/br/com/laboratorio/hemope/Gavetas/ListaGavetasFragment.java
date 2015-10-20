@@ -76,7 +76,7 @@ public class ListaGavetasFragment extends android.support.v4.app.Fragment {
             //     mSavedName = savedInstanceState.getString(searchedName);
             //   mListaGavetas = (ArrayList<Gaveta>) savedInstanceState.getSerializable("listaGavetas");
 
-            Toast.makeText(getActivity(),""+mListaGavetas.get(0).numeroCaixas, Toast.LENGTH_LONG).show();
+      //      Toast.makeText(getActivity(),""+mListaGavetas.get(0).numeroCaixas, Toast.LENGTH_LONG).show();
         }
     }
 
