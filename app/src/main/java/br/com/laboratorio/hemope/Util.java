@@ -184,4 +184,19 @@ public class Util {
         return downloadDialog.show();
     }
 
+    public static String decimalParaSimbolos(int decimal, String conjunto){
+        String conversao = "";
+
+        while(decimal >= conjunto.length()){
+            int resto = decimal % conjunto.length();
+
+            conversao = conjunto.charAt(resto) + conversao;
+
+            decimal -= resto;
+            decimal /= conjunto.length();
+            decimal --;
+        }
+
+        return  conjunto.charAt(decimal) + conversao;
+    }
 }
