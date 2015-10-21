@@ -20,5 +20,7 @@
         android:id="@+id/btListarFreezer"
         android:onClick="listarFreezer"
         android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/blue_button"
+        style="@style/button_text"/>
 </RelativeLayout>

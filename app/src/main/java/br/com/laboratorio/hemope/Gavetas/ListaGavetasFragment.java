@@ -31,14 +31,7 @@ import br.com.laboratorio.hemope.R;
 import br.com.laboratorio.hemope.Util;
 import br.com.laboratorio.hemope.View.AoClicarNoItemListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ListaGavetasFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ListaGavetasFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ListaGavetasFragment extends android.support.v4.app.Fragment {
     //
     static ListView listView;

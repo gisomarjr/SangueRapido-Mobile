@@ -16,7 +16,7 @@ tools:context="br.com.laboratorio.hemope.Login.LoginActivity"
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"
     android:padding="10dp"
-    >
+    android:id="@+id/linearLayout">
 
     <EditText
         android:id="@+id/etUsuario"
@@ -51,5 +51,16 @@ tools:context="br.com.laboratorio.hemope.Login.LoginActivity"
         style="@style/button_text"/>
         />
 </LinearLayout>
+
+    <ImageView
+        android:layout_width="166dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:src="@drawable/logo"
+
+        android:layout_above="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        android:layout_marginTop="50dp" />
 
 </RelativeLayout>

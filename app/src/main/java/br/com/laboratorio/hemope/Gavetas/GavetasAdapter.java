@@ -38,8 +38,10 @@ public class GavetasAdapter extends ArrayAdapter<Gaveta>{
 
         //Log.i("qtdGavetas", itensGaveta.gaveta.size() + " - Position: " +position);
 
+
+
         txtCodigo.setText("Código da Gaveta: "+gaveta.idGaveta);
-   //     txtCodigoFreezer.setText("Código do freezer: "+freezer.codigo);
+        //txtCodigoFreezer.setText("Quantidade de Caixas: "+gaveta.);
         txtQtdCaixas.setText("Quantidade de caixas: "+gaveta.numeroCaixas);
 
 
