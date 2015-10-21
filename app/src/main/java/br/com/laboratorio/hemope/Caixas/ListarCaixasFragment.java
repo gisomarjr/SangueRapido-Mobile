@@ -1,25 +1,19 @@
-package br.com.laboratorio.hemope.Freezer;
+package br.com.laboratorio.hemope.Caixas;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import br.com.laboratorio.hemope.Gavetas.ListaGavetasActivity;
-import br.com.laboratorio.hemope.Model.Freezer;
 import br.com.laboratorio.hemope.Model.Gaveta;
 import br.com.laboratorio.hemope.Model.Itens;
-import br.com.laboratorio.hemope.R;
 
 
-public class ListarFreezerFragment extends Fragment {
+public class ListarCaixasFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "aba";
@@ -40,8 +34,8 @@ public class ListarFreezerFragment extends Fragment {
      * @return A new instance of fragment ListarCaixasFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ListarFreezerFragment newInstance(Integer aba, Itens itens) {
-        ListarFreezerFragment fragment = new ListarFreezerFragment();
+    public static ListarCaixasFragment newInstance(Integer aba, Itens itens) {
+        ListarCaixasFragment fragment = new ListarCaixasFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, aba);
         args.putSerializable(ARG_PARAM2, itens);
@@ -49,7 +43,7 @@ public class ListarFreezerFragment extends Fragment {
         return fragment;
     }
 
-    public ListarFreezerFragment() {
+    public ListarCaixasFragment() {
         // Required empty public constructor
     }
 
@@ -69,39 +63,39 @@ public class ListarFreezerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_listar_freezer, container, false);
+    //    View view = inflater.inflate(R.layout.fragment_listar_caixa, container, false);
 
-        TextView textView = (TextView)view.findViewById(R.id.textAba);
-        TextView txtDescricaoView = (TextView)view.findViewById(R.id.labelDescFreezer);
-        TextView txtQtdGavetasView = (TextView)view.findViewById(R.id.labelCapacidade);
-        textView.setText("Código: "+mParam2.freezers.get(mParam1).codigo);
-        txtDescricaoView.setText("Nome: "+mParam2.freezers.get(mParam1).descricao);
-        txtQtdGavetasView.setText("Qtd. Gavetas: "+mParam2.freezers.get(mParam1).qtdGavetas);
-        RelativeLayout relativeclic1 =(RelativeLayout)view.findViewById(R.id.relativeFreezer);
-        relativeclic1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Freezer f = mParam2.freezers.get(mParam1);
+//        TextView textView = (TextView)view.findViewById(R.id.textAba);
+  //      TextView txtDescricaoView = (TextView)view.findViewById(R.id.labelDescCaixa);
+    //    TextView txtQtdGavetasView = (TextView)view.findViewById(R.id.labelCapacidade);
+      //  textView.setText(mParam2.caixas.get(mParam1).codigo);
+       // txtDescricaoView.setText(mParam2.caixas.get(mParam1).descricao);
+       // txtQtdGavetasView.setText(mParam2.caixas.get(mParam1).qtdGavetas);
+       // RelativeLayout relativeclic1 =(RelativeLayout)view.findViewById(R.id.relativeCaixa);
+       // relativeclic1.setOnClickListener(new View.OnClickListener(){
+         //   @Override
+           // public void onClick(View v){
+         //       Caixa f = mParam2.caixas.get(mParam1);
              //   Toast.makeText(getActivity(), ""+f.gavetas.get(0).numeroCaixas, Toast.LENGTH_LONG).show();
                 //gavetaArrayList.get(0).numeroCaixas
-                gavetaArrayList.clear();
-                int i = 0;
-                for(Gaveta g: f.gavetas) {
+           //     gavetaArrayList.clear();
+               // int i = 0;
+             //   for(Gaveta g: f.gavetas) {
 
-                    gavetaArrayList.add(g);
+             //       gavetaArrayList.add(g);
 
-                    i++;
-                }
+               //     i++;
+               // }
 
                // Toast.makeText(getActivity(), ""+gavetaArrayList.size(), Toast.LENGTH_LONG).show();
-               Intent it = new Intent(getActivity(), ListaGavetasActivity.class);
+               //Intent it = new Intent(getActivity(), ListaGavetasActivity.class);
 
-                it.putExtra("gavetas", gavetaArrayList);
-                startActivity(it);
+               // it.putExtra("gavetas", gavetaArrayList);
+               // startActivity(it);
 
-            }
-        });
-        return view;
+           // }
+        //});
+        return null;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
