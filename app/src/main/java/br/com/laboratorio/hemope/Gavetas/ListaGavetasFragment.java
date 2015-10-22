@@ -2,6 +2,7 @@ package br.com.laboratorio.hemope.Gavetas;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -21,10 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
+import br.com.laboratorio.hemope.Caixa.ListarCaixaActivity;
 import br.com.laboratorio.hemope.Gavetas.GavetasAdapter;
 import br.com.laboratorio.hemope.Model.Amostra;
+import br.com.laboratorio.hemope.Model.Caixa;
 import br.com.laboratorio.hemope.Model.Gaveta;
 import br.com.laboratorio.hemope.Model.Itens;
 import br.com.laboratorio.hemope.R;
@@ -39,10 +43,9 @@ public class ListaGavetasFragment extends android.support.v4.app.Fragment {
     ProgressDialog progressDialog;
     public ArrayList<Gaveta> listaGavetas = new ArrayList<>();
 
-    static String mSavedName;
-    private String searchedName;
     static ArrayList<Gaveta> mListaGavetas = new ArrayList<>();
     View view;
+
     public static ListaGavetasFragment novaInstancia(ArrayList<Gaveta> gavetas) {
 
         ListaGavetasFragment dpf = new ListaGavetasFragment();
@@ -65,12 +68,7 @@ public class ListaGavetasFragment extends android.support.v4.app.Fragment {
 
         setRetainInstance(true);
 
-        if (mListaGavetas.size() > 0 ) {
-            //     mSavedName = savedInstanceState.getString(searchedName);
-            //   mListaGavetas = (ArrayList<Gaveta>) savedInstanceState.getSerializable("listaGavetas");
 
-      //      Toast.makeText(getActivity(),""+mListaGavetas.get(0).numeroCaixas, Toast.LENGTH_LONG).show();
-        }
     }
 
     @Override
@@ -95,16 +93,24 @@ public class ListaGavetasFragment extends android.support.v4.app.Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.e("click", "clicando");
+
                 Gaveta gaveta = (Gaveta) listView.getAdapter().getItem(i);
 
-                if (getActivity() instanceof AoClicarNoItemListener) {
-                    ((AoClicarNoItemListener) getActivity()).onClick(gaveta);
+                ArrayList<Caixa> caixas = gaveta.caixas;
+
+                if(caixas.size() > 0) {
+                    Intent it = new Intent(getActivity(), ListarCaixaActivity.class);
+                    it.putExtra("caixas", caixas);
+                    startActivity(it);
+                }else{
+                    Util.exibirMensagem("Caixas","Não existem caixas cadastradas com a gaveta informada.",getActivity());
                 }
+
+                /*if (getActivity() instanceof AoClicarNoItemListener) {
+                    ((AoClicarNoItemListener) getActivity()).onClick(gaveta);
+                }*/
             }
         });
-
-        //preencherLista();
-        //Pesquisar no banco ---
 
 
         if (listaGavetas != null) {
@@ -115,15 +121,6 @@ public class ListaGavetasFragment extends android.support.v4.app.Fragment {
         return view;
     }
 
-    //@Override
-    //public void onSaveInstanceState(Bundle outState) {
 
-//        outState.putString(searchedName, mSavedName);
-
-//        outState.putSerializable("listaGavetas", (ArrayList<Gaveta>) mListaGavetas);
-
-  //      super.onSaveInstanceState(outState);
-
-   // }
 
 }

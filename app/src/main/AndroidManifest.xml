@@ -29,7 +29,6 @@
             android:name=".AcaoPrincipalActivity"
             android:label="@string/title_activity_acao_principal"
             android:screenOrientation="portrait" >
-
         </activity>
         <activity
             android:name=".Amostra.DetalheAmostraActivity"
@@ -56,6 +55,10 @@
         <activity
             android:name=".Gavetas.ListaGavetasActivity"
             android:label="@string/title_activity_lista_gavetas" >
+        </activity>
+        <activity
+            android:name=".Caixa.ListarCaixaActivity"
+            android:label="@string/title_activity_listar_caixa" >
         </activity>
     </application>
 

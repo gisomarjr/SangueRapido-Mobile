@@ -1,6 +1,7 @@
 package br.com.laboratorio.hemope.Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,5 +13,5 @@ public class Gaveta implements Serializable {
    public int numeroCaixas;
    public boolean status;
    public Freezer freezer;
-   public List<Caixa> caixas;
+   public ArrayList<Caixa> caixas;
 }

@@ -17,6 +17,7 @@ import br.com.laboratorio.hemope.Model.Freezer;
 import br.com.laboratorio.hemope.Model.Gaveta;
 import br.com.laboratorio.hemope.Model.Itens;
 import br.com.laboratorio.hemope.R;
+import br.com.laboratorio.hemope.Util;
 
 
 public class ListarFreezerFragment extends Fragment {
@@ -85,19 +86,20 @@ public class ListarFreezerFragment extends Fragment {
              //   Toast.makeText(getActivity(), ""+f.gavetas.get(0).numeroCaixas, Toast.LENGTH_LONG).show();
                 //gavetaArrayList.get(0).numeroCaixas
                 gavetaArrayList.clear();
-                int i = 0;
+
                 for(Gaveta g: f.gavetas) {
 
                     gavetaArrayList.add(g);
 
-                    i++;
                 }
 
-               // Toast.makeText(getActivity(), ""+gavetaArrayList.size(), Toast.LENGTH_LONG).show();
-               Intent it = new Intent(getActivity(), ListaGavetasActivity.class);
-
-                it.putExtra("gavetas", gavetaArrayList);
-                startActivity(it);
+               if(gavetaArrayList.size() > 0) {
+                   Intent it = new Intent(getActivity(), ListaGavetasActivity.class);
+                   it.putExtra("gavetas", gavetaArrayList);
+                   startActivity(it);
+               }else{
+                   Util.exibirMensagem("Gaveta","No Freezer selecionado, não existem gavetas cadastradas.",getActivity());
+               }
 
             }
         });
