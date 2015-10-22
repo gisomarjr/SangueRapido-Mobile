@@ -14,11 +14,10 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import br.com.laboratorio.hemope.Gavetas.GavetasAdapter;
 import br.com.laboratorio.hemope.Model.Caixa;
-import br.com.laboratorio.hemope.Model.Gaveta;
 import br.com.laboratorio.hemope.R;
-import br.com.laboratorio.hemope.View.AoClicarNoItemListener;
+import br.com.laboratorio.hemope.Util;
+
 
 public class ListarCaixaFragment extends Fragment {
 
@@ -65,6 +64,9 @@ public class ListarCaixaFragment extends Fragment {
 
                 Caixa caixa = (Caixa) listView.getAdapter().getItem(i);
 
+               Log.i("decimalColuna", Util.decimalParaSimbolos(caixa.qtdX, "abcdefghijklmnopqrstuvwxyz"));
+               Intent it = new Intent(getActivity(),CaixaItemActivity.class);
+               startActivity(it);
                 //ArrayList<Caixa> caixas = gaveta.caixas;
 
                /* Intent it = new Intent(getActivity(), ListarCaixaActivity.class);
