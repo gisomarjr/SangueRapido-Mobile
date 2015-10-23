@@ -1,6 +1,7 @@
 package br.com.laboratorio.hemope.Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,5 +14,5 @@ public class Caixa implements Serializable{
    public int qtdY;
    public boolean status;
    public Gaveta gaveta;
-   public List<Alocacao> alocacoes;
+   public ArrayList<Alocacao> alocacoes;
 }

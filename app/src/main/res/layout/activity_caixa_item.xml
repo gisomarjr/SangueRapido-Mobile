@@ -1,5 +1,20 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/container"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    tools:context="br.com.laboratorio.hemope.Caixa.CaixaItemActivity"
-    tools:ignore="MergeRootFrame" />
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TableLayout
+        android:id="@+id/tableLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:shrinkColumns="*"
+        android:stretchColumns="*"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        android:showDividers="end"
+        android:background="@drawable/borda_table">
+    </TableLayout>
+
+</LinearLayout>

@@ -64,8 +64,12 @@ public class ListarCaixaFragment extends Fragment {
 
                 Caixa caixa = (Caixa) listView.getAdapter().getItem(i);
 
-               Log.i("decimalColuna", Util.decimalParaSimbolos(caixa.qtdX, "abcdefghijklmnopqrstuvwxyz"));
+
+
                Intent it = new Intent(getActivity(),CaixaItemActivity.class);
+               it.putExtra("x",caixa.qtdX);
+               it.putExtra("y",caixa.qtdY);
+               it.putExtra("alocacao", caixa.alocacoes);
                startActivity(it);
                 //ArrayList<Caixa> caixas = gaveta.caixas;
 
