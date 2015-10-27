@@ -1,27 +1,20 @@
 package br.com.laboratorio.hemope.Caixa;
 
 import android.annotation.TargetApi;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import br.com.laboratorio.hemope.Model.Alocacao;
 import br.com.laboratorio.hemope.R;
-import br.com.laboratorio.hemope.Util;
 
 public class CaixaItemActivity extends AppCompatActivity {
 
@@ -66,13 +59,13 @@ public class CaixaItemActivity extends AppCompatActivity {
                         TableRow.LayoutParams.WRAP_CONTENT));
                 //tv.setBackgroundResource(R.drawable.alocar);
                 tv.setPadding(5, 5, 5, 5);
-
-                tv.setBackground(getResources().getDrawable(R.drawable.borda_table));
+                tv.setClickable(true);
+                tv.setBackground(getResources().getDrawable(R.drawable.naoalocado4));
 
                 //tv.setText("L " + i + ", C" + j);
-                tv.setText("nada");
+              //  tv.setText("nada");
 
-                for(Alocacao alocacao : alocacoes){
+                for(final Alocacao alocacao : alocacoes){
 
                     //if((Integer.parseInt(alocacao.posicaoY) == j && Integer.parseInt(alocacao.posicaoX) == i)){
                         //Log.i("debug", Util.decimalParaSimbolos(j, "abcdefghijklmnopqrstuvwxyz"));
@@ -80,7 +73,16 @@ public class CaixaItemActivity extends AppCompatActivity {
                     //tv.setText(Util.decimalParaSimbolos(j, "abcdefghijklmnopqrstuvwxyz"));
                     if(j == Integer.parseInt(alocacao.posicaoX) && i == Integer.parseInt(alocacao.posicaoY))
                     {
-                        tv.setText("alocado");
+                       // tv.setText("alocado");
+                       // tv.setText(alocacao.aliquota.codigo);
+                        tv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(getApplicationContext(),"oi",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        tv.setBackground(getResources().getDrawable(R.drawable.alocado4));
+
                     }
 
                     //}
