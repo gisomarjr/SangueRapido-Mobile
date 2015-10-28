@@ -74,6 +74,8 @@ public class AliquotaFragment extends Fragment {
 
                 if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
                     lerQrCod();
+                }else {
+
                 }
 
 
