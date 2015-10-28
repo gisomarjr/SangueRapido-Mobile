@@ -1,11 +1,16 @@
 package br.com.laboratorio.hemope.Caixa;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -13,13 +18,20 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
+import br.com.laboratorio.hemope.Alocacao.AlocacaoFragment;
+import br.com.laboratorio.hemope.Amostra.ListaAmostrasFragment;
+import br.com.laboratorio.hemope.Diagnostico.ListaDiagnosticosFragment;
 import br.com.laboratorio.hemope.Model.Alocacao;
+import br.com.laboratorio.hemope.Model.Itens;
+import br.com.laboratorio.hemope.Paciente.ListaPacientesFragment;
 import br.com.laboratorio.hemope.R;
 
 public class CaixaItemActivity extends AppCompatActivity {
 
     TableLayout table_layout;
     ArrayList<Alocacao> alocacoes;
+    private static final String ARG_SECTION_NUMBER = "section_number";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +90,32 @@ public class CaixaItemActivity extends AppCompatActivity {
                         tv.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(getApplicationContext(),"oi",Toast.LENGTH_SHORT).show();
+
+                                if(alocacao.aliquota != null){
+                                    Toast.makeText(getApplicationContext(),"aliquota: " + alocacao.aliquota.codigo,Toast.LENGTH_SHORT).show();
+
+                                    Itens itensAliquota = new Itens();
+                                    itensAliquota.aliquota = alocacao.aliquota;
+
+                                    FragmentTransaction transaction = getSupportFragmentManager()
+                                            .beginTransaction();
+                                    Bundle argsaLocacaoFragment = new Bundle();
+                                    argsaLocacaoFragment.putInt(ARG_SECTION_NUMBER, 5);
+                                    argsaLocacaoFragment.putSerializable("itens", itensAliquota);
+                                    Fragment novaAlocacaoFragment = new AliquotaFragment(itensAliquota);
+
+                                    novaAlocacaoFragment.setArguments(argsaLocacaoFragment);
+                                    transaction.addToBackStack(null);
+                                    transaction.replace(R.id.container, novaAlocacaoFragment);
+                                    transaction.commit();
+
+                                }else{
+
+                                    Toast.makeText(getApplicationContext(),"Não contém aliquota",Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
-                        tv.setBackground(getResources().getDrawable(R.drawable.alocado4));
+                       tv.setBackground(getResources().getDrawable(R.drawable.alocado4));
 
                     }
 
@@ -97,6 +131,37 @@ public class CaixaItemActivity extends AppCompatActivity {
         }
     }
 
+    public static class PlaceholderFragment extends android.support.v4.app.Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
 
+        public static android.support.v4.app.Fragment newInstance(int sectionNumber,String idAliquota) {
+
+            AliquotaFragment aliquotaFragment = new AliquotaFragment();
+            Bundle argsaliquotaFragment = new Bundle();
+            argsaliquotaFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            argsaliquotaFragment.putString("idAliquota", idAliquota);
+            aliquotaFragment.setArguments(argsaliquotaFragment);
+            return aliquotaFragment;
+
+        }
+
+        public PlaceholderFragment() {
+
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+
+            View rootView = inflater.inflate(R.layout.fragment_acao_principal, container, false);
+            return rootView;
+        }
+
+
+    }
 
 }

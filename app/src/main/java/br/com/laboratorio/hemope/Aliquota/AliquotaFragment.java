@@ -52,6 +52,10 @@ public class AliquotaFragment extends Fragment {
 
         }
 
+        public AliquotaFragment(Itens itens) {
+            this._itens = itens;
+        }
+
         public void lerQrCod(){
             try {
                 Intent intent = new Intent(ACTION_SCAN);
@@ -73,12 +77,19 @@ public class AliquotaFragment extends Fragment {
 
 
                 if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
+
                     lerQrCod();
+
+                    ((AcaoPrincipalActivity) activity).onSectionAttached(
+                            getArguments().getInt(ARG_SECTION_NUMBER));
+
+                }else{
+
+                    Toast.makeText(getActivity(),_itens.aliquota.codigo,Toast.LENGTH_LONG).show();
                 }
 
 
-            ((AcaoPrincipalActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
+
         }
 
 
