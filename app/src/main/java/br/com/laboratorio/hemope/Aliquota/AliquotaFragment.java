@@ -48,9 +48,6 @@ public class AliquotaFragment extends Fragment {
         static Itens _itens;
         ProgressDialog progressDialog;
 
-        public AliquotaFragment() {
-
-        }
 
         public void lerQrCod(){
             try {
@@ -73,12 +70,14 @@ public class AliquotaFragment extends Fragment {
 
 
                 if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
+
                     lerQrCod();
+
+                    ((AcaoPrincipalActivity) activity).onSectionAttached(
+                            getArguments().getInt(ARG_SECTION_NUMBER));
+
                 }
 
-
-            ((AcaoPrincipalActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
         }
 
 
@@ -132,45 +131,6 @@ public class AliquotaFragment extends Fragment {
 
         }
 
-        @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-
-            if (requestCode == 0) {
-                if (resultCode == Activity.RESULT_OK) {
-                    String idAliquota = intent.getStringExtra("SCAN_RESULT");
-                    String formato = intent.getStringExtra("SCAN_RESULT_FORMAT").trim();
-
-                    Log.e("qtdFormato",formato.length()+"");
-                    Log.e("formato",formato);
-
-                    //Verifico se é um QRCODE
-                    if(formato.equals("QR_CODE")) {
-
-                         try{
-                             //Verifico se é um número
-                             //if(Integer.parseInt(idAliquota) > 0) {
-
-                                 String urlGeral = aliquotaView.getResources().getString(R.string.urlGeralWebService);
-                                 String urlSecundaria = aliquotaView.getResources().getString(R.string.urlGeralWebServiceConsultarAliquota);
-
-                                 Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Carregando dados da Aliquota...","aliquota",_itens,getActivity());
-                                 downloadTask.execute(urlGeral + urlSecundaria + "?codigoAliquota=" + idAliquota);
-                                 Log.i("link",urlGeral + urlSecundaria + "?codigoAliquota=" + idAliquota);
-
-                            /* }else{
-                                 Toast.makeText(getActivity(), "ID da Aliquota Inválido", Toast.LENGTH_LONG).show();
-                             }*/
-
-                         } catch (NumberFormatException e) {
-                             Toast.makeText(getActivity(), "QRCODE inválido.", Toast.LENGTH_LONG).show();
-                         }
-
-                       }else{
-                        Toast.makeText(getActivity(), "Formato não reconhecido para consultar uma Aliquota :" + formato , Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        }
 
 
 
@@ -248,7 +208,9 @@ public class AliquotaFragment extends Fragment {
 
             txtDataEntrada.setText("Data de Entrada: " + aliquota.dataEntrada);
             txtDataDescarte.setText("Data de Descarte: " + aliquota.dataDescarte);
-            txtPosicao.setText("Coluna: " + alocacao.posicaoX + " Linha: " + alocacao.posicaoY);
+            if(alocacao != null) {
+                txtPosicao.setText("Coluna: " + alocacao.posicaoX + " Linha: " + alocacao.posicaoY);
+            }
             txtCaixa.setText("Caixa: " + caixa.idCaixa);
             txtGaveta.setText("Gaveta: " + gaveta.idGaveta);
             txtFreezer.setText("Código do Freezer: " + freezer.codigo);

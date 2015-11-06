@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import br.com.laboratorio.hemope.Aliquota.AcaoAliquotaFragment;
 import br.com.laboratorio.hemope.Aliquota.AliquotaFragment;
 import br.com.laboratorio.hemope.Amostra.DetalheAmostraActivity;
 import br.com.laboratorio.hemope.Amostra.DetalheAmostraFragment;
@@ -270,7 +271,7 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     return pacientesFragment;
 
                 case 3:
-                    AliquotaFragment aliquotaFragment = new AliquotaFragment();
+                    AcaoAliquotaFragment aliquotaFragment = new AcaoAliquotaFragment();
                     Bundle argsaliquotaFragment = new Bundle();
                     argsaliquotaFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
                     aliquotaFragment.setArguments(argsaliquotaFragment);
