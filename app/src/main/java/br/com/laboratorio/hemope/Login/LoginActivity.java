@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import br.com.laboratorio.hemope.AcaoPrincipalActivity;
 import br.com.laboratorio.hemope.Model.Itens;
 import br.com.laboratorio.hemope.R;
 import br.com.laboratorio.hemope.Util;
+import br.com.laboratorio.hemope.util.Cipher3DES;
 
 public class LoginActivity extends AppCompatActivity{
 
@@ -49,8 +51,18 @@ public class LoginActivity extends AppCompatActivity{
         EditText editTextUsuario = (EditText) findViewById(R.id.etUsuario);
         EditText editTextSenha = (EditText) findViewById(R.id.etSenha);
 
+
         credenciais[0] = editTextUsuario.getText().toString();
-        credenciais[1] = editTextSenha.getText().toString();
+
+        Cipher3DES c;
+        String senha = null;
+        try {
+            c = new Cipher3DES(Util.KEY_PASSWORD, Util.VECTOR_INI_PASSWORD);
+            senha = c.encryptText(editTextSenha.getText().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        credenciais[1] = senha;
 
         String urlGeral = view.getResources().getString(R.string.urlGeralWebService);
         String urlSecundaria = view.getResources().getString(R.string.urlGeralWebServiceEfetuarLogin);
@@ -58,7 +70,9 @@ public class LoginActivity extends AppCompatActivity{
         if(!editTextSenha.getText().toString().equals("") && !editTextSenha.getText().toString().equals("")) {
 
             Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde", "Verificando o seu Login...", "verificaLogin", itens, LoginActivity.this);
-            downloadTask.execute(urlGeral + urlSecundaria + "?login=" + credenciais[0] + "&senha=" + credenciais[1]);
+            String urlAutenticacao = urlGeral + urlSecundaria + "?login=" + credenciais[0] + "&senha=" + credenciais[1];
+            Log.d("Login.URL", urlAutenticacao);
+            downloadTask.execute(urlAutenticacao);
         }else{
             Util.exibirMensagem("Campos","Favor informar as credenciais de acesso!", this);
         }
