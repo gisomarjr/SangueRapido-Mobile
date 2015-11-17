@@ -15,12 +15,6 @@
         tools:context="br.com.laboratorio.hemope.Paciente.DetalhePacienteActivity$PlaceholderFragment">
 
 
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="90dp"
-            android:id="@+id/imgCapa"
-            android:layout_gravity="center_horizontal" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +26,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="nomeMae"
             android:id="@+id/txtNomeMae" />
 
@@ -121,5 +114,4 @@
     </LinearLayout>
 
 </ScrollView>
-
 

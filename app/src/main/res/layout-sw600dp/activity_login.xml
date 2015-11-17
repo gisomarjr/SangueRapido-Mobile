@@ -1,65 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:paddingBottom="@dimen/activity_vertical_margin"
-android:paddingLeft="@dimen/activity_horizontal_margin"
-android:paddingRight="@dimen/activity_horizontal_margin"
-android:paddingTop="@dimen/activity_vertical_margin"
-tools:context="br.com.laboratorio.hemope.Login.LoginActivity"
-    android:background="#ffffff">
-
-<LinearLayout
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    android:padding="5dp"
-    android:background="#303F9F">
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="br.com.laboratorio.hemope.Login.LoginActivity"
+    android:background="#ffffff">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="#ffffff"
-        android:padding="50dp"
-        >
+        android:padding="5dp"
+        android:background="#303F9F">
 
-    <EditText
-        android:id="@+id/etUsuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#EEE9E9"
-        android:padding="20dp"
-        android:hint="Login"
-        android:layout_margin="4dp"
-        android:textColorHint="#cccccc"
-        />
-    <EditText
-        android:id="@+id/etSenha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#EEE9E9"
-        android:layout_marginTop="-2dp"
-        android:padding="20dp"
-        android:hint="Senha"
-        android:layout_margin="4dp"
-        android:textColorHint="#cccccc"
-        android:password="true"
-        />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:layout_margin="4dp"
-        android:text="ENTRE"
-        android:onClick="efetuarLogin"
-        android:background="#8B8682"
-        />
-</LinearLayout>
-</LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="#ffffff"
+            android:padding="50dp"
+            >
+
+            <EditText
+                android:id="@+id/etUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#EEE9E9"
+                android:padding="20dp"
+                android:hint="Login"
+                android:layout_margin="4dp"
+                android:textColorHint="#cccccc"
+                />
+            <EditText
+                android:id="@+id/etSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#EEE9E9"
+                android:layout_marginTop="-2dp"
+                android:padding="20dp"
+                android:hint="Senha"
+                android:layout_margin="4dp"
+                android:textColorHint="#cccccc"
+                android:password="true"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:layout_margin="4dp"
+                android:text="EFETUAR LOGIN"
+                android:onClick="efetuarLogin"
+                android:background="@drawable/blue_button"
+                style="@style/button_text"/>
+            />
+        </LinearLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

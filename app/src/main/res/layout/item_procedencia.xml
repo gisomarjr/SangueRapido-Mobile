@@ -15,7 +15,9 @@
         android:layout_height="wrap_content"
         android:text="Local Procedência"
         android:id="@+id/localProcedencia"
- />
+        android:layout_below="@+id/LocaisProcedencia"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

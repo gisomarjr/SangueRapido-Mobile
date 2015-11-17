@@ -3,18 +3,18 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <string name="tab_paciente">Listar Pacientes</string>
-    <string name="title_activity_detalhe_paciente">Detalhe do Paciente</string>
-    <string name="title_activity_scan">Pesquisar Alíquota - QR CODE</string>
-    <string name="title_activity_acao_principal">Acao Principal</string>
+    <string name="tab_paciente">Patients list</string>
+    <string name="title_activity_detalhe_paciente">Detail Patient</string>
+    <string name="title_activity_scan">Search Tax Rate - QR CODE</string>
+    <string name="title_activity_acao_principal">Main action</string>
 
     <string name="titulo_sessao_freezer">Freezer</string>
-    <string name="titulo_sessao_paciente">Pacientes</string>
-    <string name="titulo_sessao_aliquota">Aliquotas</string>
-    <string name="titulo_sessao_diagnostico">Diagnosticos</string>
-    <string name="titulo_sessao_alocacao">Alocação</string>
-    <string name="titulo_sessao_gerencia_amostra">Gerênciamento de Amostras</string>
-    <string name="titulo_sessao_gaveta">Gaveta</string>
+    <string name="titulo_sessao_paciente">patients</string>
+    <string name="titulo_sessao_aliquota">aliquots</string>
+    <string name="titulo_sessao_diagnostico">diagnostics</string>
+    <string name="titulo_sessao_alocacao">Allocation</string>
+    <string name="titulo_sessao_gerencia_amostra">Management Samples</string>
+    <string name="titulo_sessao_gaveta">Drawer</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

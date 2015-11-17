@@ -3,41 +3,26 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:padding="16dp">
 
-    <ImageView
-        android:layout_width="70dp"
-        android:layout_height="90dp"
-        android:id="@+id/imgCapa"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="nomePaciente"
-        android:id="@+id/nomePaciente"
-        android:layout_alignTop="@+id/imgCapa"
-        android:layout_toRightOf="@+id/imgCapa"
-        android:layout_toEndOf="@+id/imgCapa" />
+        android:id="@+id/nomePaciente" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="nomeMae"
         android:id="@+id/nomeMaePaciente"
-        android:layout_below="@+id/nomePaciente"
-        android:layout_toRightOf="@+id/imgCapa"
-        android:layout_toEndOf="@+id/imgCapa" />
+        android:layout_below="@+id/nomePaciente" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="dataNascimento"
         android:id="@+id/dataNascimentoPaciente"
-        android:layout_below="@+id/nomeMaePaciente"
-        android:layout_toRightOf="@+id/imgCapa"
-        android:layout_toEndOf="@+id/imgCapa" />
+        android:layout_below="@+id/nomeMaePaciente" />
 
 
 </RelativeLayout>
