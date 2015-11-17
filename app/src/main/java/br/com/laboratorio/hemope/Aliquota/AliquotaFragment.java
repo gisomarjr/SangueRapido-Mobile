@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
 import br.com.laboratorio.hemope.Alocacao.AlocacaoFragment;
+import br.com.laboratorio.hemope.Erro.ErroFragment;
 import br.com.laboratorio.hemope.Model.Aliquota;
 import br.com.laboratorio.hemope.Model.Alocacao;
 import br.com.laboratorio.hemope.Model.Amostra;
@@ -43,7 +44,7 @@ public class AliquotaFragment extends Fragment {
         static View aliquotaView;
         ViewPager viewPager;
         SlidingTabLayout mSlidingTabLayout;
-
+        static FragmentTransaction transaction;
 
         static Itens _itens;
         ProgressDialog progressDialog;
@@ -78,14 +79,17 @@ public class AliquotaFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            //setHasOptionsMenu(true);
+            setHasOptionsMenu(true);
+
+            transaction = getFragmentManager()
+                    .beginTransaction();
 
             aliquotaView = inflater.inflate(R.layout.fragment_aliquota, container, false);
 
             return aliquotaView;
         }
 
-       /* @Override
+        @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
             // TODO Add your menu entries here
             inflater.inflate(R.menu.menu_aliquota, menu);
@@ -95,9 +99,9 @@ public class AliquotaFragment extends Fragment {
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.novaConsultaAliquota:
+               /* case R.id.novaConsultaAliquota:
                     lerQrCod();
-                    break;
+                    break;*/
 
                 case R.id.novaAlocacaoAliquota:
 
@@ -124,7 +128,7 @@ public class AliquotaFragment extends Fragment {
             return true;
 
         }
-*/
+
 
     public static void preencherActivityAliquota(Itens itens, FragmentActivity context){
 
@@ -215,13 +219,23 @@ public class AliquotaFragment extends Fragment {
 
             Toast.makeText(context, "Carregamento Concluído.", Toast.LENGTH_SHORT).show();
         }else{
-            Util.exibirMensagem("Aliquota","Nenhuma Aliquota Encontrada com o QR Code Informado.",context);
+
+              Bundle argsaLocacaoFragment = new Bundle();
+              //argsaLocacaoFragment.putString("erro", "erro");
+              Fragment erroFragment = new ErroFragment().newInstance("alerta","Nenhuma Aliquota Encontrada com o código informado.");
+
+              //erroFragment.setArguments(argsaLocacaoFragment);
+              transaction.addToBackStack(null);
+              transaction.replace(R.id.container, erroFragment);
+              transaction.commit();
+
+            //Util.exibirMensagem("Aliquota","Nenhuma Aliquota Encontrada com o código informado.",context);
         }
-   }catch (Exception e){
+       }catch (Exception e){
 
-        Util.exibirMensagem("conexão","Erro ao tentar se conectar com os Servidores.",context);
+            Util.exibirMensagem("conexão","Erro ao tentar se conectar com os Servidores.",context);
 
-    }
+        }
 
     }
 
