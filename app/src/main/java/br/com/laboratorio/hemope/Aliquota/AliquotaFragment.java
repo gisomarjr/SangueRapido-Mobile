@@ -69,14 +69,8 @@ public class AliquotaFragment extends Fragment {
             super.onAttach(activity);
 
 
-                if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
-
-                    lerQrCod();
-
                     ((AcaoPrincipalActivity) activity).onSectionAttached(
                             getArguments().getInt(ARG_SECTION_NUMBER));
-
-                }
 
         }
 
@@ -84,14 +78,14 @@ public class AliquotaFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            setHasOptionsMenu(true);
+            //setHasOptionsMenu(true);
 
             aliquotaView = inflater.inflate(R.layout.fragment_aliquota, container, false);
 
             return aliquotaView;
         }
 
-        @Override
+       /* @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
             // TODO Add your menu entries here
             inflater.inflate(R.menu.menu_aliquota, menu);
@@ -130,10 +124,7 @@ public class AliquotaFragment extends Fragment {
             return true;
 
         }
-
-
-
-
+*/
 
     public static void preencherActivityAliquota(Itens itens, FragmentActivity context){
 
@@ -208,12 +199,12 @@ public class AliquotaFragment extends Fragment {
 
             txtDataEntrada.setText("Data de Entrada: " + aliquota.dataEntrada);
             txtDataDescarte.setText("Data de Descarte: " + aliquota.dataDescarte);
-            if(alocacao != null) {
+            if(!itens.aliquota.alocacao.equals(null)) {
                 txtPosicao.setText("Coluna: " + alocacao.posicaoX + " Linha: " + alocacao.posicaoY);
             }
             txtCaixa.setText("Caixa: " + caixa.idCaixa);
             txtGaveta.setText("Gaveta: " + gaveta.idGaveta);
-            txtFreezer.setText("Código do Freezer: " + freezer.codigo);
+            //txtFreezer.setText("Código do Freezer: " + freezer.codigo);
 
             txtVolume.setText("Volume: " + String.valueOf(aliquota.volume));
             txtConcentracao.setText("Concentração: " + String.valueOf(aliquota.concentracao));
