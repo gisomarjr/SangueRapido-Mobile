@@ -29,11 +29,7 @@
             android:name=".AcaoPrincipalActivity"
             android:label="@string/title_activity_acao_principal"
             android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Amostra.DetalheAmostraActivity"
@@ -47,7 +43,11 @@
             android:name=".Login.LoginActivity"
             android:label="@string/titulo_sessao_gerencia_amostra"
             android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Freezer.ListarFreezerActivity"

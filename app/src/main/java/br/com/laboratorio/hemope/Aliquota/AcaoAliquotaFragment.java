@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import br.com.laboratorio.hemope.AcaoPrincipalActivity;
@@ -40,6 +41,8 @@ public class AcaoAliquotaFragment extends android.support.v4.app.Fragment {
 
     static Itens _itens;
     View aliquotaView;
+
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -74,21 +77,16 @@ public class AcaoAliquotaFragment extends android.support.v4.app.Fragment {
         }
     }
 
-    public void lerQrCodeView(View view){
-        lerQrCod();
-    }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
-
 
             ((AcaoPrincipalActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
 
-        }
+
 
     }
 
@@ -120,7 +118,7 @@ public class AcaoAliquotaFragment extends android.support.v4.app.Fragment {
                         FragmentTransaction transaction = getFragmentManager()
                                 .beginTransaction();
                         Bundle argsaLocacaoFragment = new Bundle();
-                        argsaLocacaoFragment.putInt(ARG_SECTION_NUMBER, 3);
+                        argsaLocacaoFragment.putInt(ARG_SECTION_NUMBER, 5);
                         argsaLocacaoFragment.putSerializable("itens", _itens);
                         android.support.v4.app.Fragment novaAlocacaoFragment = new AliquotaFragment();
 
@@ -156,6 +154,8 @@ public class AcaoAliquotaFragment extends android.support.v4.app.Fragment {
         aliquotaView = inflater.inflate(R.layout.fragment_acao_aliquota, container, false);
 
         ImageButton imageButton = (ImageButton)aliquotaView.findViewById(R.id.imageButtonQrCode);
+        ImageButton imageButtonBuscarAliquota = (ImageButton)aliquotaView.findViewById(R.id.imageButtonCarregarAliquota);
+
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -163,6 +163,38 @@ public class AcaoAliquotaFragment extends android.support.v4.app.Fragment {
             }
         });
 
+        imageButtonBuscarAliquota.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                TextView codigoAliquotaText = (TextView) aliquotaView.findViewById(R.id.textCodigoAliquota);
+                codigoAliquotaText.clearComposingText();
+
+                if(codigoAliquotaText.getText().length() > 0) {
+
+                    String urlGeral = aliquotaView.getResources().getString(R.string.urlGeralWebService);
+                    String urlSecundaria = aliquotaView.getResources().getString(R.string.urlGeralWebServiceConsultarAliquota);
+
+                    Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde", "Carregando dados da Aliquota...", "aliquota", _itens, getActivity());
+                    downloadTask.execute(urlGeral + urlSecundaria + "?codigoAliquota=" + codigoAliquotaText.getText());
+
+                    FragmentTransaction transaction = getFragmentManager()
+                            .beginTransaction();
+                    Bundle argsaLocacaoFragment = new Bundle();
+                    argsaLocacaoFragment.putInt(ARG_SECTION_NUMBER, 3);
+                    argsaLocacaoFragment.putSerializable("itens", _itens);
+                    android.support.v4.app.Fragment novaAlocacaoFragment = new AliquotaFragment();
+
+                    novaAlocacaoFragment.setArguments(argsaLocacaoFragment);
+                    transaction.addToBackStack(null);
+                    transaction.replace(R.id.container, novaAlocacaoFragment);
+                    transaction.commit();
+                }else{
+                    Util.exibirMensagem("Erro", "Por favor informe o código da Aliquota ou se preferir, procure a partir de um QRCODE.",getActivity());
+                }
+
+            }
+        });
 
 
         return aliquotaView;

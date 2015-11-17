@@ -121,6 +121,14 @@
         android:layout_below="@+id/labelIdCaixa"
         android:layout_centerHorizontal="true" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gaveta"
+            android:id="@+id/labelPosicao"
+            android:layout_below="@+id/labelIdCaixa"
+            android:layout_centerHorizontal="true" />
+
 
         <TextView
             android:layout_width="wrap_content"

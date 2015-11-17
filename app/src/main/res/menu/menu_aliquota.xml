@@ -2,8 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="br.com.laboratorio.hemope.Aliquota.AliquotaActivity">
-    <item android:id="@+id/novaConsultaAliquota" android:icon="@drawable/ic_drawer" android:title="Nova Consulta"
-        android:orderInCategory="100" app:showAsAction="ifRoom" />
-    <item android:id="@+id/novaAlocacaoAliquota" android:icon="@drawable/ic_drawer" android:title="Nova Alocaçao"
+    <item android:id="@+id/novaAlocacaoAliquota" android:icon="@drawable/alocar" android:title="Nova Alocaçao"
         android:orderInCategory="100" app:showAsAction="ifRoom" />
 </menu>

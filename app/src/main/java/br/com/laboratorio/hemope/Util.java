@@ -32,6 +32,9 @@ import br.com.laboratorio.hemope.Procedencia.ListaProcedenciasFragment;
  */
 public class Util {
 
+    public static final String KEY_PASSWORD = "g$8)kg#4W8_wPu1[}k2%4,|L";
+    public static final String VECTOR_INI_PASSWORD = "*4jS4->!";
+
     /**
      * Criando uma classe Generica para requisição
      *

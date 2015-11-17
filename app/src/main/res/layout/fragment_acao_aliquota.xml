@@ -22,15 +22,17 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/textCodigoAliquota"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.15" />
 
     <ImageButton
         android:layout_width="192dp"
         android:layout_height="100dp"
-        android:id="@+id/imageButtonAlterarAlocacao"
+        android:id="@+id/imageButtonCarregarAliquota"
         android:layout_gravity="center_horizontal"
+        android:src="@drawable/lupa"
+        android:scaleType="fitXY"
         android:layout_weight="0.15" />
 
     <ImageButton
@@ -38,6 +40,7 @@
         android:layout_height="134dp"
         android:id="@+id/imageButtonQrCode"
         android:src="@drawable/qr_code"
+        android:scaleType="fitXY"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
