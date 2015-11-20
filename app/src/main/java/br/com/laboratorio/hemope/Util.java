@@ -132,7 +132,7 @@ public class Util {
                     AlocacaoFragment.atualizaTelaAlocacaoDados(_itens,_context);
                     break;
                 case "atualizarCountFreezerAba":
-                    Intent it = new Intent(_context,ListarFreezerActivity.class);
+                    Intent it = new Intent(_context,AcaoPrincipalActivity.class);
                     it.putExtra("itens",_itens);
                     _context.startActivity(it);
                     break;

@@ -82,9 +82,14 @@ public class LoginActivity extends AppCompatActivity{
 
         try {
             if (itens.isSuccess){
-                Intent it = new Intent(context, AcaoPrincipalActivity.class);
-                context.startActivity(it);
-                context.finish();
+
+                String urlGeral = context.getResources().getString(R.string.urlGeralWebService);
+                String urlSecundaria = context.getResources().getString(R.string.urlGeralWebServiceListarTodosOsFreezers);
+
+                Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde...","Carregando dados do Freezer","atualizarCountFreezerAba",itens,context);
+                downloadTask.execute(urlGeral + urlSecundaria);
+
+
             } else {
                 Toast.makeText(context, "Login ou Senha Inválida.", Toast.LENGTH_LONG).show();
             }

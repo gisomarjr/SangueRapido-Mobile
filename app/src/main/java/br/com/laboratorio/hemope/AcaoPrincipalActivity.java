@@ -3,10 +3,14 @@ package br.com.laboratorio.hemope;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +25,7 @@ import br.com.laboratorio.hemope.Amostra.ListaAmostrasFragment;
 import br.com.laboratorio.hemope.Diagnostico.DetalheDiagnosticoActivity;
 import br.com.laboratorio.hemope.Diagnostico.DetalheDiagnosticoFragment;
 import br.com.laboratorio.hemope.Diagnostico.ListaDiagnosticosFragment;
+import br.com.laboratorio.hemope.Freezer.ListarFreezerFragment;
 import br.com.laboratorio.hemope.Model.Aliquota;
 import br.com.laboratorio.hemope.Model.Amostra;
 import br.com.laboratorio.hemope.Model.Diagnostico;
@@ -31,10 +36,18 @@ import br.com.laboratorio.hemope.Paciente.DetalhePacienteActivity;
 import br.com.laboratorio.hemope.Paciente.DetalhePacienteFragment;
 import br.com.laboratorio.hemope.Paciente.ListaPacientesFragment;
 import br.com.laboratorio.hemope.View.AoClicarNoItemListener;
+import br.com.laboratorio.hemope.View.SlidingTabLayout;
 
 
 public class AcaoPrincipalActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, AoClicarNoItemListener {
+
+    static ViewPager viewPager;
+    static SlidingTabLayout mSlidingTabLayout;
+    static Integer countTab = 0;
+    static Itens itens;
+
+    static FragmentManager fragmentManager;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -52,6 +65,27 @@ public class AcaoPrincipalActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acao_principal);
 
+        //Abas
+
+        itens = (Itens) getIntent().getExtras().getSerializable("itens");
+        if(itens.isSuccess){
+            countTab = itens.freezers.size();
+        }else{
+            Util.exibirMensagem("Erro", itens.errorMessage, this);
+        }
+
+        viewPager = (ViewPager)findViewById(R.id.pager);
+        viewPager.setAdapter(new FreezerPageAdapter(
+                getSupportFragmentManager()));
+
+        fragmentManager = getSupportFragmentManager();
+
+        mSlidingTabLayout = (SlidingTabLayout)findViewById(R.id.tabs);
+        mSlidingTabLayout.setDistributeEvenly(true);
+        mSlidingTabLayout.setViewPager(viewPager);
+
+        getSupportActionBar().setElevation(1);
+
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -64,25 +98,36 @@ public class AcaoPrincipalActivity extends ActionBarActivity
 
     }
 
+    private static class FreezerPageAdapter extends FragmentPagerAdapter {
+        public FreezerPageAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+
+            return itens.freezers.get(position).codigo;
+
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+
+            return new ListarFreezerFragment().newInstance(i,itens);
+
+        }
+        @Override
+        public int getCount() {
+
+            return countTab;
+        }
+    }
+
     public void listarFreezer(View view){
 
 
         String urlGeral = getResources().getString(R.string.urlGeralWebService);
         String urlSecundaria = getResources().getString(R.string.urlGeralWebServiceListarTodosOsFreezers);
-
-        Itens itens = new Itens();
-
-        Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde...","Carregando dados do Freezer","atualizarCountFreezerAba",itens,this);
-        downloadTask.execute(urlGeral + urlSecundaria);
-
-
-    }
-
-    public void listarGavetas(View view){
-
-
-        String urlGeral = getResources().getString(R.string.urlGeralWebService);
-        String urlSecundaria = getResources().getString(R.string.urlGeralWebServiceListarFreezer);
 
         Itens itens = new Itens();
 
@@ -244,17 +289,6 @@ public class AcaoPrincipalActivity extends ActionBarActivity
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public static android.support.v4.app.Fragment newInstance(int sectionNumber,String idAliquota) {
-
-            AliquotaFragment aliquotaFragment = new AliquotaFragment();
-            Bundle argsaliquotaFragment = new Bundle();
-            argsaliquotaFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            argsaliquotaFragment.putString("idAliquota", idAliquota);
-            aliquotaFragment.setArguments(argsaliquotaFragment);
-            return aliquotaFragment;
-
-        }
-
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -268,6 +302,8 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     Bundle argspacientesFragment = new Bundle();
                     argspacientesFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
                     pacientesFragment.setArguments(argspacientesFragment);
+                    viewPager.setAdapter(null);
+                    mSlidingTabLayout.setViewPager(null);
                     return pacientesFragment;
 
                 case 3:
@@ -293,9 +329,14 @@ public class AcaoPrincipalActivity extends ActionBarActivity
 
                 default:
                     PlaceholderFragment fragment = new PlaceholderFragment();
-                    Bundle argsfragment = new Bundle();
-                    argsfragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
-                    fragment.setArguments(argsfragment);
+                    Bundle argsFreezerFragment = new Bundle();
+                    argsFreezerFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
+                    fragment.setArguments(argsFreezerFragment);
+                    if(itens != null){
+                        viewPager.setAdapter(new FreezerPageAdapter(
+                                fragmentManager));
+                        mSlidingTabLayout.setViewPager(viewPager);
+                    }
                     return fragment;
 
             }
