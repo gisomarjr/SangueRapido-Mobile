@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Diagnostico.DetalheDiagnosticoActivity"
-            android:label="Detalhe Diagnostico"
+            android:label="@string/titulo_sessao_diagnostico"
             android:parentActivityName=".Diagnostico.DetalheDiagnosticoActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -41,7 +41,7 @@
         </activity>
         <activity
             android:name=".Login.LoginActivity"
-            android:label="Gerênciamento de Amostras"
+            android:label="@string/titulo_sessao_gerencia_amostra"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

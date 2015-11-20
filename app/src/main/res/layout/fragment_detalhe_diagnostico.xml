@@ -12,14 +12,8 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:orientation="vertical"
         android:gravity="center"
-        tools:context="br.com.laboratorio.hemope.Diagnostico.DetalheDiagnosticoActivity$PlaceholderFragment">
+        tools:context="br.com.laboratorio.hemope.Paciente.DetalheDiagnosticoActivity$PlaceholderFragment">
 
-
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="90dp"
-            android:id="@+id/imgCapa"
-            android:layout_gravity="center_horizontal" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -69,5 +63,4 @@
     </LinearLayout>
 
 </ScrollView>
-
 
