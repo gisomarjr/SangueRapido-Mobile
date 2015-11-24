@@ -11,12 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import br.com.laboratorio.hemope.Model.Caixa;
 import br.com.laboratorio.hemope.R;
-import br.com.laboratorio.hemope.Util;
 
 
 public class ListarCaixaFragment extends Fragment {
@@ -66,11 +66,15 @@ public class ListarCaixaFragment extends Fragment {
 
 
 
-               Intent it = new Intent(getActivity(),CaixaItemActivity.class);
-               it.putExtra("x",caixa.qtdX);
-               it.putExtra("y",caixa.qtdY);
-               it.putExtra("alocacao", caixa.alocacoes);
-               startActivity(it);
+                Intent it = new Intent(getActivity(),CaixaItemActivity.class);
+                it.putExtra("x",caixa.qtdX);
+                it.putExtra("y",caixa.qtdY);
+                it.putExtra("alocacao", caixa.alocacoes);
+                if (caixa.alocacoes.size()>0){
+                   // Toast.makeText(getActivity(), "" + caixa.alocacoes.get(0).idAlocacao, Toast.LENGTH_LONG).show();
+                }
+
+                startActivity(it);
                 //ArrayList<Caixa> caixas = gaveta.caixas;
 
                /* Intent it = new Intent(getActivity(), ListarCaixaActivity.class);

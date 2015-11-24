@@ -27,6 +27,7 @@ import br.com.laboratorio.hemope.R;
  */
 public class CaixaItemFragment extends Fragment {
 
+
     TableLayout table_layout;
     ArrayList<Alocacao> alocacoes;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -79,7 +80,10 @@ public class CaixaItemFragment extends Fragment {
                 //tv.setBackgroundResource(R.drawable.alocar);
                 tv.setPadding(5, 5, 5, 5);
                 tv.setClickable(true);
-                tv.setBackground(getResources().getDrawable(R.drawable.naoalocado4));
+                tv.setHeight(100);
+                tv.setWidth(100);
+
+                tv.setBackground(getResources().getDrawable(R.drawable.naotemaliquota));
 
                 //tv.setText("L " + i + ", C" + j);
                 //  tv.setText("nada");
@@ -101,7 +105,7 @@ public class CaixaItemFragment extends Fragment {
 
                             }
                         });
-                        tv.setBackground(getResources().getDrawable(R.drawable.alocado4));
+                        tv.setBackground(getResources().getDrawable(R.drawable.temaliquota));
 
                     }
 
@@ -126,7 +130,7 @@ public class CaixaItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       // listaCaixas = (ArrayList<Caixa>) getArguments().getSerializable("caixas");
+        // listaCaixas = (ArrayList<Caixa>) getArguments().getSerializable("caixas");
         view = inflater.inflate(R.layout.caixa_tabela, container, false);
         Integer x = mCaixa.qtdX;
         Integer y = mCaixa.qtdY;

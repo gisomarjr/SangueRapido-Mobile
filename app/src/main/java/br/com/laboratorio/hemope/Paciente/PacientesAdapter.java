@@ -29,7 +29,7 @@ public class PacientesAdapter extends ArrayAdapter<Paciente>{
                     .inflate(R.layout.item_paciente, null);
         }
 
-        ImageView imageView = (ImageView)convertView.findViewById(R.id.imgCapa);
+        //ImageView imageView = (ImageView)convertView.findViewById(R.id.imgCapa);
         TextView txtNome = (TextView)convertView.findViewById(R.id.nomePaciente);
         TextView txtNomeMae = (TextView)convertView.findViewById(R.id.nomeMaePaciente);
         TextView txtDataNascimento = (TextView)convertView.findViewById(R.id.dataNascimentoPaciente);

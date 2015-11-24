@@ -134,6 +134,7 @@ public class Util {
                 case "atualizarCountFreezerAba":
                     Intent it = new Intent(_context,AcaoPrincipalActivity.class);
                     it.putExtra("itens",_itens);
+                    _context.finish();
                     _context.startActivity(it);
                     break;
             }

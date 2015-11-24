@@ -52,7 +52,7 @@ public class DetalhePacienteFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_detalhe_paciente, container, false);
 
-        ImageView imgCapa = (ImageView) view.findViewById(R.id.imgCapa);
+        //ImageView imgCapa = (ImageView) view.findViewById(R.id.imgCapa);
         TextView txtNome = (TextView) view.findViewById(R.id.txtNomePaciente);
         TextView txtMae = (TextView) view.findViewById(R.id.txtNomeMae);
         TextView txtNascimento = (TextView) view.findViewById(R.id.txtDataNascimentoPaciente);

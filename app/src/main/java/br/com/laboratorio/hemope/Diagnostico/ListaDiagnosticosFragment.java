@@ -79,7 +79,7 @@ static ListView listView;
                 String urlGeral = view.getResources().getString(R.string.urlGeralWebService);
                 String urlSecundaria = view.getResources().getString(R.string.urlGeralWebServiceConsultarDiagnostico);
                 Util.DownloadTask downloadTask = new Util.DownloadTask("Aguarde","Consultando Diagnostico...","consultarDiagnosticos",itens,getActivity());
-                downloadTask.execute(urlGeral+urlSecundaria+"?codigoAmostra="+pesquisaUsuario);
+                downloadTask.execute(urlGeral+urlSecundaria+"?texto="+pesquisaUsuario);
 
 
                 return false;
@@ -169,10 +169,12 @@ static ListView listView;
                 for (Diagnostico diagnostico : itens.diagnosticos) {
 
                     mListaDiagnosticos.add(diagnostico);
+
                 }
 
             } else {
                 Toast.makeText(context, "Não encontramos Resultados", Toast.LENGTH_LONG).show();
+                mListaDiagnosticos.clear();
             }
         }catch (Exception e){
 

@@ -77,7 +77,7 @@ public class ListarFreezerFragment extends Fragment {
         TextView txtQtdGavetasView = (TextView)view.findViewById(R.id.labelCapacidade);
         textView.setText("Código: "+mParam2.freezers.get(mParam1).codigo);
         txtDescricaoView.setText("Nome: "+mParam2.freezers.get(mParam1).descricao);
-        txtQtdGavetasView.setText("Qtd. Gavetas: "+mParam2.freezers.get(mParam1).qtdGavetas);
+        txtQtdGavetasView.setText("Capacidade das Gavetas: "+mParam2.freezers.get(mParam1).qtdGavetas);
         RelativeLayout relativeclic1 =(RelativeLayout)view.findViewById(R.id.relativeFreezer);
         relativeclic1.setOnClickListener(new View.OnClickListener(){
             @Override

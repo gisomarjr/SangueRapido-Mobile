@@ -13,7 +13,7 @@
     <string name="titulo_sessao_aliquota">Aliquotas</string>
     <string name="titulo_sessao_diagnostico">Diagnosticos</string>
     <string name="titulo_sessao_alocacao">Alocação</string>
-    <string name="titulo_sessao_gerencia_amostra">Gerênciamento de Amostras</string>
+    <string name="titulo_sessao_gerencia_amostra">Gerenciamento de Amostras</string>
     <string name="titulo_sessao_gaveta">Gaveta</string>
 
 
@@ -45,8 +45,8 @@
     <string name="titulo_sessao_procedencias">Procedências</string>
     <string name="urlGeralWebServiceConsultarDiagnostico">paciente/consultardiagnosticos</string>
     <string name="title_activity_listar_freezer">Listar Freezer</string>
-    <string name="title_activity_lista_gavetas">ListaGavetasActivity</string>
-    <string name="title_activity_listar_caixa">ListarCaixaActivity</string>
-    <string name="title_activity_caixa_item">CaixaItemActivity</string>
+    <string name="title_activity_lista_gavetas">Listar Gavetas</string>
+    <string name="title_activity_listar_caixa">Listar Caixa</string>
+    <string name="title_activity_caixa_item">Selecionar Aliquota - Caixa</string>
 
 </resources>

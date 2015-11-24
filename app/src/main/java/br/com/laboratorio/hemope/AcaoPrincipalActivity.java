@@ -67,11 +67,15 @@ public class AcaoPrincipalActivity extends ActionBarActivity
 
         //Abas
 
-        itens = (Itens) getIntent().getExtras().getSerializable("itens");
-        if(itens.isSuccess){
-            countTab = itens.freezers.size();
-        }else{
-            Util.exibirMensagem("Erro", itens.errorMessage, this);
+        try {
+            itens = (Itens) getIntent().getExtras().getSerializable("itens");
+            if (itens.isSuccess) {
+                countTab = itens.freezers.size();
+            } else {
+                Util.exibirMensagem("Erro", itens.errorMessage, this);
+            }
+        }catch (Exception e){
+            Util.exibirMensagem("Erro","Erro ao tentar consultar o freezer, por favor verifique sua conexão e tente novamente!",this);
         }
 
         viewPager = (ViewPager)findViewById(R.id.pager);
@@ -311,6 +315,8 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     Bundle argsaliquotaFragment = new Bundle();
                     argsaliquotaFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
                     aliquotaFragment.setArguments(argsaliquotaFragment);
+                    viewPager.setAdapter(null);
+                    mSlidingTabLayout.setViewPager(null);
                     return aliquotaFragment;
 
                 case 4:
@@ -318,6 +324,8 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     Bundle argsdiagnosticoFragment = new Bundle();
                     argsdiagnosticoFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
                     diagnosticosFragment.setArguments(argsdiagnosticoFragment);
+                    viewPager.setAdapter(null);
+                    mSlidingTabLayout.setViewPager(null);
                     return diagnosticosFragment;
 
                 case 5:
@@ -325,6 +333,8 @@ public class AcaoPrincipalActivity extends ActionBarActivity
                     Bundle argsamostraFragment = new Bundle();
                     argsamostraFragment.putInt(ARG_SECTION_NUMBER, sectionNumber);
                     amostrasFragment.setArguments(argsamostraFragment);
+                    viewPager.setAdapter(null);
+                    mSlidingTabLayout.setViewPager(null);
                     return amostrasFragment;
 
                 default:
